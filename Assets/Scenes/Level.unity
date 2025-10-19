@@ -136,11 +136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf259012d76c5c4448241a02b03854c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Researcher
-  badGuyName: Researcher
+  enemyName: Researcher
   moveDistance: 1
   moveEveryNBeats: 2
   attackRange: 2
   attackEveryNBeats: 2
+  groundTilemap: {fileID: 782571861}
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
