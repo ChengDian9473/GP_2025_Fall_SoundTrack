@@ -64,8 +64,8 @@ namespace SoundTrack{
                         SceneVisualElement[previous_scene - 1].style.display = DisplayStyle.None;
                     }
                     if(current_scene > 0){
-                        SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
                         SceneManager.LoadScene(current_scene);
+                        SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
                     }
                     cover.style.opacity = 0.0f;
                 }
@@ -86,8 +86,8 @@ namespace SoundTrack{
             previous_scene = current_scene;
             current_scene = 1;
 
-            SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
             SceneManager.LoadScene(current_scene);
+            SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
 
             FadeIn();
         }
