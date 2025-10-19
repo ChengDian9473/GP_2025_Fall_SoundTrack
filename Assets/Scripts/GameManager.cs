@@ -17,13 +17,13 @@ namespace SoundTrack{
         [Tooltip("Time to First Beat")]
         public double firstBeatOffset = 0.0;
 
-        // [Header("Beat Event")]
-        // public UnityEvent<int> onBeat; 
+        [Header("Beat Event")]
+        public UnityEvent<int> onBeat;
 
         [NonSerialized] public double songStartDsp;
         [NonSerialized] public double songTime;
         [NonSerialized] public int    beatIndex;
-        [NonSerialized] public double exactBeat; 
+        [NonSerialized] public double exactBeat;
         [NonSerialized] public int    lastBeat;
         [NonSerialized] public double lastHit;
 
@@ -57,6 +57,7 @@ namespace SoundTrack{
                 if (beatIndex != lastBeat)
                 {
                     lastBeat = beatIndex;
+                    onBeat?.Invoke(beatIndex);
                 }
 
                 if(Keyboard.current.anyKey.wasPressedThisFrame && (dspNow - lastHit) / secPerBeat >= 0.3f){
@@ -83,7 +84,7 @@ namespace SoundTrack{
                     lastHit = dspNow;
                     Debug.Log("Too Frequent.\n");
                 }
-                
+
                 if (Mouse.current.rightButton.wasReleasedThisFrame){
                     while(Player.Instance.Track.Count > 0){
                         Destroy(Player.Instance.Track[0]);
