@@ -1,18 +1,19 @@
 using UnityEngine;
 
 namespace SoundTrack{
-    // Base class for bad guys that move and attack on beats
-    public abstract class BaseBadGuys : MonoBehaviour
+    // Base class for enemies that move and attack on beats
+    public abstract class BaseEnemies : MonoBehaviour
     {
-        [Header("Bad Guy Settings")]
-        public string badGuyName;
-        public float moveDistance;
+        [Header("Enemy Settings")]
+        public string enemyName;
+        public int moveDistance;
         public int moveEveryNBeats;
-        public float attackRange;
+        public int attackRange;
         public int attackEveryNBeats;
 
         protected int beatCounter = 0;
         protected Transform player;
+        // protected Vector3 currentPos;
 
         // Subscribe to beat events
         protected virtual void Start()
