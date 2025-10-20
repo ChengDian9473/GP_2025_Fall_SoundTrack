@@ -67,19 +67,15 @@ namespace SoundTrack{
                     if(exactBeat - Math.Round(exactBeat) <= 0.4f && exactBeat - Math.Round(exactBeat) >= -0.1f){
                         dspCanHit = dspNow + secPerBeat * 0.5f;
                         if(Keyboard.current.wKey.wasPressedThisFrame)
-                            Player.Instance.move(Vector3Int.up);
-                        if(Keyboard.current.sKey.wasPressedThisFrame)
-                            Player.Instance.move(Vector3Int.down);
-                        if(Keyboard.current.aKey.wasPressedThisFrame)
-                            Player.Instance.move(Vector3Int.left);
+                            Player.Instance.move(0);
                         if(Keyboard.current.dKey.wasPressedThisFrame)
-                            Player.Instance.move(Vector3Int.right);
-                        if(Keyboard.current.eKey.wasPressedThisFrame && Player.Instance.Track.Count == 4){
-                            Debug.Log("Skill");
-                            while(Player.Instance.Track.Count > 0){
-                                Destroy(Player.Instance.Track[0]);
-                                Player.Instance.Track.RemoveAt(0);
-                            }
+                            Player.Instance.move(1);
+                        if(Keyboard.current.sKey.wasPressedThisFrame)
+                            Player.Instance.move(2);
+                        if(Keyboard.current.aKey.wasPressedThisFrame)
+                            Player.Instance.move(3);
+                        if(Keyboard.current.eKey.wasPressedThisFrame){
+                            Player.Instance.UseSkill(); 
                         }
                     }
                 }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
@@ -88,13 +84,11 @@ namespace SoundTrack{
                 }
 
                 if (Mouse.current.rightButton.wasReleasedThisFrame){
-                    while(Player.Instance.Track.Count > 0){
-                        Destroy(Player.Instance.Track[0]);
-                        Player.Instance.Track.RemoveAt(0);
-                    }
+                    Player.Instance.ClearTrack();
                 }
             }
         }
+
         public void GameStart(){
             lastBeat = -1;
             beatIndex = -1;
@@ -104,6 +98,7 @@ namespace SoundTrack{
             music.PlayScheduled(songStartDsp);
             playing = true;
         }
+
         public void GameEnd(){
             playing = false;
         }
