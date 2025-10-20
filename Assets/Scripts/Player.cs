@@ -11,11 +11,16 @@ namespace SoundTrack{
 
         [Header("References")]
         public Tilemap groundTilemap;
-        public TileBase[] allowedTiles;
+        public TileBase allowedTiles;
+        public TileBase[] barrierTiles;
 
         public GameObject TrackPrefab;
         
         public List<GameObject> Track;
+
+        public CameraMove cam;
+
+        public bool temp_inLevel = false;
 
         Vector3Int dir;
         Vector3Int currentCell;
@@ -33,6 +38,9 @@ namespace SoundTrack{
             currentCell = groundTilemap.WorldToCell(transform.position);
             transform.position = groundTilemap.GetCellCenterWorld(currentCell);
             GameManager.Instance.GameStart();
+
+            if (cam == null)
+                cam = Camera.main.GetComponent<CameraMove>();
         }
         
         public void move(Vector3Int dir){
@@ -52,15 +60,27 @@ namespace SoundTrack{
                     Track[0].transform.position = groundTilemap.GetCellCenterWorld(currentCell);
                 }
                 currentCell = currentCell + dir;
+                cam.Follow(currentCell);
             }
         }
         bool IsWalkable(Vector3Int cell)
         {
             if (!groundTilemap.HasTile(cell)) return false;
-            TileBase t = groundTilemap.GetTile(cell);
-            foreach (var a in allowedTiles)
-                if (t == a) return true;
-            return false;
+            if(temp_inLevel){
+                TileBase t = groundTilemap.GetTile(cell);
+                Debug.Log(t);
+                Debug.Log("In");
+                if(t == allowedTiles) return true;
+                return false;
+            }else{
+                TileBase t = groundTilemap.GetTile(cell);
+                Debug.Log(t);
+                Debug.Log("Out");
+                foreach (var a in barrierTiles)
+                    if (t == a) return true;
+                if(t == allowedTiles) return true;
+                return false;
+            }
         }
     }
 }

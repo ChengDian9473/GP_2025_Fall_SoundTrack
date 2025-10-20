@@ -13,7 +13,7 @@ namespace SoundTrack{
 
         [Header("Music & Tempo")]
         public AudioSource music;
-        [Min(1f)] public float bpm = 90f;
+        [Min(1f)] public float bpm = 91f;
         [Tooltip("Time to First Beat")]
         public double firstBeatOffset = 0.0;
 
@@ -25,7 +25,7 @@ namespace SoundTrack{
         [NonSerialized] public int    beatIndex;
         [NonSerialized] public double exactBeat;
         [NonSerialized] public int    lastBeat;
-        [NonSerialized] public double lastHit;
+        [NonSerialized] public double dspCanHit;
 
         private void Awake()
         {
@@ -40,8 +40,7 @@ namespace SoundTrack{
 
         private void Start()
         {
-            playing = false;
-            SceneManager.LoadScene("MainMenu");
+            playing = false;    
             Info.Instance.GameInit();
         }
 
@@ -60,10 +59,13 @@ namespace SoundTrack{
                     OnBeat?.Invoke();
                 }
 
-                if(Keyboard.current.anyKey.wasPressedThisFrame && (dspNow - lastHit) / secPerBeat >= 0.3f){
-                    lastHit = dspNow;
+                if(Keyboard.current.spaceKey.wasPressedThisFrame)
+                    Player.Instance.temp_inLevel = !Player.Instance.temp_inLevel;
+                if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
+                    dspCanHit = dspNow + secPerBeat * 0.3f;
                     Debug.Log(exactBeat - Math.Round(exactBeat));
                     if(exactBeat - Math.Round(exactBeat) <= 0.4f && exactBeat - Math.Round(exactBeat) >= -0.1f){
+                        dspCanHit = dspNow + secPerBeat * 0.5f;
                         if(Keyboard.current.wKey.wasPressedThisFrame)
                             Player.Instance.move(Vector3Int.up);
                         if(Keyboard.current.sKey.wasPressedThisFrame)
@@ -80,8 +82,8 @@ namespace SoundTrack{
                             }
                         }
                     }
-                }else if(Keyboard.current.anyKey.wasPressedThisFrame && (dspNow - lastHit) / secPerBeat < 0.3f){
-                    lastHit = dspNow;
+                }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
+                    dspCanHit = dspNow + secPerBeat * 0.3f;
                     Debug.Log("Too Frequent.\n");
                 }
 
@@ -96,7 +98,7 @@ namespace SoundTrack{
         public void GameStart(){
             lastBeat = -1;
             beatIndex = -1;
-            lastHit = 0f;
+            dspCanHit = AudioSettings.dspTime + 0.5;
             songStartDsp = AudioSettings.dspTime + 0.5;
             music.time = 0f;
             music.PlayScheduled(songStartDsp);
