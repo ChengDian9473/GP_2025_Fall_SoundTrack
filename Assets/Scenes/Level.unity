@@ -119,6 +119,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &204909052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+  m_PrefabInstance: {fileID: 790051420720058036}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &204909055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204909052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf259012d76c5c4448241a02b03854c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Researcher
+  enemyName: Researcher
+  moveDistance: 1
+  moveEveryNBeats: 2
+  attackRange: 2
+  attackEveryNBeats: 2
+  groundTilemap: {fileID: 782571861}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackLength: 2
+  warningPrefab: {fileID: 0}
 --- !u!1 &690381478
 GameObject:
   m_ObjectHideFlags: 0
@@ -24911,6 +24939,66 @@ Transform:
   - {fileID: 690381479}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &790051420720058036
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_Name
+      value: Researcher
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 204909055}
+  m_SourcePrefab: {fileID: 100100000, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -24918,3 +25006,4 @@ SceneRoots:
   - {fileID: 1433238179}
   - {fileID: 1782717554}
   - {fileID: 1093923148}
+  - {fileID: 790051420720058036}

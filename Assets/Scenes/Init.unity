@@ -220,9 +220,6 @@ MonoBehaviour:
   music: {fileID: 1311094582}
   bpm: 90
   firstBeatOffset: 0
-  onBeat:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1311094581
 Transform:
   m_ObjectHideFlags: 0
