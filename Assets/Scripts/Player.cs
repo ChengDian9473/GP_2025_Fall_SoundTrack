@@ -20,6 +20,7 @@ namespace SoundTrack{
         public GameObject TrackPrefab;
         
         private List<GameObject> Track;
+        
         private int Skill;
 
         [SerializeField] public CameraMove cam;

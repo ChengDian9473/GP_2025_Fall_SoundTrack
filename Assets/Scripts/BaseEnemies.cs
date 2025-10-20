@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
+using System.Collections.Generic;
 
 namespace SoundTrack{
     // Base class for enemies that move and attack on beats
@@ -12,7 +13,7 @@ namespace SoundTrack{
         public int moveDistance;
         public int moveEveryNBeats;
         public int attackEveryNBeats;
-        public GridPos[] attackPattern;   // Attack pattern offsets
+        public List<GridPos> attackPattern;   // Attack pattern offsets
         public Tilemap groundTilemap;   // Reference to the ground tilemap
         public GameObject warningPrefab;   // Prefab for attack warning visualization
         public LayerMask playerLayer;   // Layer mask to identify the player
@@ -31,11 +32,12 @@ namespace SoundTrack{
 
         public GridPos curGrid;
 
+        public LevelManager LM;
+
         protected virtual void Awake()
         {
             GameManager.OnBeat += OnBeatReceived;
             setGridPos(new GridPos(0,0));
-            playerGird = Player.Instance.curGrid;
         }
 
         protected virtual void OnDestroy()
@@ -47,20 +49,18 @@ namespace SoundTrack{
             curGrid = g;
             transform.position = curGrid.ToVector3();
         }
-        protected virtual void OnBeatReceived()
+        protected virtual void OnBeatReceived(int beat)
         {
-            beatCounter++;
+            // Debug.Log($"{enemyName} received beat {beatCounter}");
+            
+            playerGird = Player.Instance.curGrid;
 
-            Debug.Log($"{enemyName} received beat {beatCounter}");
-
-            // bool playerInRange = InAttackRange();
-            bool playerInRange = false;
+            bool playerInRange = InAttackRange();
 
             if (!playerInRange)
             {
                 warningActive = false;
                 warningCounter = 0;
-                // ClearWarning();
                 if (moveCounter != 0)
                     moveCounter--;
                 else {
@@ -69,27 +69,26 @@ namespace SoundTrack{
                 }
                 return;
             }
-            // else
-            // {
-            //     if (!warningActive)
-            //     {
-            //         ShowWarning(attackPattern);
-            //         warningActive = true;
-            //         warningCounter = warningBeats;
-            //         return;
-            //     }
-            //     else if (warningActive)
-            //     {
-            //         warningCounter--;
-            //         if (warningCounter <= 0)
-            //         {
-            //             ClearWarning();
-            //             ExecuteAttack();
-            //             warningActive = false;
-            //             warningCounter = 0;
-            //         }
-            //     }
-            // }
+            else
+            {
+                if (!warningActive)
+                {
+                    ShowWarning(attackPattern);
+                    warningActive = true;
+                    warningCounter = warningBeats;
+                    return;
+                }
+                else if (warningActive)
+                {
+                    warningCounter--;
+                    if (warningCounter <= 0)
+                    {
+                        // ExecuteAttack();
+                        warningActive = false;
+                        warningCounter = 0;
+                    }
+                }
+            }
         }
 
         // Move enemy towards player
@@ -118,79 +117,58 @@ namespace SoundTrack{
         }
 
         // Check if player is in attack range
-        // private bool InAttackRange()
-        // {
+        private bool InAttackRange()
+        {
 
-        //     GridPos playerCell = groundTilemap.WorldToCell(player.position);
-        //     GridPos[] directions = new GridPos[]
-        //     {
-        //         GridPos.up,
-        //         GridPos.right,
-        //         GridPos.down,
-        //         GridPos.left
-        //     };
+            GridPos[] directions = new GridPos[]
+            {
+                GridPos.up,
+                GridPos.right,
+                GridPos.down,
+                GridPos.left
+            };
 
-        //     foreach (var dir in directions)
-        //     {
-        //         foreach (var offset in attackPattern)
-        //         {
-        //             GridPos rotatedOffset = RotateOffset(offset, dir);
-        //             GridPos attackCell = currentCell + rotatedOffset;
+            foreach (var dir in directions)
+            {
+                foreach (var offset in attackPattern)
+                {
+                    GridPos rotatedOffset = RotateOffset(offset, dir);
+                    GridPos attackGrid = curGrid + rotatedOffset;
 
-        //             if (attackCell == playerCell)
-        //             {
-        //                 facingDir = dir;
-        //                 return true;
-        //             }
-        //         }
-        //     }
-        //     return false;
-        // }
+                    if (attackGrid == playerGird)
+                    {
+                        facingDir = dir;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
-    //     // Get rotated offset based on facing direction
-    //     protected GridPos RotateOffset(GridPos offset, GridPos direction)
-    //     {
-    //         if (direction == GridPos.up) return offset;
-    //         else if (direction == GridPos.right) return new GridPos(offset.y, -offset.x);
-    //         else if (direction == GridPos.down) return new GridPos(-offset.x, -offset.y);
-    //         else if (direction == GridPos.left) return new GridPos(-offset.y, offset.x);
-    //         else return offset;
-    //     }
+        // Get rotated offset based on facing direction
+        protected GridPos RotateOffset(GridPos offset, GridPos direction)
+        {
+            if (direction == GridPos.up) return offset;
+            else if (direction == GridPos.right) return new GridPos(offset.y, -offset.x);
+            else if (direction == GridPos.down) return new GridPos(-offset.x, -offset.y);
+            else if (direction == GridPos.left) return new GridPos(-offset.y, offset.x);
+            else return offset;
+        }
 
-    //     // Show attack warning on the tilemap
-    //     protected virtual void ShowWarning(GridPos[] attackPattern)
-    //     {
-    //         ClearWarning();
-    //         warningTiles = new GameObject[attackPattern.Length];
+        // Show attack warning on the tilemap
+        protected virtual void ShowWarning(List<GridPos> attackPattern)
+        {
 
-    //         for (int i = 0; i < attackPattern.Length; i++)
-    //         {
-    //             GridPos offset = attackPattern[i];
-    //             GridPos rotatedOffset = RotateOffset(offset, facingDir);
-    //             GridPos attackCell = currentCell + rotatedOffset;
+            for (int i = 0; i < attackPattern.Count; i++)
+            {
+                GridPos offset = attackPattern[i];
+                GridPos rotatedOffset = RotateOffset(offset, facingDir);
+                GridPos attackGrid = curGrid + rotatedOffset;
 
-
-    //             Vector3 pos = groundTilemap.GetCellCenterWorld(attackCell);
-
-    //             if (warningPrefab != null)
-    //                 warningTiles[i] = Instantiate(warningPrefab, pos, Quaternion.identity);
-    //         }
-    //         Debug.Log($"{enemyName} shows warning for next attack.");
-    //     }
-
-    //     // Clear existing warning tiles
-    //     private void ClearWarning()
-    //     {
-    //         if (warningTiles == null) return;
-    //         else
-    //         {
-    //             foreach (var tile in warningTiles)
-    //             {
-    //                 if (tile != null)
-    //                     Destroy(tile);
-    //             }
-    //         }
-    //     }
+                LM.AddWarning(attackGrid, 1);
+            }
+            Debug.Log($"{enemyName} shows warning for next attack.");
+        }
 
     //     public int i = 0;
     //     // Execute attack on player

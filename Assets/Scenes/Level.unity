@@ -24698,6 +24698,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851c88d3f808ed5488b54b9984b76359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Player
+  curGrid:
+    x: 0
+    y: 0
+  nextGrid:
+    x: 0
+    y: 0
   groundTilemap: {fileID: 690381481}
   allowedTiles: {fileID: 11400000, guid: 6563e42056b1140418c10b9f96a37016, type: 2}
   barrierTiles:
@@ -24969,6 +24975,7 @@ MonoBehaviour:
   level: {fileID: 11400000, guid: 0c4519ae3fd6b9c4b9bf2484d623a89d, type: 2}
   stage: 0
   inLevel: 0
+  warningTilePrefab: {fileID: 3759969106960877557, guid: 009995c408a0f1043a454b2b91cc5e4e, type: 3}
 --- !u!4 &1450025447
 Transform:
   m_ObjectHideFlags: 0

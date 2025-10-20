@@ -18,7 +18,7 @@ namespace SoundTrack{
         public double firstBeatOffset = 0.0;
 
         // [Header("Beat Event")]
-        public static event Action OnBeat;
+        public static event Action<int> OnBeat;
 
         [NonSerialized] public double songStartDsp;
         [NonSerialized] public double songTime;
@@ -56,7 +56,7 @@ namespace SoundTrack{
                 if (beatIndex != lastBeat)
                 {
                     lastBeat = beatIndex;
-                    OnBeat?.Invoke();
+                    OnBeat?.Invoke(beatIndex % 8);
                 }
 
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)

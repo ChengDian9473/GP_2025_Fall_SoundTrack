@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
+using System.Collections.Generic;
 
 namespace SoundTrack
 {
@@ -14,10 +15,10 @@ namespace SoundTrack
             attackEveryNBeats = 2;
             warningBeats = 1;
 
-            attackPattern = new GridPos[]
+            attackPattern = new List<GridPos>
             {
                 new GridPos(0, 1),
-                new GridPos(0, 2),
+                new GridPos(0, 2)
             };
 
             base.Awake();
