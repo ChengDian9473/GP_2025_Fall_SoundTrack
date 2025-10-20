@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEditor.Build;
 
 namespace SoundTrack{
     public class Info : MonoBehaviour
@@ -16,6 +17,7 @@ namespace SoundTrack{
         
         private int previous_scene;
         private int current_scene;
+        private bool isSetting = false;
 
         private void Awake()
         {
@@ -100,12 +102,22 @@ namespace SoundTrack{
         }
         private void SettingButtonClicked()
         {
-            SetTargetScene(1);
+            //SetTargetScene(1);
+            RootVisualElement.Q<Button>(name: "StartButton").style.display = DisplayStyle.None;
+            isSetting = true;
         }
         private void QuitButtonClicked()
         {
             //SetTargetScene(1);
+            if (isSetting)
+            {
+                RootVisualElement.Q<Button>(name: "StartButton").style.display = DisplayStyle.Flex;
+                isSetting = false;
+            }
+            else
+            {
             Application.Quit();
+            }
         }
         private void FadeIn()
         {

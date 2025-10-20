@@ -218,8 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   music: {fileID: 1311094582}
-  bpm: 90
-  firstBeatOffset: 0
+  bpm: 91
+  firstBeatOffset: 0.1
 --- !u!4 &1311094581
 Transform:
   m_ObjectHideFlags: 0
