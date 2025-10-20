@@ -9,7 +9,9 @@ namespace SoundTrack{
     {   
         public static Player Instance { get; private set; }
 
-        private GridPos pos;
+        private GridPos curGrid;
+        private GridPos nextGrid;
+
 
         [Header("References")]
         public Tilemap groundTilemap;
@@ -22,10 +24,10 @@ namespace SoundTrack{
         private int Skill;
 
         [SerializeField] public CameraMove cam;
-        [SerializeField] public LevelManager level;
+        [SerializeField] public LevelManager LM;
 
-        Vector3Int dir;
-        Vector3Int currentCell;
+        Vector3Int curCell;
+        Vector3Int nextCell;
 
         private void Awake()
         {
@@ -35,19 +37,19 @@ namespace SoundTrack{
         void Start(){
             Track = new List<GameObject>();
 
-            pos = new GridPos(0,0);
+            curGrid = new GridPos(0,0);
             
-            transform.position = pos.ToVector();
+            transform.position = curGrid.ToVector();
 
             GameManager.Instance.GameStart();
 
             if (cam == null){
                 cam = Camera.main.GetComponent<CameraMove>();      
             }
-            if (level == null){
-                level = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
+            if (LM == null){
+                LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
             }
-            level.test();
+            LM.test();
         }
         
         public void move(int op){
@@ -74,10 +76,13 @@ namespace SoundTrack{
                     break;
                 }
             }
-            Vector3Int target = currentCell + dir;
-            Debug.Log(target);
-            if(IsWalkable(target)){
+            nextCell = curCell + dir;
+            nextGrid.ToGridPos(nextCell);
+            
+            if(IsWalkable(nextCell)){
+                // DI 移動角色
                 transform.Translate(dir);
+                // DI 紀錄軌跡
                 if(Mouse.current.rightButton.isPressed){
                     Skill = ((Skill << 2) + op) & ((1 << 8)  - 1);
                     Debug.Log(Skill);
@@ -89,17 +94,34 @@ namespace SoundTrack{
                         Track[i].transform.localScale = Track[i-1].transform.localScale * 0.8f;
                         // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                     }
-                    Track[0].transform.position = groundTilemap.GetCellCenterWorld(currentCell);
+                    Track[0].transform.position = groundTilemap.GetCellCenterWorld(curCell);
                 }
-                currentCell = currentCell + dir;
-                pos.ToGridPos(currentCell);
-                cam.Follow(currentCell + Vector3Int.right * 4);
+                // DI 偵測是否開啟關卡
+                if(OnTrigger(curCell)){
+                    foreach (var r in LM.level.rooms){
+                        if(r.trigger.Contains(nextGrid)){
+                            LM.inLevel = true;
+                        }
+                    }
+                }
+                // DI 更新資料
+                curCell = nextCell;
+                curGrid = nextGrid;
+                // DI 移動攝影機
+                cam.Follow(curCell + Vector3Int.right * 4);
             }
+        }
+        private bool OnTrigger(Vector3Int cell)
+        {
+            TileBase t = groundTilemap.GetTile(cell);
+            foreach (var a in barrierTiles)
+                if (t == a) return true;
+            return false;
         }
         private bool IsWalkable(Vector3Int cell)
         {
             if (!groundTilemap.HasTile(cell)) return false;
-            if(temp_inLevel){
+            if(LM.inLevel){
                 TileBase t = groundTilemap.GetTile(cell);
                 if(t == allowedTiles) return true;
                 return false;

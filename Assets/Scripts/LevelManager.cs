@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
     public LevelData level;
 
     public int stage;
-    public bool inLevel;
+    public bool inLevel = false;
 
     void Start(){
         Debug.Log("Level Manager Start");

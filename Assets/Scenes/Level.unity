@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 690381479}
   - component: {fileID: 690381481}
   - component: {fileID: 690381480}
+  - component: {fileID: 690381482}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -10510,6 +10511,25 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &690381482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690381478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297d0b162281ecf4294f588c4ae9319a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TilemapCoordOverlay
+  tilemap: {fileID: 853301771}
+  show: 1
+  onlyOccupiedTiles: 1
+  step: 1
+  fontSize: 12
+  textColor: {r: 0, g: 0, b: 0, a: 1}
+  worldOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &853301768
 GameObject:
   m_ObjectHideFlags: 0
@@ -24720,8 +24740,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d61eb50bed669734d827798920548187, type: 2}
   TrackPrefab: {fileID: 7980013985442431122, guid: 797f3fbdb52e35f439b9206d90d51186, type: 3}
   cam: {fileID: 0}
-  level: {fileID: 0}
-  temp_inLevel: 0
+  LM: {fileID: 0}
 --- !u!61 &1093923150
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24978,6 +24997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   level: {fileID: 11400000, guid: 0c4519ae3fd6b9c4b9bf2484d623a89d, type: 2}
   stage: 0
+  inLevel: 0
 --- !u!4 &1450025447
 Transform:
   m_ObjectHideFlags: 0

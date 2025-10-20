@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: Level
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   rooms:
-  - trigger: []
+  - trigger:
+    - x: 11
+      y: 1
+    - x: 11
+      y: 0
+    - x: 11
+      y: -1
+    - x: 11
+      y: -2
     monsters: []
     clear: 0
