@@ -104,7 +104,8 @@ namespace SoundTrack{
         }
         private void QuitButtonClicked()
         {
-            SetTargetScene(1); //check line // shouldn't it just quit
+            //SetTargetScene(1);
+            Application.Quit();
         }
         private void FadeIn()
         {
