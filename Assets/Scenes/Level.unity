@@ -139,14 +139,14 @@ MonoBehaviour:
   enemyName: Researcher
   moveDistance: 1
   moveEveryNBeats: 2
-  attackRange: 2
   attackEveryNBeats: 2
-  groundTilemap: {fileID: 782571861}
+  attackPattern: []
+  groundTilemap: {fileID: 690381481}
+  warningPrefab: {fileID: 3759969106960877557, guid: 009995c408a0f1043a454b2b91cc5e4e, type: 3}
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
-  attackLength: 2
-  warningPrefab: {fileID: 0}
+  warningBeats: 1
 --- !u!1 &690381478
 GameObject:
   m_ObjectHideFlags: 0
