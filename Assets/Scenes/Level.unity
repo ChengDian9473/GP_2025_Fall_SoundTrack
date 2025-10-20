@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 690381482}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: GroundTilemap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24716,6 +24716,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6adb5784a1483744ab6bd65825836379, type: 2}
   - {fileID: 11400000, guid: d61eb50bed669734d827798920548187, type: 2}
   TrackPrefab: {fileID: 7980013985442431122, guid: 797f3fbdb52e35f439b9206d90d51186, type: 3}
+  SL: {fileID: 11400000, guid: c9e315f4e9848714b95356f2dcd20550, type: 2}
   cam: {fileID: 0}
   LM: {fileID: 0}
 --- !u!61 &1093923150
@@ -24976,6 +24977,7 @@ MonoBehaviour:
   stage: 0
   inLevel: 0
   warningTilePrefab: {fileID: 3759969106960877557, guid: 009995c408a0f1043a454b2b91cc5e4e, type: 3}
+  monsterOn: []
 --- !u!4 &1450025447
 Transform:
   m_ObjectHideFlags: 0

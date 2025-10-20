@@ -11,6 +11,7 @@ namespace SoundTrack{
         
         public GameObject warningTilePrefab;
 
+        public List<GridPos> monsterOn = new List<GridPos>();
         List<BaseEnemies> aliveMonsters = new List<BaseEnemies>();
 
         List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject, bool)>();
@@ -35,33 +36,47 @@ namespace SoundTrack{
         }
 
         public void startRoom(Room r){
-            Debug.Log("Room Start");
+            // Debug.Log("Room sStart");
             foreach(var m in r.monsters){
-                Debug.Log("Monster * 1");
+                // Debug.Log("Monster * 1");
                 GameObject go = Instantiate(m.prefab);
                 var new_monster = go.GetComponentInChildren<BaseEnemies>();
                 new_monster.setGridPos(m.spawnGrid);
+                monsterOn.Add(m.spawnGrid);
                 new_monster.LM = this;
                 aliveMonsters.Add(new_monster);
             }
         }
         public void OnBeatReceived(int beat){
-            foreach(var v in warningTileList){
-                if(v.Value.obj == null){
-                     warningTileList[v.Key] = (GetAvailableTile(), v.Value.life);
+
+            foreach(var x in monsterOn)
+                Debug.Log(x);
+            foreach(var x in aliveMonsters)
+                Debug.Log(x.curGrid);
+            List<GridPos> toRemove = new();
+
+            foreach (var kv in warningTileList)
+            {
+                kv.Value.obj.transform.position = kv.Key.ToVector3();
+
+                if (kv.Value.life <= 1)
+                {
+                    toRemove.Add(kv.Key);
                 }
-                v.Value.obj.transform.position = v.Key.ToVector3();
-                if(v.Value.life == 1){
-                    ReleaseTile(v.Value.obj);
-                    warningTileList.Remove(v.Key);
-                }else{
-                    warningTileList[v.Key] = (v.Value.obj, v.Value.life - 1);
+                else
+                {
+                    warningTileList[kv.Key] = (kv.Value.obj, kv.Value.life - 1);
                 }
+            }
+            foreach (var key in toRemove)
+            {
+                ReleaseTile(warningTileList[key].obj);
+                warningTileList.Remove(key);
             }
         }
 
         public void AddWarning(GridPos g,int life){
-            warningTileList[g] = (null, life);
+            warningTileList[g] = (GetAvailableTile(), life);
         }
 
         public GameObject GetAvailableTile()

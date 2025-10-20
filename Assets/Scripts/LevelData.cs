@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace SoundTrack{
-    [CreateAssetMenu(fileName = "LevelData", menuName = "SoundTrack")]
+    [CreateAssetMenu(fileName = "LevelData", menuName = "SoundTrack/LevelData")]
     public class LevelData : ScriptableObject
     {
         public List<Room> rooms = new();

@@ -9,7 +9,7 @@ namespace SoundTrack{
         
         private void Awake(){
             moveDuration = (60f / GameManager.Instance.bpm) * 0.75f;
-            Debug.Log(moveDuration);    
+            // Debug.Log(moveDuration);    
         }
 
         public void Follow(Vector3Int targetPos)

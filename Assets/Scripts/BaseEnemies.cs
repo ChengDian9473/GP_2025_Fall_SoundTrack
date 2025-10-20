@@ -14,7 +14,6 @@ namespace SoundTrack{
         public int moveEveryNBeats;
         public int attackEveryNBeats;
         public List<GridPos> attackPattern;   // Attack pattern offsets
-        public Tilemap groundTilemap;   // Reference to the ground tilemap
         public GameObject warningPrefab;   // Prefab for attack warning visualization
         public LayerMask playerLayer;   // Layer mask to identify the player
 
@@ -30,14 +29,24 @@ namespace SoundTrack{
         protected float hitRadius = 0.4f;
         private int moveCounter = 0;
 
+        [Header("References")]
+        public Tilemap groundTilemap;
+        public TileBase allowedTiles;
+
         public GridPos curGrid;
+        public GridPos nextGrid;
 
         public LevelManager LM;
 
         protected virtual void Awake()
         {
             GameManager.OnBeat += OnBeatReceived;
-            setGridPos(new GridPos(0,0));
+            // setGridPos(new GridPos(0,0));
+            groundTilemap = GameObject.FindWithTag("GroundTilemap")?.GetComponent<Tilemap>();
+        }
+
+        public void Die(){
+            Destroy(gameObject);
         }
 
         protected virtual void OnDestroy()
@@ -49,6 +58,7 @@ namespace SoundTrack{
             curGrid = g;
             transform.position = curGrid.ToVector3();
         }
+
         protected virtual void OnBeatReceived(int beat)
         {
             // Debug.Log($"{enemyName} received beat {beatCounter}");
@@ -56,6 +66,8 @@ namespace SoundTrack{
             playerGird = Player.Instance.curGrid;
 
             bool playerInRange = InAttackRange();
+
+            if(!warningActive){}
 
             if (!playerInRange)
             {
@@ -107,13 +119,30 @@ namespace SoundTrack{
                 dir.y = diff.y > 0 ? 1 : -1;
             }
 
-            curGrid += dir * moveDistance;
-            transform.position = curGrid.ToVector3();
+            nextGrid = curGrid + dir * moveDistance;
 
-            if (dir != GridPos.zero)
-                facingDir = dir;
-            else
-                facingDir = GridPos.up;   // Default facing direction
+            if(IsWalkable(nextGrid)){
+                LM.monsterOn.Remove(curGrid);
+                LM.monsterOn.Add(nextGrid);
+
+                if (dir != GridPos.zero)
+                    facingDir = dir;
+                else
+                    facingDir = GridPos.up;   // Default facing direction
+                curGrid = nextGrid;
+                transform.position = curGrid.ToVector3();
+            }
+                
+        }
+
+
+        private bool IsWalkable(GridPos g)
+        {
+            Vector3Int c = g.ToVector3Int();
+            if (LM.monsterOn.Contains(g)) return false;
+            if (!groundTilemap.HasTile(c)) return false;
+            if (groundTilemap.GetTile(c) == allowedTiles) return true;
+            return false;
         }
 
         // Check if player is in attack range

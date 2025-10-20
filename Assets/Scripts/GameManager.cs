@@ -62,7 +62,7 @@ namespace SoundTrack{
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)
                 if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
-                    Debug.Log(exactBeat - Math.Round(exactBeat));
+                    // Debug.Log(exactBeat - Math.Round(exactBeat));
                     if(exactBeat - Math.Round(exactBeat) <= 0.4f && exactBeat - Math.Round(exactBeat) >= -0.1f){
                         dspCanHit = dspNow + secPerBeat * 0.5f;
                         if(Keyboard.current.wKey.wasPressedThisFrame)
@@ -79,7 +79,7 @@ namespace SoundTrack{
                     }
                 }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
-                    Debug.Log("Too Frequent.\n");
+                    // Debug.Log("Too Frequent.\n");
                 }
 
                 if (Mouse.current.rightButton.wasReleasedThisFrame){

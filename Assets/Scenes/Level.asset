@@ -27,4 +27,12 @@ MonoBehaviour:
       spawnGrid:
         x: 14
         y: -1
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 14
+        y: -3
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 14
+        y: -5
     clear: 0

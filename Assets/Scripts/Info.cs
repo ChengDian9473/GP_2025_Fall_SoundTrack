@@ -46,7 +46,7 @@ namespace SoundTrack{
             foreach(var scene in RootVisualElement.Q<VisualElement>("Root").Children()){
                 SceneVisualElement.Add(scene);
                 scene.style.display = DisplayStyle.None;
-                Debug.Log(scene.name);
+                // Debug.Log(scene.name);
             }
             
             var StartButton = RootVisualElement.Q<Button>("StartButton");

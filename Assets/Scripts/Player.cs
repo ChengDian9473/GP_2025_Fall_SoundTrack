@@ -20,7 +20,10 @@ namespace SoundTrack{
         public GameObject TrackPrefab;
         
         private List<GameObject> Track;
-        
+
+        public SkillList SL;
+        public Dictionary<int, List<GridPos>> Skills;
+
         private int Skill;
 
         [SerializeField] public CameraMove cam;
@@ -45,6 +48,8 @@ namespace SoundTrack{
             if (LM == null){
                 LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
             }
+
+            Skills = SL.ToDict();
         }
         
         public void move(int op){
@@ -73,7 +78,7 @@ namespace SoundTrack{
             }
             nextGrid = curGrid + dir;
             
-            if(IsWalkable(nextGrid.ToVector3Int())){
+            if(IsWalkable(nextGrid)){
                 // DI 紀錄軌跡
                 if(Mouse.current.rightButton.isPressed){
                     Skill = ((Skill << 2) + op) & ((1 << 8)  - 1);
@@ -89,7 +94,7 @@ namespace SoundTrack{
                     Track[0].transform.position = curGrid.ToVector3();
                 }
                 // DI 偵測是否開啟關卡
-                if(OnTrigger(curGrid.ToVector3Int())){
+                if(OnTrigger(curGrid)){
                     foreach (var r in LM.level.rooms){
                         if(r.trigger.Contains(nextGrid)){
                             LM.inLevel = true;
@@ -103,26 +108,27 @@ namespace SoundTrack{
                 transform.position = curGrid.ToVector3();
                 // DI 移動攝影機
                 cam.Follow(curGrid.ToVector3Int() + Vector3Int.right * 4);
-                Debug.Log(curGrid);
-                Debug.Log(curGrid.ToVector3());
             }
         }
-        private bool OnTrigger(Vector3Int cell)
+        private bool OnTrigger(GridPos g)
         {
-            TileBase t = groundTilemap.GetTile(cell);
+            Vector3Int c = g.ToVector3Int();
+            TileBase t = groundTilemap.GetTile(c);
             foreach (var a in barrierTiles)
                 if (t == a) return true;
             return false;
         }
-        private bool IsWalkable(Vector3Int cell)
+        private bool IsWalkable(GridPos g)
         {
-            if (!groundTilemap.HasTile(cell)) return false;
+            Vector3Int c = g.ToVector3Int();
+            if (LM.monsterOn.Contains(g)) return false;
+            if (!groundTilemap.HasTile(c)) return false;
             if(LM.inLevel){
-                TileBase t = groundTilemap.GetTile(cell);
+                TileBase t = groundTilemap.GetTile(c);
                 if(t == allowedTiles) return true;
                 return false;
             }else{
-                TileBase t = groundTilemap.GetTile(cell);
+                TileBase t = groundTilemap.GetTile(c);
                 foreach (var a in barrierTiles)
                     if (t == a) return true;
                 if(t == allowedTiles) return true;
@@ -130,9 +136,8 @@ namespace SoundTrack{
             }
         }
         public void UseSkill(){
-            if(Track.Count == 4){
-                Debug.Log("Use SKill");
-                Debug.Log(Convert.ToString(Skill, 2));
+            if(Track.Count == 4 && Skills.ContainsKey(Skill)){
+                Debug.Log("Use Skill");
                 ClearTrack();
             }
         }
