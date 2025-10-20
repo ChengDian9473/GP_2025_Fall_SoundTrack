@@ -63,6 +63,8 @@ namespace SoundTrack{
             if (!playerInRange)
             {
                 warningActive = false;
+                warningCounter = 0;
+                ClearWarning();
                 if (moveCounter != 0)
                     moveCounter--;
                 else {
@@ -80,8 +82,7 @@ namespace SoundTrack{
                     warningCounter = warningBeats;
                     return;
                 }
-
-                if (warningActive)
+                else if (warningActive)
                 {
                     warningCounter--;
                     if (warningCounter <= 0)
@@ -89,6 +90,7 @@ namespace SoundTrack{
                         ClearWarning();
                         ExecuteAttack();
                         warningActive = false;
+                        warningCounter = 0;
                     }
                 }
             }
@@ -196,22 +198,24 @@ namespace SoundTrack{
             }
         }
 
+        public int i = 0;
         // Execute attack on player
         protected virtual void ExecuteAttack()
         {
+            Debug.Log($"{enemyName} ExecuteAttack() triggered {i++} times!");
             foreach (var offset in attackPattern)
             {
                 Vector3Int rotatedOffset = RotateOffset(offset, facingDir);
                 Vector3Int attackCell = currentCell + rotatedOffset;
                 Vector3 pos = groundTilemap.GetCellCenterWorld(attackCell);
 
-                Collider2D hit = Physics2D.OverlapCircle(pos, hitRadius, playerLayer);
-                if (hit && hit.CompareTag("Player"))
-                {
-                    Debug.Log($"{enemyName} attacked the Player at {attackCell}");
-                    return;
-                }
-                Debug.Log($"{enemyName} attacked at {attackCell} but missed.");
+                // Collider2D hit = Physics2D.OverlapCircle(pos, hitRadius, playerLayer);
+                // if (hit && hit.CompareTag("Player"))
+                // {
+                //     Debug.Log($"{enemyName} attacked the Player at {attackCell}");
+                //     return;
+                // }
+                // Debug.Log($"{enemyName} attacked at {attackCell} but missed.");
             }
         }
     }
