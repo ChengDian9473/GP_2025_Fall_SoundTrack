@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7391928127789678463}
   - component: {fileID: 4051025606737198377}
+  - component: {fileID: 4462171979192652838}
   m_Layer: 0
   m_Name: Researcher
   m_TagString: Untagged
@@ -90,3 +91,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4462171979192652838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899671686532785624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf259012d76c5c4448241a02b03854c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Researcher
+  enemyName: Researcher
+  moveDistance: 1
+  moveEveryNBeats: 2
+  attackEveryNBeats: 2
+  attackPattern: []
+  groundTilemap: {fileID: 0}
+  warningPrefab: {fileID: 3759969106960877557, guid: 009995c408a0f1043a454b2b91cc5e4e, type: 3}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  warningBeats: 1
+  i: 0

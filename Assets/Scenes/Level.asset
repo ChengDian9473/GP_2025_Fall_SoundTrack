@@ -22,5 +22,9 @@ MonoBehaviour:
       y: -1
     - x: 11
       y: -2
-    monsters: []
+    monsters:
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 14
+        y: -1
     clear: 0

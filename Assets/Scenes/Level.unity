@@ -119,35 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &204909052 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
-  m_PrefabInstance: {fileID: 790051420720058036}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &204909055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204909052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf259012d76c5c4448241a02b03854c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Researcher
-  enemyName: Researcher
-  moveDistance: 1
-  moveEveryNBeats: 2
-  attackEveryNBeats: 2
-  attackPattern: []
-  groundTilemap: {fileID: 690381481}
-  warningPrefab: {fileID: 3759969106960877557, guid: 009995c408a0f1043a454b2b91cc5e4e, type: 3}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  warningBeats: 1
-  i: 0
 --- !u!1 &690381478
 GameObject:
   m_ObjectHideFlags: 0
@@ -10523,11 +10494,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297d0b162281ecf4294f588c4ae9319a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TilemapCoordOverlay
-  tilemap: {fileID: 853301771}
+  tilemap: {fileID: 690381481}
   show: 1
   onlyOccupiedTiles: 1
   step: 1
-  fontSize: 12
+  fontSize: 10
   textColor: {r: 0, g: 0, b: 0, a: 1}
   worldOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &853301768
@@ -25071,6 +25042,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Researcher
       objectReference: {fileID: 0}
+    - target: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4462171979192652838, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      propertyPath: groundTilemap
+      value: 
+      objectReference: {fileID: 690381481}
     - target: {fileID: 7391928127789678463, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5
@@ -25114,10 +25093,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 204909055}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

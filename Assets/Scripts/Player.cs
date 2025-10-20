@@ -9,9 +9,8 @@ namespace SoundTrack{
     {   
         public static Player Instance { get; private set; }
 
-        private GridPos curGrid;
-        private GridPos nextGrid;
-
+        public GridPos curGrid;
+        public GridPos nextGrid;
 
         [Header("References")]
         public Tilemap groundTilemap;
@@ -26,9 +25,6 @@ namespace SoundTrack{
         [SerializeField] public CameraMove cam;
         [SerializeField] public LevelManager LM;
 
-        Vector3Int curCell;
-        Vector3Int nextCell;
-
         private void Awake()
         {
             Instance = this;
@@ -38,8 +34,7 @@ namespace SoundTrack{
             Track = new List<GameObject>();
 
             curGrid = new GridPos(0,0);
-            
-            transform.position = curGrid.ToVector();
+            transform.position = curGrid.ToVector3();
 
             GameManager.Instance.GameStart();
 
@@ -49,39 +44,35 @@ namespace SoundTrack{
             if (LM == null){
                 LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
             }
-            LM.test();
         }
         
         public void move(int op){
-            Vector3Int dir;
+            GridPos dir;
             switch(op){
                 case 0:{
-                    dir = Vector3Int.up;
+                    dir = GridPos.up;
                     break;
                 }
                 case 1:{
-                    dir = Vector3Int.right;
+                    dir = GridPos.right;
                     break;
                 }
                 case 2:{
-                    dir = Vector3Int.down;
+                    dir = GridPos.down;
                     break;
                 }
                 case 3:{
-                    dir = Vector3Int.left;
+                    dir = GridPos.left;
                     break;
                 }
                 default:{
-                    dir = Vector3Int.up;
+                    dir = GridPos.up;
                     break;
                 }
             }
-            nextCell = curCell + dir;
-            nextGrid.ToGridPos(nextCell);
+            nextGrid = curGrid + dir;
             
-            if(IsWalkable(nextCell)){
-                // DI 移動角色
-                transform.Translate(dir);
+            if(IsWalkable(nextGrid.ToVector3Int())){
                 // DI 紀錄軌跡
                 if(Mouse.current.rightButton.isPressed){
                     Skill = ((Skill << 2) + op) & ((1 << 8)  - 1);
@@ -94,21 +85,25 @@ namespace SoundTrack{
                         Track[i].transform.localScale = Track[i-1].transform.localScale * 0.8f;
                         // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                     }
-                    Track[0].transform.position = groundTilemap.GetCellCenterWorld(curCell);
+                    Track[0].transform.position = curGrid.ToVector3();
                 }
                 // DI 偵測是否開啟關卡
-                if(OnTrigger(curCell)){
+                if(OnTrigger(curGrid.ToVector3Int())){
                     foreach (var r in LM.level.rooms){
                         if(r.trigger.Contains(nextGrid)){
                             LM.inLevel = true;
+                            LM.startRoom(r);
+                            break;
                         }
                     }
                 }
                 // DI 更新資料
-                curCell = nextCell;
                 curGrid = nextGrid;
+                transform.position = curGrid.ToVector3();
                 // DI 移動攝影機
-                cam.Follow(curCell + Vector3Int.right * 4);
+                cam.Follow(curGrid.ToVector3Int() + Vector3Int.right * 4);
+                Debug.Log(curGrid);
+                Debug.Log(curGrid.ToVector3());
             }
         }
         private bool OnTrigger(Vector3Int cell)

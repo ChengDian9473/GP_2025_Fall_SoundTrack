@@ -60,7 +60,6 @@ namespace SoundTrack{
                 }
 
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)
-                //     Player.Instance.temp_inLevel = !Player.Instance.temp_inLevel;
                 if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
                     Debug.Log(exactBeat - Math.Round(exactBeat));

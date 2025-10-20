@@ -6,7 +6,7 @@ namespace SoundTrack
 {
     public class Researcher : BaseEnemies
     {
-        protected override void Start()
+        protected override void Awake()
         {
             enemyName = "Researcher";
             moveDistance = 1;
@@ -14,13 +14,13 @@ namespace SoundTrack
             attackEveryNBeats = 2;
             warningBeats = 1;
 
-            attackPattern = new Vector3Int[]
+            attackPattern = new GridPos[]
             {
-                new Vector3Int(0, 1, 0),
-                new Vector3Int(0, 2, 0),
+                new GridPos(0, 1),
+                new GridPos(0, 2),
             };
 
-            base.Start();
+            base.Awake();
         }
     }
 }
