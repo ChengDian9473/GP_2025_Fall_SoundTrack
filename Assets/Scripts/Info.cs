@@ -51,6 +51,8 @@ namespace SoundTrack{
             StartButton.clicked += StartButtonClicked;
             var SettingButton = RootVisualElement.Q<Button>("SettingButton");
             SettingButton.clicked += SettingButtonClicked;
+            var QuitButton = RootVisualElement.Q<Button>("QuitButton");
+            QuitButton.clicked += QuitButtonClicked;
             // var tButton = RootVisualElement.Q<Button>("TalentButton");
             // tButton.clicked += OntButtonClicked;
             // var MenuButton = RootVisualElement.Q<Button>("MenuButton");
@@ -99,6 +101,10 @@ namespace SoundTrack{
         private void SettingButtonClicked()
         {
             SetTargetScene(1);
+        }
+        private void QuitButtonClicked()
+        {
+            SetTargetScene(1); //check line // shouldn't it just quit
         }
         private void FadeIn()
         {
