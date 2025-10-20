@@ -9,6 +9,8 @@ namespace SoundTrack{
     {   
         public static Player Instance { get; private set; }
 
+        private GridPos pos;
+
         [Header("References")]
         public Tilemap groundTilemap;
         public TileBase allowedTiles;
@@ -19,9 +21,8 @@ namespace SoundTrack{
         private List<GameObject> Track;
         private int Skill;
 
-        public CameraMove cam;
-
-        public bool temp_inLevel = false;
+        [SerializeField] public CameraMove cam;
+        [SerializeField] public LevelManager level;
 
         Vector3Int dir;
         Vector3Int currentCell;
@@ -34,13 +35,19 @@ namespace SoundTrack{
         void Start(){
             Track = new List<GameObject>();
 
-            transform.position = new Vector3Int(0, 0, 0);
-            currentCell = groundTilemap.WorldToCell(transform.position);
-            transform.position = groundTilemap.GetCellCenterWorld(currentCell);
+            pos = new GridPos(0,0);
+            
+            transform.position = pos.ToVector();
+
             GameManager.Instance.GameStart();
 
-            if (cam == null)
-                cam = Camera.main.GetComponent<CameraMove>();
+            if (cam == null){
+                cam = Camera.main.GetComponent<CameraMove>();      
+            }
+            if (level == null){
+                level = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
+            }
+            level.test();
         }
         
         public void move(int op){
@@ -85,7 +92,8 @@ namespace SoundTrack{
                     Track[0].transform.position = groundTilemap.GetCellCenterWorld(currentCell);
                 }
                 currentCell = currentCell + dir;
-                cam.Follow(currentCell);
+                pos.ToGridPos(currentCell);
+                cam.Follow(currentCell + Vector3Int.right * 4);
             }
         }
         private bool IsWalkable(Vector3Int cell)
