@@ -193,8 +193,8 @@ namespace SoundTrack{
                 GridPos offset = attackPattern[i];
                 GridPos rotatedOffset = RotateOffset(offset, facingDir);
                 GridPos attackGrid = curGrid + rotatedOffset;
-
-                LM.AddWarning(attackGrid, 1);
+                if(groundTilemap.HasTile(attackGrid.ToVector3Int()))
+                    LM.AddWarning(attackGrid, 1);
             }
             Debug.Log($"{enemyName} shows warning for next attack.");
         }

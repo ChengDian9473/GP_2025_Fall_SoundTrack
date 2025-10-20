@@ -10,12 +10,15 @@ namespace SoundTrack{
         public bool inLevel = false;
         
         public GameObject warningTilePrefab;
+        public GameObject attackTilePrefab;
 
         public List<GridPos> monsterOn = new List<GridPos>();
         List<BaseEnemies> aliveMonsters = new List<BaseEnemies>();
 
         List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject, bool)>();
         Dictionary<GridPos, (GameObject obj, int life)> warningTileList = new Dictionary<GridPos, (GameObject, int)>();
+
+        List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
 
         void Start(){
             // Debug.Log("Level Manager Start");
@@ -48,11 +51,10 @@ namespace SoundTrack{
             }
         }
         public void OnBeatReceived(int beat){
+            UpdateWarningTile();
+        }
 
-            foreach(var x in monsterOn)
-                Debug.Log(x);
-            foreach(var x in aliveMonsters)
-                Debug.Log(x.curGrid);
+        public void UpdateWarningTile(){
             List<GridPos> toRemove = new();
 
             foreach (var kv in warningTileList)
@@ -70,16 +72,17 @@ namespace SoundTrack{
             }
             foreach (var key in toRemove)
             {
-                ReleaseTile(warningTileList[key].obj);
+                // DI key 都是在本回合受到攻擊的格子
+                ReleaseWarningTile(warningTileList[key].obj);
                 warningTileList.Remove(key);
             }
         }
 
         public void AddWarning(GridPos g,int life){
-            warningTileList[g] = (GetAvailableTile(), life);
+            warningTileList[g] = (GetAvailableWarningTile(), life);
         }
-
-        public GameObject GetAvailableTile()
+        
+        public GameObject GetAvailableWarningTile()
         {
             for (int i = 0; i < warningTilePool.Count; i++)
             {
@@ -98,7 +101,7 @@ namespace SoundTrack{
             return newTile;
         }
 
-        public void ReleaseTile(GameObject tile)
+        public void ReleaseWarningTile(GameObject tile)
         {
             for (int i = 0; i < warningTilePool.Count; i++)
             {
