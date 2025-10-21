@@ -102,6 +102,8 @@ namespace SoundTrack{
                     groundTilemap.SetTile(g.ToVector3Int(), doorOpened);
                 }
             }
+            if(curStage > level.maxStage)
+                Info.Instance.UpdateWin();
         }
 
         public void OnBeatReceived(int beat){

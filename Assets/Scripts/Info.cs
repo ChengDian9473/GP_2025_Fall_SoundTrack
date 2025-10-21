@@ -77,10 +77,25 @@ namespace SoundTrack{
             // StartCoroutine(FadeIn());
         }
 
-        public void UpateHP(int HP){
+        public void UpdateHP(int HP){
             var HPLabel = RootVisualElement.Q<Label>("HPLabel");
-            HPLabel.text = $"Times be Hit: {HP}";
+            HPLabel.text = $"Times Hit: {HP}";
         }
+        public void UpdateWin(){
+            var WinLabel = RootVisualElement.Q<Label>("WinLabel");
+            WinLabel.text = $"You Win";
+        }
+        public void UpdateSeq(int skill, int count){
+            var SeqLabel = RootVisualElement.Q<Label>("SeqLabel");
+            SeqLabel.text = "Seq: ";
+
+            string arrow = "⬆️➡️⬇️⬅️";
+            for(int i=0;i<count;i++){
+                int offset = (count - i) * 2 - 2;
+                SeqLabel.text += arrow[((3 << offset) & skill) >> (offset)];
+            }
+        }
+
 
         public void SetTargetScene(int scene)
         {

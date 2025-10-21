@@ -94,6 +94,7 @@ namespace SoundTrack{
                         // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                     }
                     Track[0].transform.position = curGrid.ToVector3();
+                    Info.Instance.UpdateSeq(Skill, Track.Count);
                 // }
                 // DI 偵測是否開啟關卡
                 if(OnTrigger(curGrid)){
@@ -126,7 +127,7 @@ namespace SoundTrack{
         public void beHit(GridPos g){
             if(g == curGrid){
                 HP++;
-                Info.Instance.UpateHP(HP);
+                Info.Instance.UpdateHP(HP);
             }
         }
         private bool OnTrigger(GridPos g)
