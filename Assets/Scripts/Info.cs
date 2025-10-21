@@ -119,7 +119,7 @@ namespace SoundTrack{
 
         private void StartButtonClicked()
         {
-            SetTargetScene(2);
+            SetTargetScene(2); 
         }
         private void SettingButtonClicked()
         {
