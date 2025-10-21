@@ -15,48 +15,41 @@ MonoBehaviour:
   skills:
   - binaryNumber: 00000000
     attackPattern:
+    - x: -1
+      y: -1
+    - x: -1
+      y: 0
+    - x: -1
+      y: 1
     - x: 0
       y: -1
     - x: 0
-      y: -2
-    - x: 0
-      y: -3
-    - x: 0
-      y: -4
-    - x: 0
-      y: -5
-    - x: 0
-      y: -6
+      y: 1
+    - x: 1
+      y: -1
+    - x: 1
+      y: 0
+    - x: 1
+      y: 1
     number: 0
-  - binaryNumber: 01010101
-    attackPattern:
-    - x: -1
-      y: 0
-    - x: -2
-      y: 0
-    - x: -3
-      y: 0
-    - x: -4
-      y: 0
-    - x: -5
-      y: 0
-    - x: -6
-      y: 0
-    number: 85
   - binaryNumber: 10101010
     attackPattern:
+    - x: 2
+      y: 0
+    - x: 1
+      y: 0
     - x: 0
       y: 1
     - x: 0
       y: 2
     - x: 0
-      y: 3
+      y: -2
     - x: 0
-      y: 4
-    - x: 0
-      y: 5
-    - x: 0
-      y: 6
+      y: -1
+    - x: -2
+      y: 0
+    - x: -1
+      y: 0
     number: 170
   - binaryNumber: 11111111
     attackPattern:
@@ -73,6 +66,25 @@ MonoBehaviour:
     - x: 1
       y: 0
     number: 255
+  - binaryNumber: 01010101
+    attackPattern:
+    - x: -3
+      y: -1
+    - x: -3
+      y: 0
+    - x: -3
+      y: 1
+    - x: -2
+      y: -1
+    - x: -2
+      y: 1
+    - x: -1
+      y: -1
+    - x: -1
+      y: 0
+    - x: -1
+      y: 1
+    number: 85
   - binaryNumber: 11111100
     attackPattern:
     - x: 1
@@ -94,58 +106,58 @@ MonoBehaviour:
     number: 252
   - binaryNumber: 11111110
     attackPattern:
-    - x: 1
-      y: 0
+    - x: -1
+      y: 1
+    - x: -1
+      y: 2
+    - x: -1
+      y: 3
+    - x: 0
+      y: 1
+    - x: 0
+      y: 3
     - x: 1
       y: 1
-    - x: 1
-      y: -1
-    - x: 2
-      y: 1
-    - x: 2
-      y: -1
-    - x: 3
-      y: 0
-    - x: 3
-      y: 1
-    - x: 3
-      y: -1
+    - x: -1
+      y: 2
+    - x: -1
+      y: 3
     number: 254
   - binaryNumber: 01010100
     attackPattern:
-    - x: -3
-      y: -1
-    - x: -3
-      y: 0
-    - x: -3
-      y: 1
-    - x: -2
-      y: -1
-    - x: -2
-      y: 1
     - x: -1
       y: -1
     - x: -1
-      y: 0
+      y: -2
     - x: -1
-      y: 1
+      y: -3
+    - x: 0
+      y: -1
+    - x: 0
+      y: -3
+    - x: 1
+      y: -1
+    - x: 1
+      y: -2
+    - x: 1
+      y: -3
     number: 84
   - binaryNumber: 01010110
     attackPattern:
-    - x: -3
-      y: -1
-    - x: -3
-      y: 0
-    - x: -3
-      y: 1
-    - x: -2
-      y: -1
-    - x: -2
-      y: 1
-    - x: -1
-      y: -1
-    - x: -1
-      y: 0
     - x: -1
       y: 1
+    - x: -1
+      y: 2
+    - x: -1
+      y: 3
+    - x: 0
+      y: 1
+    - x: 0
+      y: 3
+    - x: 1
+      y: 1
+    - x: 1
+      y: 2
+    - x: 1
+      y: 3
     number: 86
