@@ -13,12 +13,13 @@ namespace SoundTrack{
         public GameObject attackTilePrefab;
 
         public List<GridPos> monsterOn = new List<GridPos>();
-        List<BaseEnemies> aliveMonsters = new List<BaseEnemies>();
+        public List<BaseEnemies> aliveMonsters = new List<BaseEnemies>();
 
         List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject, bool)>();
         Dictionary<GridPos, (GameObject obj, int life)> warningTileList = new Dictionary<GridPos, (GameObject, int)>();
 
         List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
+        Dictionary<GridPos, (GameObject obj, int life)> attackTileList = new Dictionary<GridPos, (GameObject, int)>();
 
         void Start(){
             // Debug.Log("Level Manager Start");
@@ -45,8 +46,8 @@ namespace SoundTrack{
                 GameObject go = Instantiate(m.prefab);
                 var new_monster = go.GetComponentInChildren<BaseEnemies>();
                 new_monster.setGridPos(m.spawnGrid);
-                monsterOn.Add(m.spawnGrid);
                 new_monster.LM = this;
+                monsterOn.Add(m.spawnGrid);
                 aliveMonsters.Add(new_monster);
             }
         }
@@ -55,33 +56,117 @@ namespace SoundTrack{
         }
 
         public void UpdateWarningTile(){
-            List<GridPos> toRemove = new();
+            var keys = new List<GridPos>(warningTileList.Keys);
 
-            foreach (var kv in warningTileList)
+            foreach (var key in keys)
             {
-                kv.Value.obj.transform.position = kv.Key.ToVector3();
+                var data = warningTileList[key];
+                var obj  = data.obj;
 
-                if (kv.Value.life <= 1)
+                obj.transform.position = key.ToVector3();
+                data.life--;
+
+                if (data.life < 0)
                 {
-                    toRemove.Add(kv.Key);
+                    // DI key 都是在本回合受到攻擊的格子
+                    ReleaseWarningTile(obj);
+                    warningTileList.Remove(key);
                 }
                 else
                 {
-                    warningTileList[kv.Key] = (kv.Value.obj, kv.Value.life - 1);
+                    warningTileList[key] = (data.obj, data.life);
                 }
-            }
-            foreach (var key in toRemove)
-            {
-                // DI key 都是在本回合受到攻擊的格子
-                ReleaseWarningTile(warningTileList[key].obj);
-                warningTileList.Remove(key);
             }
         }
 
-        public void AddWarning(GridPos g,int life){
-            warningTileList[g] = (GetAvailableWarningTile(), life);
+        public void UpdateAttackTile(bool playerUseSkill){
+            var keys = new List<GridPos>(attackTileList.Keys);
+
+            Debug.Log("UpdateAttackTile S");
+            foreach (var key in keys)
+            {
+                var data = attackTileList[key];
+                var obj  = data.obj;
+                Debug.Log(key);
+                obj.transform.position = key.ToVector3();
+                data.life--;
+
+                if (data.life < 0)
+                {
+                    if(playerUseSkill){
+                        if(monsterOn.Contains(key)){
+                            for (int i = aliveMonsters.Count - 1; i >= 0; i--)
+                            {
+                                var m = aliveMonsters[i];
+                                if (m.curGrid == key)
+                                {
+                                    m.Die();
+                                }
+                            }
+                        }
+                    }
+                    ReleaseAttackTile(obj);
+                    attackTileList.Remove(key);
+                }
+                else
+                {
+                    attackTileList[key] = (data.obj, data.life);
+                }
+            }
+            Debug.Log("UpdateAttackTile E");
         }
-        
+
+        public void AddWarning(GridPos g,int life){
+            if(warningTileList.ContainsKey(g))
+                warningTileList[g] = (warningTileList[g].obj, life);
+            else
+                warningTileList[g] = (GetAvailableWarningTile(), life);
+        }
+
+        public void AddAttack(GridPos g,int life){
+            Debug.Log(attackTileList.Count);
+            Debug.Log(g);
+            if(attackTileList.ContainsKey(g))
+                attackTileList[g] = (attackTileList[g].obj, life);
+            else
+                attackTileList[g] = (GetAvailableAttackTile(), life);
+        }
+
+
+        public GameObject GetAvailableAttackTile()
+        {
+            for (int i = 0; i < attackTilePool.Count; i++)
+            {
+                if (!attackTilePool[i].inUse)
+                {
+                    var tile = attackTilePool[i];
+                    tile.inUse = true;
+                    tile.obj.SetActive(true);
+                    attackTilePool[i] = tile;
+                    return tile.obj;
+                }
+            }
+
+            var newTile = Instantiate(attackTilePrefab);
+            attackTilePool.Add((newTile, true));
+            return newTile;
+        }
+
+        public void ReleaseAttackTile(GameObject tile)
+        {
+            for (int i = 0; i < attackTilePool.Count; i++)
+            {
+                if (attackTilePool[i].obj == tile)
+                {
+                    var entry = attackTilePool[i];
+                    entry.inUse = false;
+                    entry.obj.SetActive(false);
+                    attackTilePool[i] = entry;
+                    break;
+                }
+            }
+        }
+
         public GameObject GetAvailableWarningTile()
         {
             for (int i = 0; i < warningTilePool.Count; i++)

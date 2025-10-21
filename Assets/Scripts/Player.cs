@@ -105,6 +105,17 @@ namespace SoundTrack{
                 }
                 // DI 更新資料
                 curGrid = nextGrid;
+
+                if(Track.Count == 4 && Skills.ContainsKey(Skill)){
+                    Debug.Log("Upate Skill after Move S");
+                    foreach(var g in Skills[Skill]){
+                        if(groundTilemap.HasTile((curGrid + g).ToVector3Int()))
+                        LM.AddAttack(curGrid + g, 1);
+                    }
+                    Debug.Log("Upate Skill after Move E");
+                }
+                LM.UpdateAttackTile(false);
+
                 transform.position = curGrid.ToVector3();
                 // DI 移動攝影機
                 cam.Follow(curGrid.ToVector3Int() + Vector3Int.right * 4);
@@ -137,7 +148,7 @@ namespace SoundTrack{
         }
         public void UseSkill(){
             if(Track.Count == 4 && Skills.ContainsKey(Skill)){
-                Debug.Log("Use Skill");
+                LM.UpdateAttackTile(true);
                 ClearTrack();
             }
         }

@@ -24977,6 +24977,7 @@ MonoBehaviour:
   stage: 0
   inLevel: 0
   warningTilePrefab: {fileID: 3759969106960877557, guid: 009995c408a0f1043a454b2b91cc5e4e, type: 3}
+  attackTilePrefab: {fileID: 3759969106960877557, guid: 7b15ddec3696350498e283d80b8f3bd0, type: 3}
   monsterOn: []
 --- !u!4 &1450025447
 Transform:

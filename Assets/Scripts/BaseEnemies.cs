@@ -46,6 +46,8 @@ namespace SoundTrack{
         }
 
         public void Die(){
+            LM.monsterOn.Remove(curGrid);
+            LM.aliveMonsters.Remove(this);
             Destroy(gameObject);
         }
 
