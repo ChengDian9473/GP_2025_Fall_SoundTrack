@@ -29,6 +29,8 @@ namespace SoundTrack{
         [SerializeField] public CameraMove cam;
         [SerializeField] public LevelManager LM;
 
+        public int HP;
+
         private void Awake()
         {
             Instance = this;
@@ -80,7 +82,7 @@ namespace SoundTrack{
             
             if(IsWalkable(nextGrid)){
                 // DI 紀錄軌跡
-                if(Mouse.current.rightButton.isPressed){
+                // if(Mouse.current.rightButton.isPressed){
                     Skill = ((Skill << 2) + op) & ((1 << 8)  - 1);
                     Debug.Log(Skill);
                     if(Track.Count < 4){
@@ -92,7 +94,7 @@ namespace SoundTrack{
                         // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                     }
                     Track[0].transform.position = curGrid.ToVector3();
-                }
+                // }
                 // DI 偵測是否開啟關卡
                 if(OnTrigger(curGrid)){
                     foreach (var r in LM.level.rooms){
@@ -118,6 +120,13 @@ namespace SoundTrack{
                 transform.position = curGrid.ToVector3();
                 // DI 移動攝影機
                 cam.Follow(curGrid.ToVector3Int() + Vector3Int.right * 4);
+            }
+        }
+
+        public void beHit(GridPos g){
+            if(g == curGrid){
+                HP++;
+                Info.Instance.UpateHP(HP);
             }
         }
         private bool OnTrigger(GridPos g)

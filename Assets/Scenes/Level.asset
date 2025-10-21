@@ -37,4 +37,59 @@ MonoBehaviour:
         y: -5
     clear: 0
     stage: 0
-  maxStage: 0
+  - trigger:
+    - x: 42
+      y: 0
+    - x: 42
+      y: -1
+    monsters:
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 44
+        y: 1
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 44
+        y: -2
+    clear: 0
+    stage: 1
+  - trigger:
+    - x: 64
+      y: 14
+    - x: 64
+      y: 13
+    - x: 64
+      y: 12
+    monsters:
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 65
+        y: 16
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 68
+        y: 13
+    clear: 0
+    stage: 2
+  - trigger:
+    - x: 63
+      y: -12
+    - x: 63
+      y: -13
+    monsters:
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 66
+        y: -15
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 68
+        y: -15
+    clear: 0
+    stage: 3
+  maxStage: 3
+  bossDoor:
+  - x: 62
+    y: -12
+  - x: 62
+    y: -13
