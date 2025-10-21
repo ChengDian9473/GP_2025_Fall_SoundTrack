@@ -14,7 +14,7 @@ namespace SoundTrack{
 
         public int curStage = 0;
         public bool inLevel = false;
-        
+
         public GameObject warningTilePrefab;
         public GameObject attackTilePrefab;
 
@@ -43,7 +43,7 @@ namespace SoundTrack{
         void Awake()
         {
             GameManager.OnBeat += OnBeatReceived;
-            
+
             if(groundTilemap == null)
                 groundTilemap = GameObject.FindWithTag("GroundTilemap")?.GetComponent<Tilemap>();
 
@@ -73,11 +73,13 @@ namespace SoundTrack{
             GameManager.OnBeat -= OnBeatReceived;
         }
 
-        public void startRoom(Room r){
+        public void startRoom(Room r)
+        {
             curRoom = r;
             inLevel = true;
             // Debug.Log("Room sStart");
-            foreach(var m in r.monsters){
+            foreach (var m in r.monsters)
+            {
                 // Debug.Log("Monster * 1");
                 GameObject go = Instantiate(m.prefab);
                 var new_monster = go.GetComponentInChildren<BaseEnemies>();
@@ -87,16 +89,21 @@ namespace SoundTrack{
                 aliveMonsters.Add(new_monster);
             }
         }
-        public void endRoom(){
+
+        public void endRoom()
+        {
             inLevel = false;
             curRoom.clear = true;
-            curStage = Math.Max(curStage,curRoom.stage + 1);
-            if(curStage == level.maxStage){
-                foreach(var g in level.bossDoor){
+            curStage = Math.Max(curStage, curRoom.stage + 1);
+            if (curStage == level.maxStage)
+            {
+                foreach (var g in level.bossDoor)
+                {
                     groundTilemap.SetTile(g.ToVector3Int(), doorOpened);
                 }
             }
         }
+
         public void OnBeatReceived(int beat){
             UpdateWarningTile();
         }
@@ -139,8 +146,8 @@ namespace SoundTrack{
 
                 if (data.life < 0)
                 {
-                    if(playerUseSkill){
-                        if(monsterOn.Contains(key)){
+                    if (playerUseSkill){
+                        if (monsterOn.Contains(key)){
                             for (int i = aliveMonsters.Count - 1; i >= 0; i--)
                             {
                                 var m = aliveMonsters[i];
@@ -162,17 +169,17 @@ namespace SoundTrack{
             Debug.Log("UpdateAttackTile E");
         }
 
-        public void AddWarning(GridPos g,int life){
-            if(warningTileList.ContainsKey(g))
+        public void AddWarning(GridPos g, int life){
+            if (warningTileList.ContainsKey(g))
                 warningTileList[g] = (warningTileList[g].obj, life);
             else
                 warningTileList[g] = (GetAvailableWarningTile(), life);
         }
 
-        public void AddAttack(GridPos g,int life){
+        public void AddAttack(GridPos g, int life){
             Debug.Log(attackTileList.Count);
             Debug.Log(g);
-            if(attackTileList.ContainsKey(g))
+            if (attackTileList.ContainsKey(g))
                 attackTileList[g] = (attackTileList[g].obj, life);
             else
                 attackTileList[g] = (GetAvailableAttackTile(), life);

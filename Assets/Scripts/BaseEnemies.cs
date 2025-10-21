@@ -24,7 +24,7 @@ namespace SoundTrack{
         // Warning settings
         public int warningBeats = 1;
         protected GameObject[] warningTiles;
-        private int warningCounter = 0;
+        // private int warningCounter = 0;
         private bool warningActive = false;
         protected float hitRadius = 0.4f;
         private int moveCounter = 0;
@@ -78,7 +78,7 @@ namespace SoundTrack{
                 {
                     ShowWarning(attackPattern);
                     warningActive = true;
-                    warningCounter = warningBeats;
+                    // warningCounter = warningBeats;
                     moveCounter = 0;
                     return;
                 }
@@ -96,14 +96,16 @@ namespace SoundTrack{
             }
             else
             {
-                warningCounter--;
-                if (warningCounter == 0)
-                {
-                    // ExecuteAttack();
-                    warningActive = false;
-                    warningCounter = 0;
-                    moveCounter = 0;
-                }
+                // warningCounter--;
+                // if (warningCounter == 0)
+                // {
+                //     // ExecuteAttack();
+                //     warningActive = false;
+                //     warningCounter = 0;
+                //     moveCounter = 0;
+                // }
+                warningActive = false;
+                moveCounter = 0;
                 return;
             }
         }
