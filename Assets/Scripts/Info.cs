@@ -77,6 +77,11 @@ namespace SoundTrack{
             // StartCoroutine(FadeIn());
         }
 
+        public void UpateHP(int HP){
+            var HPLabel = RootVisualElement.Q<Label>("HPLabel");
+            HPLabel.text = $"Times be Hit: {HP}";
+        }
+
         public void SetTargetScene(int scene)
         {
             previous_scene = current_scene;

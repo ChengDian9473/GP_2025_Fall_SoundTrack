@@ -60,10 +60,10 @@ namespace SoundTrack{
                 }
 
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)
-                if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
+                if(true || Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
                     // Debug.Log(exactBeat - Math.Round(exactBeat));
-                    if(exactBeat - Math.Round(exactBeat) <= 0.4f && exactBeat - Math.Round(exactBeat) >= -0.1f){
+                    if(true || exactBeat - Math.Round(exactBeat) <= 0.4f && exactBeat - Math.Round(exactBeat) >= -0.1f){
                         dspCanHit = dspNow + secPerBeat * 0.5f;
                         if(Keyboard.current.wKey.wasPressedThisFrame)
                             Player.Instance.move(0);
@@ -82,9 +82,9 @@ namespace SoundTrack{
                     // Debug.Log("Too Frequent.\n");
                 }
 
-                if (Mouse.current.rightButton.wasReleasedThisFrame){
-                    Player.Instance.ClearTrack();
-                }
+                // if (Mouse.current.rightButton.wasReleasedThisFrame){
+                //     Player.Instance.ClearTrack();
+                // }
             }
         }
 

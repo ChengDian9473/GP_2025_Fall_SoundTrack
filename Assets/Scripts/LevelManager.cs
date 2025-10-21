@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using System;
 using System.Collections.Generic;
 
@@ -113,7 +114,7 @@ namespace SoundTrack{
 
                 if (data.life < 0)
                 {
-                    // DI key 都是在本回合受到攻擊的格子
+                    Player.Instance.beHit(key);
                     ReleaseWarningTile(obj);
                     warningTileList.Remove(key);
                 }
