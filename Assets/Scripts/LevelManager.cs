@@ -111,11 +111,12 @@ namespace SoundTrack{
         public void UpdateWarningTile(){
             var keys = new List<GridPos>(warningTileList.Keys);
 
+            Debug.Log("UpdateAttackTile S");
             foreach (var key in keys)
             {
                 var data = warningTileList[key];
                 var obj  = data.obj;
-
+                Debug.Log(key);
                 obj.transform.position = key.ToVector3();
                 data.life--;
 
@@ -130,17 +131,18 @@ namespace SoundTrack{
                     warningTileList[key] = (data.obj, data.life);
                 }
             }
+            Debug.Log("UpdateAttackTile E");
         }
 
         public void UpdateAttackTile(bool playerUseSkill){
             var keys = new List<GridPos>(attackTileList.Keys);
 
-            Debug.Log("UpdateAttackTile S");
+            // Debug.Log("UpdateAttackTile S");
             foreach (var key in keys)
             {
                 var data = attackTileList[key];
                 var obj  = data.obj;
-                Debug.Log(key);
+                // Debug.Log(key);
                 obj.transform.position = key.ToVector3();
                 data.life--;
 
@@ -166,10 +168,12 @@ namespace SoundTrack{
                     attackTileList[key] = (data.obj, data.life);
                 }
             }
-            Debug.Log("UpdateAttackTile E");
+            // Debug.Log("UpdateAttackTile E");
         }
 
         public void AddWarning(GridPos g, int life){
+            Debug.Log(warningTileList.Count);
+            Debug.Log(g);
             if (warningTileList.ContainsKey(g))
                 warningTileList[g] = (warningTileList[g].obj, life);
             else
@@ -177,8 +181,8 @@ namespace SoundTrack{
         }
 
         public void AddAttack(GridPos g, int life){
-            Debug.Log(attackTileList.Count);
-            Debug.Log(g);
+            // Debug.Log(attackTileList.Count);
+            // Debug.Log(g);
             if (attackTileList.ContainsKey(g))
                 attackTileList[g] = (attackTileList[g].obj, life);
             else

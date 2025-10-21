@@ -108,12 +108,12 @@ namespace SoundTrack{
                 curGrid = nextGrid;
 
                 if(Track.Count == 4 && Skills.ContainsKey(Skill)){
-                    Debug.Log("Upate Skill after Move S");
+                    // Debug.Log("Upate Skill after Move S");
                     foreach(var g in Skills[Skill]){
                         if(groundTilemap.HasTile((curGrid + g).ToVector3Int()))
                         LM.AddAttack(curGrid + g, 1);
                     }
-                    Debug.Log("Upate Skill after Move E");
+                    // Debug.Log("Upate Skill after Move E");
                 }
                 LM.UpdateAttackTile(false);
 
