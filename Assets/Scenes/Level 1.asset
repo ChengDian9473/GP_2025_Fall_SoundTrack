@@ -63,9 +63,47 @@ MonoBehaviour:
       spawnGrid:
         x: 23
         y: 7
+    - prefab: {fileID: 899671686532785624, guid: c658ae202cad14ca4bb5b76d553dd4cb, type: 3}
+      spawnGrid:
+        x: 23
+        y: 7
     clear: 0
     stage: 1
-  maxStage: 1
+  - trigger:
+    - x: 16
+      y: -2
+    monsters:
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 19
+        y: -2
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 19
+        y: -4
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 19
+        y: -2
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 19
+        y: -8
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 24
+        y: -9
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 26
+        y: -9
+    - prefab: {fileID: 899671686532785624, guid: 5d86c0e61f3eefd4ab5fcd4e64e73437, type: 3}
+      spawnGrid:
+        x: 22
+        y: -9
+    clear: 0
+    stage: 2
+  maxStage: 2
   bossDoor:
   - x: 16
-    y: -2
+    y: -1
