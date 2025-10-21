@@ -172,12 +172,13 @@ namespace SoundTrack{
         }
 
         public void AddWarning(GridPos g, int life){
-            Debug.Log(warningTileList.Count);
-            Debug.Log(g);
+            // Debug.Log(warningTileList.Count);
+            // Debug.Log(g);
             if (warningTileList.ContainsKey(g))
                 warningTileList[g] = (warningTileList[g].obj, life);
             else
                 warningTileList[g] = (GetAvailableWarningTile(), life);
+            warningTileList[g].obj.transform.position = g.ToVector3();
         }
 
         public void AddAttack(GridPos g, int life){
