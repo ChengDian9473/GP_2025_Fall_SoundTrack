@@ -67,51 +67,51 @@ namespace SoundTrack{
         protected virtual void OnBeatReceived(int beat)
         {
             // Debug.Log($"{enemyName} received beat {beatCounter}");
-            
+
             playerGird = Player.Instance.curGrid;
 
             bool playerInRange = InAttackRange();
 
-            if(!warningActive){}
-
-            if (!playerInRange)
+            if (!warningActive)
             {
-                warningActive = false;
-                warningCounter = 0;
-                if (moveCounter != 0)
-                    moveCounter--;
-                else {
-                    MoveTowardsPlayer();
-                    moveCounter = moveEveryNBeats - 1;
-                }
-                return;
-            }
-            else
-            {
-                if (!warningActive)
+                if (playerInRange)
                 {
                     ShowWarning(attackPattern);
                     warningActive = true;
                     warningCounter = warningBeats;
+                    moveCounter = 0;
                     return;
                 }
-                else if (warningActive)
+                else if (!playerInRange)
                 {
-                    warningCounter--;
-                    if (warningCounter <= 0)
+                    if (moveCounter != 0)
+                        moveCounter--;
+                    else
                     {
-                        // ExecuteAttack();
-                        warningActive = false;
-                        warningCounter = 0;
+                        MoveTowardsPlayer();
+                        moveCounter = moveEveryNBeats - 1;
                     }
+                    return;
                 }
+            }
+            else
+            {
+                warningCounter--;
+                if (warningCounter == 0)
+                {
+                    // ExecuteAttack();
+                    warningActive = false;
+                    warningCounter = 0;
+                    moveCounter = 0;
+                }
+                return;
             }
         }
 
         // Move enemy towards player
         protected virtual void MoveTowardsPlayer()
         {
-            
+
             GridPos diff = playerGird - curGrid;
             GridPos dir = GridPos.zero;
 
@@ -126,7 +126,8 @@ namespace SoundTrack{
 
             nextGrid = curGrid + dir * moveDistance;
 
-            if(IsWalkable(nextGrid)){
+            if (IsWalkable(nextGrid))
+            {
                 LM.monsterOn.Remove(curGrid);
                 LM.monsterOn.Add(nextGrid);
 
@@ -137,10 +138,10 @@ namespace SoundTrack{
                 curGrid = nextGrid;
                 transform.position = curGrid.ToVector3();
             }
-                
+
         }
 
-
+        // Check if the grid position is walkable
         private bool IsWalkable(GridPos g)
         {
             Vector3Int c = g.ToVector3Int();
@@ -192,14 +193,13 @@ namespace SoundTrack{
         // Show attack warning on the tilemap
         protected virtual void ShowWarning(List<GridPos> attackPattern)
         {
-
             for (int i = 0; i < attackPattern.Count; i++)
             {
                 GridPos offset = attackPattern[i];
                 GridPos rotatedOffset = RotateOffset(offset, facingDir);
                 GridPos attackGrid = curGrid + rotatedOffset;
-                if(groundTilemap.HasTile(attackGrid.ToVector3Int()))
-                    LM.AddWarning(attackGrid, 1);
+                if (groundTilemap.HasTile(attackGrid.ToVector3Int()))
+                    LM.AddWarning(attackGrid, warningBeats);
             }
             Debug.Log($"{enemyName} shows warning for next attack.");
         }
