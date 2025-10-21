@@ -96,8 +96,7 @@ namespace SoundTrack{
                 // DI 偵測是否開啟關卡
                 if(OnTrigger(curGrid)){
                     foreach (var r in LM.level.rooms){
-                        if(r.trigger.Contains(nextGrid)){
-                            LM.inLevel = true;
+                        if(LM.curStage >= r.stage && !r.clear && r.trigger.Contains(nextGrid)){
                             LM.startRoom(r);
                             break;
                         }

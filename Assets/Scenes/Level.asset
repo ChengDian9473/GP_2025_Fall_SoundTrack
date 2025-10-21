@@ -36,3 +36,5 @@ MonoBehaviour:
         x: 14
         y: -5
     clear: 0
+    stage: 0
+  maxStage: 0

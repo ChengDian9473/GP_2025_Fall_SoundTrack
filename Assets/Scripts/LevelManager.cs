@@ -1,12 +1,17 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using System;
 using System.Collections.Generic;
 
 namespace SoundTrack{
     public class LevelManager : MonoBehaviour
     {
-        public LevelData level;
+        public LevelData levelProfile;
+        [HideInInspector] public LevelData level;
 
-        public int stage;
+        private Room curRoom;
+
+        public int curStage = 0;
         public bool inLevel = false;
         
         public GameObject warningTilePrefab;
@@ -21,6 +26,11 @@ namespace SoundTrack{
         List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
         Dictionary<GridPos, (GameObject obj, int life)> attackTileList = new Dictionary<GridPos, (GameObject, int)>();
 
+        [Header("References")]
+        public Tilemap groundTilemap;
+        public TileBase doorClosed;
+        public TileBase doorOpened;
+
         void Start(){
             // Debug.Log("Level Manager Start");
         }
@@ -32,6 +42,29 @@ namespace SoundTrack{
         void Awake()
         {
             GameManager.OnBeat += OnBeatReceived;
+            
+            if(groundTilemap == null)
+                groundTilemap = GameObject.FindWithTag("GroundTilemap")?.GetComponent<Tilemap>();
+
+            level = Instantiate(levelProfile);
+            level.rooms = new List<Room>();
+            foreach (var r in levelProfile.rooms)
+            {
+                var copy = new Room
+                {
+                    trigger = new List<GridPos>(r.trigger),
+                    monsters = new List<MonsterSpawnInfo>(r.monsters),
+                    clear = false,
+                    stage = r.stage
+                };
+                level.rooms.Add(copy);
+            }
+            level.maxStage = levelProfile.maxStage;
+            level.bossDoor = new List<GridPos>();
+            foreach (var g in levelProfile.bossDoor){
+                groundTilemap.SetTile(g.ToVector3Int(), doorClosed);
+                level.bossDoor.Add(g);
+            }
         }
 
         void OnDestroy()
@@ -40,6 +73,8 @@ namespace SoundTrack{
         }
 
         public void startRoom(Room r){
+            curRoom = r;
+            inLevel = true;
             // Debug.Log("Room sStart");
             foreach(var m in r.monsters){
                 // Debug.Log("Monster * 1");
@@ -49,6 +84,16 @@ namespace SoundTrack{
                 new_monster.LM = this;
                 monsterOn.Add(m.spawnGrid);
                 aliveMonsters.Add(new_monster);
+            }
+        }
+        public void endRoom(){
+            inLevel = false;
+            curRoom.clear = true;
+            curStage = Math.Max(curStage,curRoom.stage + 1);
+            if(curStage == level.maxStage){
+                foreach(var g in level.bossDoor){
+                    groundTilemap.SetTile(g.ToVector3Int(), doorOpened);
+                }
             }
         }
         public void OnBeatReceived(int beat){

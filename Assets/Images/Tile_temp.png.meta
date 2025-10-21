@@ -668,6 +668,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tile_temp_25
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c47f1a3ae98f19f418c46530663b4016
+      internalID: -695505159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_26
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaf8eab1ac721d0498007cefeb998f23
+      internalID: 426293407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -702,6 +746,8 @@ TextureImporter:
       Tile_temp_22: 1599609727
       Tile_temp_23: -361080325
       Tile_temp_24: -1503345300
+      Tile_temp_25: -695505159
+      Tile_temp_26: 426293407
       Tile_temp_3: -237924136
       Tile_temp_4: -1552048761
       Tile_temp_5: -1131382047

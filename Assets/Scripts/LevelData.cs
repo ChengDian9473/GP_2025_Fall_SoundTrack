@@ -6,6 +6,8 @@ namespace SoundTrack{
     public class LevelData : ScriptableObject
     {
         public List<Room> rooms = new();
+        public int maxStage;
+        public List<GridPos> bossDoor = new();
     }
 
     [System.Serializable]
@@ -18,6 +20,7 @@ namespace SoundTrack{
         public List<MonsterSpawnInfo> monsters = new();
 
         public bool clear = false;
+        public int stage = 0;
     }
 
     [System.Serializable]
