@@ -15,7 +15,7 @@ namespace SoundTrack{
         public AudioSource music;
         [Min(1f)] public float bpm = 91f;
         [Tooltip("Time to First Beat")]
-        public double firstBeatOffset = 0.0;
+        public double firstBeatOffset = 0.1;
 
         // [Header("Beat Event")]
         public static event Action<int> OnBeat;
@@ -60,10 +60,10 @@ namespace SoundTrack{
                 }
 
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)
-                if(true || Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
+                if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
                     // Debug.Log(exactBeat - Math.Round(exactBeat));
-                    if(true || exactBeat - Math.Round(exactBeat) <= 0.4f && exactBeat - Math.Round(exactBeat) >= -0.1f){
+                    if(exactBeat - Math.Round(exactBeat) <= 0.3f && exactBeat - Math.Round(exactBeat) >= -0.1f){
                         dspCanHit = dspNow + secPerBeat * 0.5f;
                         if(Keyboard.current.wKey.wasPressedThisFrame)
                             Player.Instance.move(0);
