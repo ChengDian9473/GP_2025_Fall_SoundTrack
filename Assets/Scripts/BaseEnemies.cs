@@ -13,9 +13,13 @@ namespace SoundTrack{
         public int moveDistance;
         public int moveEveryNBeats;
         public int attackEveryNBeats;
-        public List<GridPos> attackPattern;   // Attack pattern offsets
+
+        [Header("")]
         public GameObject warningPrefab;   // Prefab for attack warning visualization
         public LayerMask playerLayer;   // Layer mask to identify the player
+        
+        [Header("Attack Pattern")]
+        public GridList attackPattern;   // Attack pattern offsets
 
         protected int beatCounter = 0;   // Counts the number of beats received
         protected GridPos playerGird;   // Reference to the player transform
@@ -167,7 +171,7 @@ namespace SoundTrack{
 
             foreach (var dir in directions)
             {
-                foreach (var offset in attackPattern)
+                foreach (var offset in attackPattern.items)
                 {
                     GridPos rotatedOffset = RotateOffset(offset, dir);
                     GridPos attackGrid = curGrid + rotatedOffset;
@@ -193,11 +197,11 @@ namespace SoundTrack{
         }
 
         // Show attack warning on the tilemap
-        protected virtual void ShowWarning(List<GridPos> attackPattern)
+        protected virtual void ShowWarning(GridList attackPattern)
         {
-            for (int i = 0; i < attackPattern.Count; i++)
+            for (int i = 0; i < attackPattern.items.Count; i++)
             {
-                GridPos offset = attackPattern[i];
+                GridPos offset = attackPattern.items[i];
                 GridPos rotatedOffset = RotateOffset(offset, facingDir);
                 GridPos attackGrid = curGrid + rotatedOffset;
                 if (groundTilemap.HasTile(attackGrid.ToVector3Int()))

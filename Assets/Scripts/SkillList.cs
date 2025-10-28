@@ -10,9 +10,9 @@ namespace SoundTrack
         [Header("All Skills")]
         public List<SkillData> skills = new();
 
-        public Dictionary<int, List<GridPos>> ToDict()
+        public Dictionary<int, GridList> ToDict()
         {
-            Dictionary<int, List<GridPos>> dict = new();
+            Dictionary<int, GridList> dict = new();
 
             foreach (var skill in skills)
             {
@@ -36,7 +36,7 @@ namespace SoundTrack
         [Header("Skill Info")]
         [SerializeField] private string binaryNumber = "0";
 
-        public List<GridPos> attackPattern = new();
+        public GridList attackPattern = new();
 
         [HideInInspector] public int number;
 

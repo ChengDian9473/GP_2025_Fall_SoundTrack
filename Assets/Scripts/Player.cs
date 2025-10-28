@@ -22,7 +22,7 @@ namespace SoundTrack{
         private List<GameObject> Track;
 
         public SkillList SL;
-        public Dictionary<int, List<GridPos>> Skills;
+        public Dictionary<int, GridList> Skills;
 
         private int Skill;
 
@@ -110,7 +110,7 @@ namespace SoundTrack{
 
                 if(Track.Count == 4 && Skills.ContainsKey(Skill)){
                     // Debug.Log("Upate Skill after Move S");
-                    foreach(var g in Skills[Skill]){
+                    foreach(var g in Skills[Skill].items){
                         if(groundTilemap.HasTile((curGrid + g).ToVector3Int()))
                         LM.AddAttack(curGrid + g, 1);
                     }

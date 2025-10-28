@@ -14,12 +14,12 @@ namespace SoundTrack
             moveEveryNBeats = 2;
             attackEveryNBeats = 2;
             warningBeats = 1;
-
-            attackPattern = new List<GridPos>
-            {
-                new GridPos(1, 0),
-                new GridPos(2, 0)
-            };
+    
+            if(attackPattern == null)
+                attackPattern = new GridList
+                {
+                    items = GridOps.Of((1, 0), (2, 0))
+                };
 
             base.Awake();
         }
