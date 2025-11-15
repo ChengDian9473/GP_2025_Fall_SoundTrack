@@ -87,10 +87,10 @@ namespace SoundTrack{
                 // DI 紀錄軌跡
                 // if(Mouse.current.rightButton.isPressed){
                     Skill = ((Skill << 2) + op) & ((1 << 8)  - 1);
+                    Color[] colors = { Color.red, Color.green, Color.blue};
                     // Debug.Log(Skill);
                     if(Track.Count < 4){
                         var obj = Instantiate(TrackPrefab);
-                        Color[] colors = { Color.red, Color.green, Color.blue};
                         obj.GetComponent<SpriteRenderer>().color = colors[element];
                         Track.Add(obj);
                     }
@@ -101,6 +101,7 @@ namespace SoundTrack{
                         // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                     }
                     Track[0].transform.position = curGrid.ToVector3();
+                    Track[0].GetComponent<SpriteRenderer>().color = colors[element];
                     Info.Instance.UpdateSeq(Skill, Track.Count);
                 // }
                 // DI 偵測是否開啟關卡
