@@ -6,9 +6,7 @@ using System;
 
 namespace SoundTrack{
     public class Player : MonoBehaviour
-    {   
-        public static Player Instance { get; private set; }
-
+    {
         public GridPos curGrid;
         public GridPos nextGrid;
 
@@ -18,6 +16,8 @@ namespace SoundTrack{
         public TileBase[] barrierTiles;
 
         public GameObject TrackPrefab;
+
+        public int element;
         
         private List<GameObject> Track;
 
@@ -33,10 +33,7 @@ namespace SoundTrack{
 
         private void Awake()
         {
-            Instance = this;
-        }
 
-        void Start(){
             Track = new List<GameObject>();
 
             curGrid = new GridPos(0,0);
@@ -47,15 +44,21 @@ namespace SoundTrack{
             if (cam == null){
                 cam = Camera.main.GetComponent<CameraMove>();      
             }
-            if (LM == null){
-                LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
-            }
+            
+            element = 0;
+            Debug.Log($"Reset Elemet");
 
             Skills = SL.ToDict();
+        }
+
+        void Start(){
+
         }
         
         public void move(int op){
             GridPos dir;
+            element = (element + 1) % 3;
+            Debug.Log($"A {element}");
             switch(op){
                 case 0:{
                     dir = GridPos.up;
@@ -84,13 +87,17 @@ namespace SoundTrack{
                 // DI 紀錄軌跡
                 // if(Mouse.current.rightButton.isPressed){
                     Skill = ((Skill << 2) + op) & ((1 << 8)  - 1);
-                    Debug.Log(Skill);
+                    // Debug.Log(Skill);
                     if(Track.Count < 4){
-                        Track.Add(Instantiate(TrackPrefab));
+                        var obj = Instantiate(TrackPrefab);
+                        Color[] colors = { Color.red, Color.green, Color.blue};
+                        obj.GetComponent<SpriteRenderer>().color = colors[element];
+                        Track.Add(obj);
                     }
                     for(int i = Track.Count - 1; i > 0 ; i--){
                         Track[i].transform.position = Track[i-1].transform.position;
                         Track[i].transform.localScale = Track[i-1].transform.localScale * 0.8f;
+                        Track[i].GetComponent<SpriteRenderer>().color = Track[i-1].GetComponent<SpriteRenderer>().color;
                         // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                     }
                     Track[0].transform.position = curGrid.ToVector3();

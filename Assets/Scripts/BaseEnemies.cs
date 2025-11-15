@@ -22,7 +22,7 @@ namespace SoundTrack{
         public GridList attackPattern;   // Attack pattern offsets
 
         protected int beatCounter = 0;   // Counts the number of beats received
-        protected GridPos playerGird;   // Reference to the player transform
+        protected GridPos playerGrid;   // Reference to the player transform
         protected GridPos facingDir = GridPos.up;   // Default facing direction
 
         // Warning settings
@@ -45,8 +45,6 @@ namespace SoundTrack{
         protected virtual void Awake()
         {
             GameManager.OnBeat += OnBeatReceived;
-            // setGridPos(new GridPos(0,0));
-            groundTilemap = GameObject.FindWithTag("GroundTilemap")?.GetComponent<Tilemap>();
         }
 
         public void Die(){
@@ -72,7 +70,7 @@ namespace SoundTrack{
         {
             // Debug.Log($"{enemyName} received beat {beatCounter}");
 
-            playerGird = Player.Instance.curGrid;
+            playerGrid = LM.player.curGrid;
 
             bool playerInRange = InAttackRange();
 
@@ -118,7 +116,7 @@ namespace SoundTrack{
         protected virtual void MoveTowardsPlayer()
         {
 
-            GridPos diff = playerGird - curGrid;
+            GridPos diff = playerGrid - curGrid;
             GridPos dir = GridPos.zero;
 
             if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
@@ -152,6 +150,7 @@ namespace SoundTrack{
         {
             Vector3Int c = g.ToVector3Int();
             if (LM.monsterOn.Contains(g)) return false;
+            if (g == playerGrid) return false;
             if (!groundTilemap.HasTile(c)) return false;
             if (groundTilemap.GetTile(c) == allowedTiles) return true;
             return false;
@@ -176,7 +175,7 @@ namespace SoundTrack{
                     GridPos rotatedOffset = RotateOffset(offset, dir);
                     GridPos attackGrid = curGrid + rotatedOffset;
 
-                    if (attackGrid == playerGird)
+                    if (attackGrid == playerGrid)
                     {
                         facingDir = dir;
                         return true;
@@ -209,26 +208,5 @@ namespace SoundTrack{
             }
             Debug.Log($"{enemyName} shows warning for next attack.");
         }
-
-    //     public int i = 0;
-    //     // Execute attack on player
-    //     protected virtual void ExecuteAttack()
-    //     {
-    //         Debug.Log($"{enemyName} ExecuteAttack() triggered {i++} times!");
-    //         foreach (var offset in attackPattern)
-    //         {
-    //             Vector3Int rotatedOffset = RotateOffset(offset, facingDir);
-    //             Vector3Int attackCell = currentCell + rotatedOffset;
-    //             Vector3 pos = groundTilemap.GetCellCenterWorld(attackCell);
-
-    //             // Collider2D hit = Physics2D.OverlapCircle(pos, hitRadius, playerLayer);
-    //             // if (hit && hit.CompareTag("Player"))
-    //             // {
-    //             //     Debug.Log($"{enemyName} attacked the Player at {attackCell}");
-    //             //     return;
-    //             // }
-    //             // Debug.Log($"{enemyName} attacked at {attackCell} but missed.");
-    //         }
-    //     }
     }
 }

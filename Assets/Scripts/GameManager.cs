@@ -27,6 +27,8 @@ namespace SoundTrack{
         [NonSerialized] public int    lastBeat;
         [NonSerialized] public double dspCanHit;
 
+        public LevelManager LM;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -66,15 +68,15 @@ namespace SoundTrack{
                     if(exactBeat - Math.Round(exactBeat) <= 0.3f && exactBeat - Math.Round(exactBeat) >= -0.2f){
                         dspCanHit = dspNow + secPerBeat * 0.5f;
                         if(Keyboard.current.wKey.wasPressedThisFrame)
-                            Player.Instance.move(0);
+                            LM.player.move(0);
                         if(Keyboard.current.dKey.wasPressedThisFrame)
-                            Player.Instance.move(1);
+                            LM.player.move(1);
                         if(Keyboard.current.sKey.wasPressedThisFrame)
-                            Player.Instance.move(2);
+                            LM.player.move(2);
                         if(Keyboard.current.aKey.wasPressedThisFrame)
-                            Player.Instance.move(3);
+                            LM.player.move(3);
                         if(Keyboard.current.eKey.wasPressedThisFrame){
-                            Player.Instance.UseSkill(); 
+                            LM.player.UseSkill(); 
                         }
                     }
                 }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
@@ -83,7 +85,7 @@ namespace SoundTrack{
                 }
 
                 // if (Mouse.current.rightButton.wasReleasedThisFrame){
-                //     Player.Instance.ClearTrack();
+                //     LM.player.ClearTrack();
                 // }
             }
         }
@@ -95,6 +97,9 @@ namespace SoundTrack{
             songStartDsp = AudioSettings.dspTime + 0.5;
             music.time = 0f;
             music.PlayScheduled(songStartDsp);
+
+            LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
+
             playing = true;
         }
 

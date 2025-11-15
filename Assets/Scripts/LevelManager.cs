@@ -7,8 +7,14 @@ using System.Collections.Generic;
 namespace SoundTrack{
     public class LevelManager : MonoBehaviour
     {
+
+        [SerializeField] private GameObject playerPrefab;
+        
+        [NonSerialized] public Player player;
         public LevelData levelProfile;
         [HideInInspector] public LevelData level;
+        
+        
 
         private Room curRoom;
 
@@ -44,8 +50,15 @@ namespace SoundTrack{
         {
             GameManager.OnBeat += OnBeatReceived;
 
+            GameObject obj = Instantiate(playerPrefab);
+
             if(groundTilemap == null)
                 groundTilemap = GameObject.FindWithTag("GroundTilemap")?.GetComponent<Tilemap>();
+
+            player = obj.GetComponent<Player>();
+            player.LM = this;
+            player.groundTilemap = groundTilemap;
+
 
             level = Instantiate(levelProfile);
             level.rooms = new List<Room>();
@@ -85,6 +98,7 @@ namespace SoundTrack{
                 var new_monster = go.GetComponentInChildren<BaseEnemies>();
                 new_monster.setGridPos(m.spawnGrid);
                 new_monster.LM = this;
+                new_monster.groundTilemap = groundTilemap;
                 monsterOn.Add(m.spawnGrid);
                 aliveMonsters.Add(new_monster);
             }
@@ -113,7 +127,7 @@ namespace SoundTrack{
         public void UpdateWarningTile(){
             var keys = new List<GridPos>(warningTileList.Keys);
 
-            Debug.Log("UpdateAttackTile S");
+            // Debug.Log("UpdateAttackTile S");
             foreach (var key in keys)
             {
                 var data = warningTileList[key];
@@ -124,7 +138,7 @@ namespace SoundTrack{
 
                 if (data.life < 0)
                 {
-                    Player.Instance.beHit(key);
+                    player.beHit(key);
                     ReleaseWarningTile(obj);
                     warningTileList.Remove(key);
                 }
@@ -133,7 +147,7 @@ namespace SoundTrack{
                     warningTileList[key] = (data.obj, data.life);
                 }
             }
-            Debug.Log("UpdateAttackTile E");
+            // Debug.Log("UpdateAttackTile E");
         }
 
         public void UpdateAttackTile(bool playerUseSkill){

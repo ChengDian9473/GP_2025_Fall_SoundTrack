@@ -92,8 +92,8 @@ namespace SoundTrack{
             string arrow = "WDSA";
             for(int i=0;i<count;i++){
                 int offset = (count - i) * 2 - 2;
-                Debug.Log($"skill {((3 << offset) & skill) >> (offset)} offset {offset}");
-                Debug.Log($"skill {((3 << offset) & skill) >> (offset)} offset {offset}");
+                // Debug.Log($"skill {((3 << offset) & skill) >> (offset)} offset {offset}");
+                // Debug.Log($"skill {((3 << offset) & skill) >> (offset)} offset {offset}");
                 SeqLabel.text += arrow[((3 << offset) & skill) >> (offset)];
             }
         }

@@ -6,7 +6,8 @@ public class MainMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("Level");
+        // SceneManager.LoadSceneAsync("Level");
+        Debug.Log("Useful");
     }
 
     public void EndGame()
