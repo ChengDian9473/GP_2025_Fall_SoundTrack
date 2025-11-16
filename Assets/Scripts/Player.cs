@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-
+// TODO UI hierachy / Element Skill / New Skill Attack / Level Map (List)
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {
@@ -29,6 +29,8 @@ namespace SoundTrack{
 
         [SerializeField] public CameraMove cam;
         [SerializeField] public LevelManager LM;
+
+        Color[] colors = {Color.gray, Color.red, Color.green, Color.blue};
 
         public int HP;
 
@@ -91,6 +93,7 @@ namespace SoundTrack{
             if(skillTrigger != -1){
                 if(skillTrigger != element){
                     element = skillTrigger;
+                    this.GetComponent<SpriteRenderer>().color = colors[element];
                     ClearTrack();
                 }
                 tracking = true;
@@ -99,7 +102,6 @@ namespace SoundTrack{
             if(IsWalkable(nextGrid)){
                 // DI 紀錄軌跡
                 if(tracking){
-                    Color[] colors = {Color.gray, Color.red, Color.green, Color.blue};
                     // Debug.Log(Skill);
                     if(Track.Count < Player.MAX_TRACK){
                         Debug.Log($"Tracking");
@@ -225,7 +227,7 @@ namespace SoundTrack{
                     if(mirror == 1 && (x % 2) == 1){
                         x = (x + 2) % 4;
                     }
-                    skillNumber += ((Skill[i] + offset) % 4);
+                    skillNumber += x;
                     skillNumber <<= 2;
                 }
                 skillNumber = ((skillNumber >> 2) & ((1 << (Player.MAX_TRACK * 2 + 1)) - 1));
