@@ -71,10 +71,10 @@ namespace SoundTrack
                         by = EditorGUILayout.IntField("Ymax", by);
                     }
 
-                    int sx = Mathf.Min(ax, ay);  // startX
-                    int ex = Mathf.Max(ax, ay);  // endX
-                    int sy = Mathf.Min(bx, by);  // startY
-                    int ey = Mathf.Max(bx, by);  // endY
+                    int sx = Mathf.Min(ax, bx);  // startX
+                    int ex = Mathf.Max(ax, bx);  // endX
+                    int sy = Mathf.Min(ay, by);  // startY
+                    int ey = Mathf.Max(ay, by);  // endY
 
                     
                     using (new EditorGUILayout.HorizontalScope())

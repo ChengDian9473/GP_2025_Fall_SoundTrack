@@ -65,14 +65,14 @@ namespace SoundTrack
             return number;
         }
 
-        public void PerformSkill(GridList targets, GridPos offset)
+        public void PerformSkill(GridList targets,int facing, GridPos offset)
         {
             if (vfx == null || vfx.attackVFX == null)
                 return;
             
             foreach(GridPos target in targets.items)
             {
-                GridPos t = target + offset;
+                GridPos t = target.Rotate(facing) + offset;
                 Vector3 WorldPos = t.ToVector3();
                 GameObject.Instantiate(vfx.attackVFX, WorldPos, Quaternion.identity);
             }

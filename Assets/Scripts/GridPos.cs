@@ -26,6 +26,21 @@ namespace SoundTrack{
             return new Vector3Int(x * cellSize, y * cellSize, 0);
         }
 
+        public GridPos Rotate(int dir){
+            switch(dir){
+                case 0:
+                    return this;
+                case 1:
+                    return new GridPos(y,-x);
+                case 2:
+                    return new GridPos(-x,-y);
+                case 3:
+                    return new GridPos(-y,x);
+                default:
+                    return this;
+            }
+        }
+
 
         public static readonly GridPos up    = new GridPos(0, 1);
         public static readonly GridPos down  = new GridPos(0, -1);

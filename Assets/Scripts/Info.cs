@@ -85,16 +85,13 @@ namespace SoundTrack{
             var WinLabel = RootVisualElement.Q<Label>("WinLabel");
             WinLabel.text = $"You Win";
         }
-        public void UpdateSeq(int skill, int count){
+        public void UpdateSeq(List<int> Skill){
             var SeqLabel = RootVisualElement.Q<Label>("SeqLabel");
             SeqLabel.text = "Seq: ";
 
             string arrow = "WDSA";
-            for(int i=0;i<count;i++){
-                int offset = (count - i) * 2 - 2;
-                // Debug.Log($"skill {((3 << offset) & skill) >> (offset)} offset {offset}");
-                // Debug.Log($"skill {((3 << offset) & skill) >> (offset)} offset {offset}");
-                SeqLabel.text += arrow[((3 << offset) & skill) >> (offset)];
+            for(int i=Skill.Count - 1;i>=0;i--){
+                SeqLabel.text += arrow[Skill[i]];
             }
         }
 
