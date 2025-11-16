@@ -166,7 +166,7 @@ namespace SoundTrack{
         public void UseSkill(){
             if(Track.Count == 4 && Skills.ContainsKey(Skill)){
                 LM.UpdateAttackTile(true);
-                Skills[Skill].Item2.PerformSkill(Skills[Skill].Item1, Player.Instance.curGrid);
+                Skills[Skill].Item2.PerformSkill(Skills[Skill].Item1, curGrid);
                 //Debug.Log("Use skill");
                 ClearTrack();
             }
