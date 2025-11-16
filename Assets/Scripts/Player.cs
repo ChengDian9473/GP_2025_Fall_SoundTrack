@@ -138,13 +138,17 @@ namespace SoundTrack{
                     int skillNumber = 0;
                     int facing = Skill[3];
                     int offset = 4 - facing;
+                    int mirror = 0;
                     for(int i = Player.MAX_TRACK - 1;i>=0;i--){
                         int x = (Skill[i] + offset) % 4;
-                        if(x == 3 && !mirror){
-                            mirror = true;
+                        if(mirror == 0){
+                            if(x == 3)
+                                mirror = 1;
+                            if(x == 1)
+                                mirror = -1;
                         }
-                        if(mirror){
-
+                        if(mirror == 1 && (x % 2) == 1){
+                            x = (x + 2) % 4;
                         }
                         skillNumber += x;
                         skillNumber <<= 2;
@@ -153,8 +157,8 @@ namespace SoundTrack{
                     // Debug.Log("Upate Skill after Move S");
                     if(Skills.ContainsKey(skillNumber)){
                         foreach(var g in Skills[skillNumber].Item1.items){
-                            if(groundTilemap.HasTile((curGrid + g.Rotate(facing)).ToVector3Int()))
-                                LM.AddAttack(curGrid + g.Rotate(facing), 1);
+                            if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int()))
+                                LM.AddAttack(curGrid + g.RM(facing,mirror), 1);
                         }
                     }
                     // Debug.Log("Upate Skill after Move E");
@@ -209,14 +213,25 @@ namespace SoundTrack{
                 int skillNumber = 0;
                 int facing = Skill[3];
                 int offset = 4 - facing;
+                int mirror = 0;
                 for(int i=Player.MAX_TRACK - 1;i>=0;i--){
+                    int x = (Skill[i] + offset) % 4;
+                    if(mirror == 0){
+                        if(x == 3)
+                            mirror = 1;
+                        if(x == 1)
+                            mirror = -1;
+                    }
+                    if(mirror == 1 && (x % 2) == 1){
+                        x = (x + 2) % 4;
+                    }
                     skillNumber += ((Skill[i] + offset) % 4);
                     skillNumber <<= 2;
                 }
                 skillNumber = ((skillNumber >> 2) & ((1 << (Player.MAX_TRACK * 2 + 1)) - 1));
                 if(Skills.ContainsKey(skillNumber)){
                     LM.UpdateAttackTile(true);
-                    Skills[skillNumber].Item2.PerformSkill(Skills[skillNumber].Item1, facing, curGrid);
+                    Skills[skillNumber].Item2.PerformSkill(Skills[skillNumber].Item1, facing, mirror, curGrid);
                     //Debug.Log("Use skill");
                     ClearTrack();
                 }
