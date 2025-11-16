@@ -22,7 +22,7 @@ namespace SoundTrack{
         private List<GameObject> Track;
 
         public SkillList SL;
-        public Dictionary<int, GridList> Skills;
+        public Dictionary<int, (GridList, SkillData)> Skills;
 
         private int Skill;
 
@@ -118,7 +118,7 @@ namespace SoundTrack{
 
                 if(Track.Count == 4 && Skills.ContainsKey(Skill)){
                     // Debug.Log("Upate Skill after Move S");
-                    foreach(var g in Skills[Skill].items){
+                    foreach(var g in Skills[Skill].Item1.items){
                         if(groundTilemap.HasTile((curGrid + g).ToVector3Int()))
                         LM.AddAttack(curGrid + g, 1);
                     }
@@ -166,6 +166,8 @@ namespace SoundTrack{
         public void UseSkill(){
             if(Track.Count == 4 && Skills.ContainsKey(Skill)){
                 LM.UpdateAttackTile(true);
+                Skills[Skill].Item2.PerformSkill(Skills[Skill].Item1, Player.Instance.curGrid);
+                //Debug.Log("Use skill");
                 ClearTrack();
             }
         }

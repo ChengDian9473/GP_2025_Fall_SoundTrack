@@ -157,7 +157,7 @@ namespace SoundTrack{
             foreach (var key in keys)
             {
                 var data = attackTileList[key];
-                var obj  = data.obj;
+                var obj = data.obj;
                 // Debug.Log(key);
                 obj.transform.position = key.ToVector3();
                 data.life--;
