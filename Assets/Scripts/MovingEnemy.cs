@@ -6,10 +6,9 @@ using System.Collections.Generic;
 namespace SoundTrack{
     // Base class for enemies that move and attack on beats
     // public abstract class BaseEnemies : MonoBehaviour
-    public class BaseEnemies : MonoBehaviour
+    public class MovingEnemy : StaticEnemy
     {
         [Header("Enemy Settings")]
-        public string enemyName;
         public int moveDistance;
         public int moveEveryNBeats;
         public int attackEveryNBeats;
@@ -22,8 +21,6 @@ namespace SoundTrack{
         public GridList attackPattern;   // Attack pattern offsets
 
         protected int beatCounter = 0;   // Counts the number of beats received
-        protected GridPos playerGrid;   // Reference to the player transform
-        protected GridPos facingDir = GridPos.up;   // Default facing direction
 
         // Warning settings
         public int warningBeats = 1;
@@ -37,33 +34,16 @@ namespace SoundTrack{
         public Tilemap groundTilemap;
         public TileBase allowedTiles;
 
-        public GridPos curGrid;
         public GridPos nextGrid;
-
-        public LevelManager LM;
 
         protected virtual void Awake()
         {
             GameManager.OnBeat += OnBeatReceived;
         }
 
-        public void Die(){
-            LM.monsterOn.Remove(curGrid);
-            LM.aliveMonsters.Remove(this);
-            if(LM.aliveMonsters.Count == 0){
-                LM.endRoom();
-            }
-            Destroy(gameObject);
-        }
-
         protected virtual void OnDestroy()
         {
             GameManager.OnBeat -= OnBeatReceived;
-        }
-
-        public void setGridPos(GridPos g){
-            curGrid = g;
-            transform.position = curGrid.ToVector3();
         }
 
         protected virtual void OnBeatReceived(int beat)

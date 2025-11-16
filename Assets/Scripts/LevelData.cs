@@ -30,5 +30,7 @@ namespace SoundTrack{
         public GameObject prefab;
         [Tooltip("Spwan Position")]
         public GridPos spawnGrid;
+        [Tooltip("Element can hurt it")]
+        public List<int> allowedElement;
     }
 }

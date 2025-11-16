@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Rule
   m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.RuleTile
-  m_DefaultSprite: {fileID: -850048645, guid: 7ab036db8012c4f4c911533269367ef5, type: 3}
-  m_DefaultGameObject: {fileID: 0}
+  m_DefaultSprite: {fileID: 8429749967535273137, guid: 1b927dde46c3f0b4fb661b063469ffca, type: 3}
+  m_DefaultGameObject: {fileID: 1272982599348401881, guid: a482353c08fbf604eb0c970ed5fd9b7c, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 7

@@ -13,8 +13,6 @@ namespace SoundTrack{
         [NonSerialized] public Player player;
         public LevelData levelProfile;
         [HideInInspector] public LevelData level;
-        
-        
 
         private Room curRoom;
 
@@ -25,18 +23,20 @@ namespace SoundTrack{
         public GameObject attackTilePrefab;
 
         public List<GridPos> monsterOn = new List<GridPos>();
-        public List<BaseEnemies> aliveMonsters = new List<BaseEnemies>();
+        public List<StaticEnemy> aliveMonsters = new List<StaticEnemy>();
 
         List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject, bool)>();
         Dictionary<GridPos, (GameObject obj, int life)> warningTileList = new Dictionary<GridPos, (GameObject, int)>();
 
         List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
-        Dictionary<GridPos, (GameObject obj, int life)> attackTileList = new Dictionary<GridPos, (GameObject, int)>();
+        Dictionary<GridPos, (GameObject obj, int life, int element)> attackTileList = new Dictionary<GridPos, (GameObject, int, int)>();
 
         [Header("References")]
         public Tilemap groundTilemap;
         public TileBase doorClosed;
         public TileBase doorOpened;
+
+        Color[] colors = {new Color(0.5f,0.5f,0.5f,0.7f),new Color(1.0f,0.0f,0.0f,0.7f),new Color(0.0f,1.0f,0.0f,0.7f),new Color(0.0f,0.0f,1.0f,0.7f)};
 
         void Start(){
             // Debug.Log("Level Manager Start");
@@ -95,10 +95,14 @@ namespace SoundTrack{
             {
                 // Debug.Log("Monster * 1");
                 GameObject go = Instantiate(m.prefab);
-                var new_monster = go.GetComponentInChildren<BaseEnemies>();
+                var new_monster = go.GetComponentInChildren<StaticEnemy>();
                 new_monster.setGridPos(m.spawnGrid);
                 new_monster.LM = this;
-                new_monster.groundTilemap = groundTilemap;
+                new_monster.allowedElement = m.allowedElement;
+                new_monster.GetComponent<SpriteRenderer>().color = colors[new_monster.allowedElement[0]];
+                if(new_monster is MovingEnemy me){
+                    me.groundTilemap = groundTilemap;
+                }
                 monsterOn.Add(m.spawnGrid);
                 aliveMonsters.Add(new_monster);
             }
@@ -169,9 +173,9 @@ namespace SoundTrack{
                             for (int i = aliveMonsters.Count - 1; i >= 0; i--)
                             {
                                 var m = aliveMonsters[i];
-                                if (m.curGrid == key)
+                                if (m.curGrid == key && m.allowedElement.Contains(data.element))
                                 {
-                                    m.Die();
+                                    m.removeHP(1);
                                 }
                             }
                         }
@@ -181,7 +185,7 @@ namespace SoundTrack{
                 }
                 else
                 {
-                    attackTileList[key] = (data.obj, data.life);
+                    attackTileList[key] = (data.obj, data.life, data.element);
                 }
             }
             // Debug.Log("UpdateAttackTile E");
@@ -197,13 +201,16 @@ namespace SoundTrack{
             warningTileList[g].obj.transform.position = g.ToVector3();
         }
 
-        public void AddAttack(GridPos g, int life){
+        public void AddAttack(GridPos g, int life, int element){
             // Debug.Log(attackTileList.Count);
             // Debug.Log(g);
+            GameObject t;
             if (attackTileList.ContainsKey(g))
-                attackTileList[g] = (attackTileList[g].obj, life);
+                t = attackTileList[g].obj;
             else
-                attackTileList[g] = (GetAvailableAttackTile(), life);
+                t = GetAvailableAttackTile();
+            t.GetComponent<SpriteRenderer>().color = colors[element];
+            attackTileList[g] = (t, life, element);
         }
 
 

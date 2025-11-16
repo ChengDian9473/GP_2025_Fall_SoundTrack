@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SoundTrack
 {
-    public class GoldenTeeth : BaseEnemies
+    public class GoldenTeeth : MovingEnemy
     {
         protected override void Awake()
         {

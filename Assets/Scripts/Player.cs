@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-// TODO UI hierachy / Element Skill / New Skill Attack / Level Map (List)
+// TODO UI hierachy / Level Map (List) / Boot / Enemy Init() / Global Variable colors
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {
@@ -92,9 +92,9 @@ namespace SoundTrack{
             
             if(skillTrigger != -1){
                 if(skillTrigger != element){
+                    ClearTrack();
                     element = skillTrigger;
                     this.GetComponent<SpriteRenderer>().color = colors[element];
-                    ClearTrack();
                 }
                 tracking = true;
             }
@@ -160,7 +160,7 @@ namespace SoundTrack{
                     if(Skills.ContainsKey(skillNumber)){
                         foreach(var g in Skills[skillNumber].Item1.items){
                             if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int()))
-                                LM.AddAttack(curGrid + g.RM(facing,mirror), 1);
+                                LM.AddAttack(curGrid + g.RM(facing,mirror), 1, element);
                         }
                     }
                     // Debug.Log("Upate Skill after Move E");
@@ -247,6 +247,8 @@ namespace SoundTrack{
             Skill.Clear();
             Info.Instance.UpdateSeq(Skill);
             tracking = false;
+            element = -1;
+            this.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }
