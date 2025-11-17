@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace SoundTrack{
-    public class Bootstrap : MonoBehaviour
+    public static class Bootstrap
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
@@ -13,12 +13,12 @@ namespace SoundTrack{
                 if(GM == null){
                     Debug.Log("Cant find GM prefab");
                 }
-                Instantiate(GM);
+                Object.Instantiate(GM);
                 var UI = Resources.Load<GameObject>("UIDocument");
                 if(UI == null){
                     Debug.Log("Cant find UI prefab");
                 }
-                Instantiate(UI);
+                Object.Instantiate(UI);
             }
         }
     }

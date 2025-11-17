@@ -1,8 +1,8 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using System;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace SoundTrack{
     public class GameManager : MonoBehaviour
@@ -38,12 +38,8 @@ namespace SoundTrack{
             }
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        }
 
-        private void Start()
-        {
-            playing = false;    
-            Info.Instance.GameInit();
+            playing = false;
         }
 
         private void Update(){

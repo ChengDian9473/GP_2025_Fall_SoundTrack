@@ -99,7 +99,7 @@ namespace SoundTrack{
                 new_monster.setGridPos(m.spawnGrid);
                 new_monster.LM = this;
                 new_monster.allowedElement = m.allowedElement;
-                new_monster.GetComponent<SpriteRenderer>().color = colors[new_monster.allowedElement[0]];
+                new_monster.GetComponent<SpriteRenderer>().color = Utils.transparentELementColor[new_monster.allowedElement[0]];
                 if(new_monster is MovingEnemy me){
                     me.groundTilemap = groundTilemap;
                 }
@@ -209,7 +209,7 @@ namespace SoundTrack{
                 t = attackTileList[g].obj;
             else
                 t = GetAvailableAttackTile();
-            t.GetComponent<SpriteRenderer>().color = colors[element];
+            t.GetComponent<SpriteRenderer>().color = Utils.transparentELementColor[element];
             attackTileList[g] = (t, life, element);
         }
 

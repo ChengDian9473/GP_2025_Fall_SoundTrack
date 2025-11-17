@@ -13,6 +13,12 @@ namespace SoundTrack{
         private VisualElement RootVisualElement;
         private VisualElement cover;
         private List<VisualElement> SceneVisualElement;
+
+
+        
+        private Button StartButton;
+        private Button SettingButton;
+        private Button QuitButton;
         
         private int previous_scene;
         private int current_scene;
@@ -29,13 +35,16 @@ namespace SoundTrack{
             DontDestroyOnLoad(gameObject);
         }
 
-        public void OnEnable()
-        {
-            previous_scene = 0;
-            current_scene = 0;
+        private void OnEnable(){
 
             RootVisualElement = GetComponent<UIDocument>().rootVisualElement;
             cover = RootVisualElement.Q<VisualElement>("Cover");
+            StartButton = RootVisualElement.Q<Button>("StartButton");
+            SettingButton = RootVisualElement.Q<Button>("SettingButton");
+            QuitButton = RootVisualElement.Q<Button>("QuitButton");
+
+            previous_scene = 0;
+            current_scene = 0;
 
             RootVisualElement.style.display = DisplayStyle.Flex; // None or Flex
             cover.style.opacity = 1.0f;
@@ -45,36 +54,41 @@ namespace SoundTrack{
             foreach(var scene in RootVisualElement.Q<VisualElement>("Root").Children()){
                 SceneVisualElement.Add(scene);
                 scene.style.display = DisplayStyle.None;
-                // Debug.Log(scene.name);
             }
-            
-            var StartButton = RootVisualElement.Q<Button>("StartButton");
+
+            cover.RegisterCallback<TransitionEndEvent>(TransitionEnd);
             StartButton.clicked += StartButtonClicked;
-            var SettingButton = RootVisualElement.Q<Button>("SettingButton");
             SettingButton.clicked += SettingButtonClicked;
-            var QuitButton = RootVisualElement.Q<Button>("QuitButton");
             QuitButton.clicked += QuitButtonClicked;
-            // var tButton = RootVisualElement.Q<Button>("TalentButton");
-            // tButton.clicked += OntButtonClicked;
-            // var MenuButton = RootVisualElement.Q<Button>("MenuButton");
-            // MenuButton.clicked += OnMenuButtonClicked;
+            
+            Scene current = SceneManager.GetActiveScene();
+            GameInit(Utils.GetSceneNames().IndexOf(current.name));
+        }
 
-            cover.RegisterCallback<TransitionEndEvent>(evt =>
+        private void OnDisable(){
+            // DI for check cover != null
+            cover?.UnregisterCallback<TransitionEndEvent>(TransitionEnd);
+            if(StartButton != null)
+                StartButton.clicked -= StartButtonClicked;
+            if(SettingButton != null)
+                SettingButton.clicked -= SettingButtonClicked;
+            if(QuitButton != null)
+                QuitButton.clicked -= QuitButtonClicked;
+        }
+
+        private void TransitionEnd(TransitionEndEvent evt){
+            Debug.Log("Transistion End.");
+            if (cover.style.opacity.value > 0.9f)
             {
-                if (cover.style.opacity.value > 0.9f)
-                {
-                    if(previous_scene > 0){
-                        SceneVisualElement[previous_scene - 1].style.display = DisplayStyle.None;
-                    }
-                    if(current_scene > 0){
-                        SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
-                        SceneManager.LoadScene(current_scene);
-                    }
-                    cover.style.opacity = 0.0f;
+                if(previous_scene > 0){
+                    SceneVisualElement[previous_scene - 1].style.display = DisplayStyle.None;
                 }
-            });
-
-            // StartCoroutine(FadeIn());
+                if(current_scene > 0){
+                    SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
+                    SceneManager.LoadScene(current_scene);
+                }
+                cover.style.opacity = 0.0f;
+            }
         }
 
         public void UpdateHP(int HP){
@@ -100,23 +114,29 @@ namespace SoundTrack{
         {
             previous_scene = current_scene;
             current_scene = scene;
+
             FadeOut();
         }
 
-        public void GameInit()
+        public void GameInit(int scene)
         {
             previous_scene = current_scene;
-            current_scene = 1;
+            current_scene = scene;
 
-            SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
-            SceneManager.LoadScene(current_scene);
+            if(current_scene > 0){
+                SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
+                SceneManager.LoadScene(current_scene);
+            }else{
+                SceneVisualElement[0].style.display = DisplayStyle.Flex;
+                SceneManager.LoadScene(1);
+            }
 
             FadeIn();
         }
 
         private void StartButtonClicked()
         {
-            SetTargetScene(2); 
+            SetTargetScene(2);
         }
         private void SettingButtonClicked()
         {
@@ -134,7 +154,7 @@ namespace SoundTrack{
             }
             else
             {
-            Application.Quit();
+                Application.Quit();
             }
         }
         private void FadeIn()
