@@ -12,17 +12,33 @@ namespace SoundTrack{
 
         private VisualElement RootVisualElement;
         private VisualElement cover;
-        private List<VisualElement> SceneVisualElement;
+        private List<VisualElement> pages;
 
+        private VisualElement home_page;
+        private VisualElement setting_page;
+        private VisualElement end_page;
 
-        
         private Button StartButton;
         private Button SettingButton;
         private Button QuitButton;
+
+        private List<Button> LevelButton;
+
+        private Button HomeButton;
+
+        private Button QuitSettingButton;
+        private Slider VolumeSlider;
+
+        private Button MenuButton;
+        private Button LevelSelectButton;
+        private Button ReplayButton;
         
-        private int previous_scene;
         private int current_scene;
-        private bool isSetting = false;
+        private int current_page;
+
+        public static int LEVEL_START = 2;
+
+        public bool firstTime;
 
         private void Awake()
         {
@@ -33,6 +49,8 @@ namespace SoundTrack{
             }
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            firstTime = true;
         }
 
         private void OnEnable(){
@@ -43,23 +61,59 @@ namespace SoundTrack{
             SettingButton = RootVisualElement.Q<Button>("SettingButton");
             QuitButton = RootVisualElement.Q<Button>("QuitButton");
 
-            previous_scene = 0;
+            LevelButton = RootVisualElement.Query<Button>("LevelButton").ToList();
+
+            HomeButton = RootVisualElement.Q<Button>("HomeButton");
+
+            VolumeSlider = RootVisualElement.Q<Slider>("VolumeSlider");
+            QuitSettingButton = RootVisualElement.Q<Button>("QuitSettingButton");
+
+            MenuButton = RootVisualElement.Q<Button>("MenuButton");
+            LevelSelectButton = RootVisualElement.Q<Button>("LevelSelectButton");
+            ReplayButton = RootVisualElement.Q<Button>("ReplayButton");
+
             current_scene = 0;
+            current_page = 0;
 
             RootVisualElement.style.display = DisplayStyle.Flex; // None or Flex
             cover.style.opacity = 1.0f;
 
-            SceneVisualElement = new List<VisualElement>();
+            pages = new List<VisualElement>();
 
-            foreach(var scene in RootVisualElement.Q<VisualElement>("Root").Children()){
-                SceneVisualElement.Add(scene);
-                scene.style.display = DisplayStyle.None;
+            pages.Add(RootVisualElement.Q<VisualElement>("MainMenu")); // Page 0
+            pages.Add(RootVisualElement.Q<VisualElement>("LevelSelect")); // Page 1
+            pages.Add(RootVisualElement.Q<VisualElement>("Level")); // Page 2
+
+            home_page = RootVisualElement.Q<VisualElement>("Home");
+            setting_page = RootVisualElement.Q<VisualElement>("Setting");
+            end_page = RootVisualElement.Q<VisualElement>("End");
+
+            home_page.style.display = DisplayStyle.None;
+            setting_page.style.display = DisplayStyle.None;
+            end_page.style.display = DisplayStyle.None;
+
+            foreach(var page in pages){
+                page.style.display = DisplayStyle.None;
             }
 
             cover.RegisterCallback<TransitionEndEvent>(TransitionEnd);
+
             StartButton.clicked += StartButtonClicked;
             SettingButton.clicked += SettingButtonClicked;
             QuitButton.clicked += QuitButtonClicked;
+
+            foreach(var btn in LevelButton){
+                btn.clicked += () => LevelButtonClicked(btn);
+            }
+
+            HomeButton.clicked += HomeButtonClicked;
+
+            VolumeSlider.RegisterValueChangedCallback(VolumeSliderChanged);
+            QuitSettingButton.clicked += QuitSettingButtonClicked;
+
+            MenuButton.clicked += MenuButtonClicked;
+            LevelSelectButton.clicked += LevelSelectButtonClicked;
+            ReplayButton.clicked += ReplayButtonClicked;
             
             Scene current = SceneManager.GetActiveScene();
             GameInit(Utils.GetSceneNames().IndexOf(current.name));
@@ -74,20 +128,30 @@ namespace SoundTrack{
                 SettingButton.clicked -= SettingButtonClicked;
             if(QuitButton != null)
                 QuitButton.clicked -= QuitButtonClicked;
+            if(LevelButton != null)
+                foreach(var btn in LevelButton){
+                    btn.clicked -= () => LevelButtonClicked(btn);
+                }
+
+            if(HomeButton != null)
+                HomeButton.clicked -= HomeButtonClicked;
+
+            if(QuitSettingButton != null)
+                QuitSettingButton.clicked -= QuitSettingButtonClicked;
+
+            if(MenuButton != null)
+                MenuButton.clicked -= MenuButtonClicked;
+            if(LevelSelectButton != null)
+                LevelSelectButton.clicked -= LevelSelectButtonClicked;
+            if(ReplayButton != null)
+                ReplayButton.clicked -= ReplayButtonClicked;
         }
 
         private void TransitionEnd(TransitionEndEvent evt){
             Debug.Log("Transistion End.");
             if (cover.style.opacity.value > 0.9f)
             {
-                if(previous_scene > 0){
-                    SceneVisualElement[previous_scene - 1].style.display = DisplayStyle.None;
-                }
-                if(current_scene > 0){
-                    SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
-                    SceneManager.LoadScene(current_scene);
-                }
-                cover.style.opacity = 0.0f;
+                Display();
             }
         }
 
@@ -109,54 +173,81 @@ namespace SoundTrack{
             }
         }
 
-
-        public void SetTargetScene(int scene)
+        public void SetTargetScene(int scene, int page)
         {
-            previous_scene = current_scene;
             current_scene = scene;
-
+            current_page = page;
             FadeOut();
         }
 
         public void GameInit(int scene)
         {
-            previous_scene = current_scene;
             current_scene = scene;
 
-            if(current_scene > 0){
-                SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
-                SceneManager.LoadScene(current_scene);
-            }else{
+            if(current_scene == 0){
                 current_scene = 1;
-                SceneVisualElement[0].style.display = DisplayStyle.Flex;
-                SceneManager.LoadScene(1);
             }
-
-            FadeIn();
+            
+            if(current_scene >= LEVEL_START){
+                firstTime = false;
+                current_page = 2;
+            }
+            
+            Display();
         }
 
         private void StartButtonClicked()
         {
-            SetTargetScene(2);
+            if(firstTime){
+                SetTargetScene(LEVEL_START,2);
+                firstTime = false;
+            }else{
+                SetTargetScene(1,1);
+            }
+
+            
         }
         private void SettingButtonClicked()
         {
-            //SetTargetScene(1);
-            RootVisualElement.Q<Button>(name: "StartButton").style.display = DisplayStyle.None;
-            isSetting = true;
+            setting_page.style.display = DisplayStyle.Flex;
         }
         private void QuitButtonClicked()
         {
-            //SetTargetScene(1);
-            if (isSetting)
-            {
-                RootVisualElement.Q<Button>(name: "StartButton").style.display = DisplayStyle.Flex;
-                isSetting = false;
-            }
-            else
-            {
-                Application.Quit();
-            }
+            Debug.Log("EXIT");
+            Application.Quit();
+        }
+        private void LevelButtonClicked(Button btn)
+        {
+            SetTargetScene(LEVEL_START + int.Parse(btn.text.Replace("Level","")), 2);
+        }
+
+
+        private void HomeButtonClicked()
+        {
+            GameManager.Instance.GameEnd();
+            // end_page.style.display = DisplayStyle.Flex;
+            // Debug.Log("HomeButton");
+            SetTargetScene(1, 0);
+        }
+        private void QuitSettingButtonClicked()
+        {
+            setting_page.style.display = DisplayStyle.None;
+        }
+        private void VolumeSliderChanged(ChangeEvent<float> evt){
+            Debug.Log($"Volume {evt.newValue}");
+        }
+        
+        private void MenuButtonClicked()
+        {
+            SetTargetScene(1, 0);
+        }
+        private void LevelSelectButtonClicked()
+        {
+            SetTargetScene(1, 1);
+        }
+        private void ReplayButtonClicked()
+        {
+            SetTargetScene(current_scene, current_page);
         }
         private void FadeIn()
         {
@@ -165,6 +256,26 @@ namespace SoundTrack{
         private void FadeOut()
         {
             cover.style.opacity = 1.0f;
+        }
+        private void Display()
+        {
+            for(int i=0;i<pages.Count;i++){
+                if(i == current_page){
+                    pages[i].style.display = DisplayStyle.Flex;
+                }else{
+                    pages[i].style.display = DisplayStyle.None;
+                }
+            }
+            if(current_scene == 1){
+                home_page.style.display = DisplayStyle.None;
+            }else{
+                home_page.style.display = DisplayStyle.Flex;
+            }
+
+            end_page.style.display = DisplayStyle.None;
+
+            SceneManager.LoadScene(current_scene);
+            cover.style.opacity = 0.0f;
         }
     }
 }
