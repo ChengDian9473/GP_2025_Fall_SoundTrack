@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-// TODO  Attack Flow Order / Tutorial
+// TODO Tutorial
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {
@@ -30,8 +30,6 @@ namespace SoundTrack{
 
         [SerializeField] public CameraMove cam;
         [SerializeField] public LevelManager LM;
-
-        Color[] colors = {Color.gray, Color.red, Color.green, Color.blue};
 
         public int HP;
 

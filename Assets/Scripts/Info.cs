@@ -14,6 +14,7 @@ namespace SoundTrack{
         private VisualElement cover;
         private List<VisualElement> pages;
 
+        private VisualElement tutorial_page;
         private VisualElement home_page;
         private VisualElement setting_page;
         private VisualElement end_page;
@@ -33,6 +34,10 @@ namespace SoundTrack{
         private Button LevelSelectButton;
         private Button ReplayButton;
         
+        private Label HPLabel;
+        private Label WinLabel;
+        private Label SeqLabel;
+
         private int current_scene;
         private int current_page;
 
@@ -72,6 +77,10 @@ namespace SoundTrack{
             LevelSelectButton = RootVisualElement.Q<Button>("LevelSelectButton");
             ReplayButton = RootVisualElement.Q<Button>("ReplayButton");
 
+            HPLabel = RootVisualElement.Q<Label>("HPLabel");
+            WinLabel = RootVisualElement.Q<Label>("WinLabel");
+            SeqLabel = RootVisualElement.Q<Label>("SeqLabel");
+
             current_scene = 0;
             current_page = 0;
 
@@ -84,10 +93,12 @@ namespace SoundTrack{
             pages.Add(RootVisualElement.Q<VisualElement>("LevelSelect")); // Page 1
             pages.Add(RootVisualElement.Q<VisualElement>("Level")); // Page 2
 
+            tutorial_page = RootVisualElement.Q<VisualElement>("Tutorial");
             home_page = RootVisualElement.Q<VisualElement>("Home");
             setting_page = RootVisualElement.Q<VisualElement>("Setting");
             end_page = RootVisualElement.Q<VisualElement>("End");
-
+            
+            tutorial_page.style.display = DisplayStyle.None;
             home_page.style.display = DisplayStyle.None;
             setting_page.style.display = DisplayStyle.None;
             end_page.style.display = DisplayStyle.None;
@@ -114,6 +125,10 @@ namespace SoundTrack{
             MenuButton.clicked += MenuButtonClicked;
             LevelSelectButton.clicked += LevelSelectButtonClicked;
             ReplayButton.clicked += ReplayButtonClicked;
+
+            HPLabel.text = $"Times Hit: 0";
+            WinLabel.text = "";
+            SeqLabel.text = "Seq: ";
             
             Scene current = SceneManager.GetActiveScene();
             GameInit(Utils.GetSceneNames().IndexOf(current.name));
@@ -156,16 +171,13 @@ namespace SoundTrack{
         }
 
         public void UpdateHP(int HP){
-            var HPLabel = RootVisualElement.Q<Label>("HPLabel");
             HPLabel.text = $"Times Hit: {HP}";
         }
         public void UpdateWin(){
-            var WinLabel = RootVisualElement.Q<Label>("WinLabel");
             WinLabel.text = $"You Win";
             end_page.style.display = DisplayStyle.Flex;
         }
         public void UpdateSeq(List<int> Skill){
-            var SeqLabel = RootVisualElement.Q<Label>("SeqLabel");
             SeqLabel.text = "Seq: ";
 
             string arrow = "WDSA";
