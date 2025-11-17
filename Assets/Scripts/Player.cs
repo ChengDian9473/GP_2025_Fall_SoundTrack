@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-// TODO UI hierachy / Level Map (List) / Boot / Enemy Init() / Global Variable colors
+// TODO Enemy Init() / Level End / Tutorial
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {

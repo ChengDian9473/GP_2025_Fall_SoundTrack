@@ -228,6 +228,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7854717041004453818, guid: 67ad22c6076dda24ca51a0308fe8d265, type: 3}
+      propertyPath: bpm
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854717041004453818, guid: 67ad22c6076dda24ca51a0308fe8d265, type: 3}
+      propertyPath: intro_clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854717041004453818, guid: 67ad22c6076dda24ca51a0308fe8d265, type: 3}
+      propertyPath: firstBeatOffset
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223060620182146764, guid: 67ad22c6076dda24ca51a0308fe8d265, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 09e0d5ff5a07647f4a770ab39ef38efa, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

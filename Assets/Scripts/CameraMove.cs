@@ -16,8 +16,6 @@ namespace SoundTrack{
 
         public void Follow(Vector3 targetPos)
         {
-            Debug.Log($"{targetPos}{offset}");
-            Debug.Log(targetPos+offset);
             StartCoroutine(MoveCoroutine(targetPos + offset));
         }
         IEnumerator MoveCoroutine(Vector3 endPos)
@@ -32,7 +30,6 @@ namespace SoundTrack{
             }
             
             transform.position = endPos;
-            Debug.Log(endPos);
         }
     }
 }
