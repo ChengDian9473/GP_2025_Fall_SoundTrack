@@ -73,9 +73,6 @@ namespace SoundTrack{
                             LM.player.move(2);
                         if(Keyboard.current.aKey.wasPressedThisFrame)
                             LM.player.move(3);
-                        if(Keyboard.current.eKey.wasPressedThisFrame){
-                            LM.player.UseSkill(); 
-                        }
                     }
                 }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;

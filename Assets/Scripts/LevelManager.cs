@@ -122,6 +122,7 @@ namespace SoundTrack{
 
         public void OnBeatReceived(int beat){
             UpdateWarningTile();
+            UpdateAttackTile();
         }
 
         public void UpdateWarningTile(){
@@ -150,7 +151,7 @@ namespace SoundTrack{
             // Debug.Log("UpdateAttackTile E");
         }
 
-        public void UpdateAttackTile(bool playerUseSkill){
+        public void UpdateAttackTile(){
             var keys = new List<GridPos>(attackTileList.Keys);
 
             // Debug.Log("UpdateAttackTile S");
@@ -164,15 +165,13 @@ namespace SoundTrack{
 
                 if (data.life < 0)
                 {
-                    if (playerUseSkill){
-                        if (monsterOn.Contains(key)){
-                            for (int i = aliveMonsters.Count - 1; i >= 0; i--)
+                    if (monsterOn.Contains(key)){
+                        for(int i = aliveMonsters.Count - 1; i >= 0; i--)
+                        {
+                            var m = aliveMonsters[i];
+                            if (m.curGrid == key && m.allowedElement.Contains(data.element))
                             {
-                                var m = aliveMonsters[i];
-                                if (m.curGrid == key && m.allowedElement.Contains(data.element))
-                                {
-                                    m.removeHP(1);
-                                }
+                                m.removeHP(1);
                             }
                         }
                     }

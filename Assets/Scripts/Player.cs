@@ -153,10 +153,10 @@ namespace SoundTrack{
                             if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int()))
                                 LM.AddAttack(curGrid + g.RM(facing,mirror), 1, element);
                         }
+                        UseSkill();
                     }
                     // Debug.Log("Upate Skill after Move E");
                 }
-                LM.UpdateAttackTile(false);
                 
                 int skillTrigger = OnSkill(curGrid);
                 
@@ -247,7 +247,7 @@ namespace SoundTrack{
                 }
                 skillNumber = ((skillNumber >> 2) & ((1 << (Player.MAX_TRACK * 2 + 1)) - 1));
                 if(Skills.ContainsKey(skillNumber)){
-                    LM.UpdateAttackTile(true);
+                    LM.UpdateAttackTile();
                     Skills[skillNumber].Item2.PerformSkill(Skills[skillNumber].Item1, facing, mirror, curGrid);
                     //Debug.Log("Use skill");
                     ClearTrack();
