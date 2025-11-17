@@ -89,6 +89,8 @@ namespace SoundTrack{
         }
 
         public void GameStart(){
+            Debug.Log("GameStart");
+
             lastBeat = -1;
             beatIndex = -1;
             dspCanHit = AudioSettings.dspTime + 0.5;

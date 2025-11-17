@@ -36,8 +36,6 @@ namespace SoundTrack{
         public TileBase doorClosed;
         public TileBase doorOpened;
 
-        Color[] colors = {new Color(0.5f,0.5f,0.5f,0.7f),new Color(1.0f,0.0f,0.0f,0.7f),new Color(0.0f,1.0f,0.0f,0.7f),new Color(0.0f,0.0f,1.0f,0.7f)};
-
         void Start(){
             // Debug.Log("Level Manager Start");
         }
@@ -99,7 +97,7 @@ namespace SoundTrack{
                 new_monster.setGridPos(m.spawnGrid);
                 new_monster.LM = this;
                 new_monster.allowedElement = m.allowedElement;
-                new_monster.GetComponent<SpriteRenderer>().color = Utils.transparentELementColor[new_monster.allowedElement[0]];
+                new_monster.GetComponent<SpriteRenderer>().color = Utils.elementColor[new_monster.allowedElement[0]];
                 if(new_monster is MovingEnemy me){
                     me.groundTilemap = groundTilemap;
                 }
@@ -113,15 +111,13 @@ namespace SoundTrack{
             inLevel = false;
             curRoom.clear = true;
             curStage = Math.Max(curStage, curRoom.stage + 1);
-            if (curStage == level.maxStage)
+            if(curStage > level.maxStage)
             {
                 foreach (var g in level.bossDoor)
                 {
                     groundTilemap.SetTile(g.ToVector3Int(), doorOpened);
                 }
             }
-            if(curStage > level.maxStage)
-                Info.Instance.UpdateWin();
         }
 
         public void OnBeatReceived(int beat){
@@ -209,7 +205,7 @@ namespace SoundTrack{
                 t = attackTileList[g].obj;
             else
                 t = GetAvailableAttackTile();
-            t.GetComponent<SpriteRenderer>().color = Utils.transparentELementColor[element];
+            t.GetComponent<SpriteRenderer>().color = Utils.transparentElementColor[element];
             attackTileList[g] = (t, life, element);
         }
 

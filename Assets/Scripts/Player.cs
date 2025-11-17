@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-// TODO Enemy Init() / Level End / Tutorial
+// TODO  Attack Flow Order / Tutorial
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {
@@ -13,6 +13,7 @@ namespace SoundTrack{
         [Header("References")]
         public Tilemap groundTilemap;
         public TileBase allowedTiles;
+        public TileBase finishedTiles;
         public TileBase[] barrierTiles;
         public TileBase[] skillTiles;
 
@@ -115,6 +116,7 @@ namespace SoundTrack{
                 }
                 // DI 偵測是否開啟關卡
                 if(OnTrigger(curGrid)){
+                    Debug.Log("Trigger");
                     foreach (var r in LM.level.rooms){
                         if(LM.curStage >= r.stage && !r.clear && r.trigger.Contains(nextGrid)){
                             LM.startRoom(r);
@@ -158,6 +160,11 @@ namespace SoundTrack{
                 
                 int skillTrigger = OnSkill(curGrid);
                 
+                if(OnFinished(curGrid)){
+                    GameManager.Instance.GameEnd();
+                    Info.Instance.UpdateWin();
+                }
+                
                 if(skillTrigger != -1){
                     if(skillTrigger != element){
                         ClearTrack();
@@ -187,6 +194,13 @@ namespace SoundTrack{
                 if (t == a) return true;
             return false;
         }
+        private bool OnFinished(GridPos g)
+        {
+            Vector3Int c = g.ToVector3Int();
+            TileBase t = groundTilemap.GetTile(c);
+            if (t == finishedTiles) return true;
+            return false;
+        }
         private int OnSkill(GridPos g)
         {
             Vector3Int c = g.ToVector3Int();
@@ -205,6 +219,7 @@ namespace SoundTrack{
                     if (t == a) return true;
             }
             if(t == allowedTiles) return true;
+            if(t == finishedTiles) return true;
             foreach(var a in skillTiles){
                 if (t == a) return true;
             }

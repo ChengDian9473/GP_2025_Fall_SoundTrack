@@ -151,7 +151,7 @@ namespace SoundTrack{
             Debug.Log("Transistion End.");
             if (cover.style.opacity.value > 0.9f)
             {
-                Display();
+                Display(true);
             }
         }
 
@@ -162,6 +162,7 @@ namespace SoundTrack{
         public void UpdateWin(){
             var WinLabel = RootVisualElement.Q<Label>("WinLabel");
             WinLabel.text = $"You Win";
+            end_page.style.display = DisplayStyle.Flex;
         }
         public void UpdateSeq(List<int> Skill){
             var SeqLabel = RootVisualElement.Q<Label>("SeqLabel");
@@ -193,7 +194,7 @@ namespace SoundTrack{
                 current_page = 2;
             }
             
-            Display();
+            Display(false);
         }
 
         private void StartButtonClicked()
@@ -225,8 +226,6 @@ namespace SoundTrack{
         private void HomeButtonClicked()
         {
             GameManager.Instance.GameEnd();
-            // end_page.style.display = DisplayStyle.Flex;
-            // Debug.Log("HomeButton");
             SetTargetScene(1, 0);
         }
         private void QuitSettingButtonClicked()
@@ -257,7 +256,7 @@ namespace SoundTrack{
         {
             cover.style.opacity = 1.0f;
         }
-        private void Display()
+        private void Display(bool load)
         {
             for(int i=0;i<pages.Count;i++){
                 if(i == current_page){
@@ -273,8 +272,8 @@ namespace SoundTrack{
             }
 
             end_page.style.display = DisplayStyle.None;
-
-            SceneManager.LoadScene(current_scene);
+            if(load)
+                SceneManager.LoadScene(current_scene);
             cover.style.opacity = 0.0f;
         }
     }
