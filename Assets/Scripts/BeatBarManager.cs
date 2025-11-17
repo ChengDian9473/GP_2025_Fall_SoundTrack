@@ -15,12 +15,12 @@ namespace SoundTrack
 
         [Header("Spawn Positions")]
         [SerializeField] private Vector3 initialCenter = new Vector3(0.55f, -3f, 0f);
-        [SerializeField] private float leftSpawnX = -6f;
-        [SerializeField] private float rightSpawnX = 14f;
+        [SerializeField] private float leftSpawnX = -7.45f;
+        [SerializeField] private float rightSpawnX = 8.55f;
         [SerializeField] private float spawnY = -3f;
 
         [Header("Timing")]
-        [SerializeField, Range(1f, 200f)] private float spawnsPerMinute = 91f;
+        [SerializeField, Range(1f, 200f)] private float spawnsPerMinute = 105f;
 
         [Header("Movement")]
         [SerializeField] private float barMoveSpeed = 4f;
