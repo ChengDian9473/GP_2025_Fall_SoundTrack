@@ -127,7 +127,7 @@ namespace SoundTrack{
                 SceneVisualElement[current_scene - 1].style.display = DisplayStyle.Flex;
                 SceneManager.LoadScene(current_scene);
             }else{
-                current_scene = 1
+                current_scene = 1;
                 SceneVisualElement[0].style.display = DisplayStyle.Flex;
                 SceneManager.LoadScene(1);
             }
