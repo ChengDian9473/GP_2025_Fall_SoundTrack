@@ -15,7 +15,7 @@ namespace SoundTrack{
         [Header("Music & Tempo")]
         public AudioSource intro_clip;
         public AudioSource Main_loop_clip;
-        [Min(1f)] public float bpm = 91f;
+        [Min(1f)] public float bpm = 105f;
         [Tooltip("Time to First Beat")]
         public double firstBeatOffset = 0.1;
 
@@ -73,9 +73,6 @@ namespace SoundTrack{
                             LM.player.move(2);
                         if(Keyboard.current.aKey.wasPressedThisFrame)
                             LM.player.move(3);
-                        if(Keyboard.current.eKey.wasPressedThisFrame){
-                            LM.player.UseSkill(); 
-                        }
                     }
                 }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
@@ -89,6 +86,8 @@ namespace SoundTrack{
         }
 
         public void GameStart(){
+            Debug.Log("GameStart");
+
             lastBeat = -1;
             beatIndex = -1;
             dspCanHit = AudioSettings.dspTime + 0.5;

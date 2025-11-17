@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,7 +123,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -145,7 +145,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -167,7 +167,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -189,7 +189,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -211,7 +211,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -233,7 +233,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -254,8 +254,8 @@ TextureImporter:
       name: Tile_temp_6
       rect:
         serializedVersion: 2
-        x: 192
-        y: 96
+        x: 0
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -276,8 +276,8 @@ TextureImporter:
       name: Tile_temp_7
       rect:
         serializedVersion: 2
-        x: 224
-        y: 96
+        x: 32
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -298,8 +298,8 @@ TextureImporter:
       name: Tile_temp_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 64
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -320,8 +320,8 @@ TextureImporter:
       name: Tile_temp_9
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
+        x: 96
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -342,8 +342,8 @@ TextureImporter:
       name: Tile_temp_10
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 128
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -364,8 +364,8 @@ TextureImporter:
       name: Tile_temp_11
       rect:
         serializedVersion: 2
-        x: 96
-        y: 64
+        x: 160
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -386,8 +386,8 @@ TextureImporter:
       name: Tile_temp_12
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 0
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -408,8 +408,8 @@ TextureImporter:
       name: Tile_temp_13
       rect:
         serializedVersion: 2
-        x: 160
-        y: 64
+        x: 32
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -430,8 +430,8 @@ TextureImporter:
       name: Tile_temp_14
       rect:
         serializedVersion: 2
-        x: 192
-        y: 64
+        x: 64
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -452,8 +452,8 @@ TextureImporter:
       name: Tile_temp_15
       rect:
         serializedVersion: 2
-        x: 224
-        y: 64
+        x: 96
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -474,8 +474,8 @@ TextureImporter:
       name: Tile_temp_16
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 128
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -496,8 +496,8 @@ TextureImporter:
       name: Tile_temp_17
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 160
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -518,8 +518,8 @@ TextureImporter:
       name: Tile_temp_18
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 0
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -540,8 +540,8 @@ TextureImporter:
       name: Tile_temp_19
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
+        x: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -562,8 +562,8 @@ TextureImporter:
       name: Tile_temp_20
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
+        x: 64
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -584,8 +584,8 @@ TextureImporter:
       name: Tile_temp_21
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 96
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -606,8 +606,8 @@ TextureImporter:
       name: Tile_temp_22
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 128
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -628,6 +628,226 @@ TextureImporter:
       name: Tile_temp_23
       rect:
         serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fab737eb64471a44a8c0fd4a6c77153
+      internalID: -427719649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8c2aa6b45e985c49918807161d3fad3
+      internalID: 806804438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_25
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ec93d2431f0a634ba606a21d8c3f0eb
+      internalID: -776457234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_26
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14cefe9112dad6641bdc4a665a6eda79
+      internalID: 1685991628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_27
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86acbdb299274ea459b7912b197f8fef
+      internalID: -512781447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_28
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d93efedb62ca9a2408ce29a33000c360
+      internalID: 333660212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_29
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a295f17ea19fe641a9187ab0660924d
+      internalID: -1523828058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d3f5d70e5320f241a2799ab5249c49d
+      internalID: -1356336120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_31
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 868907118b4934a4baf3534bfbbdedd9
+      internalID: -1261620768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_32
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9cfce968218f204f80c8179535de08f
+      internalID: 1799667376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_temp_33
+      rect:
+        serializedVersion: 2
         x: 96
         y: 0
         width: 32
@@ -640,14 +860,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c9a2bd91c9303a40a7124a6d8a44358
-      internalID: -361080325
+      spriteID: 31fa60b32881eb044a393dde278293a4
+      internalID: -1622504541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_temp_24
+      name: Tile_temp_34
       rect:
         serializedVersion: 2
         x: 128
@@ -662,14 +882,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 882facf3561b850478db91a1a388f995
-      internalID: -1503345300
+      spriteID: 3f0615316a24d6d49a2dba6dedbbc3f6
+      internalID: 1921034074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_temp_25
+      name: Tile_temp_35
       rect:
         serializedVersion: 2
         x: 160
@@ -684,30 +904,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c47f1a3ae98f19f418c46530663b4016
-      internalID: -695505159
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tile_temp_26
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eaf8eab1ac721d0498007cefeb998f23
-      internalID: 426293407
+      spriteID: 0cd325e40e07fd843bf0571a131ca3f3
+      internalID: -1911488442
       vertices: []
       indices: 
       edges: []
@@ -726,7 +924,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":true,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      - key: SpriteEditor.SliceOnImport
+        value: True
     nameFileIdTable:
       Tile_temp_0: 5926082895659194200
       Tile_temp_1: -406293439405049882
@@ -744,11 +944,20 @@ TextureImporter:
       Tile_temp_20: 645583886
       Tile_temp_21: 158837808
       Tile_temp_22: 1599609727
-      Tile_temp_23: -361080325
-      Tile_temp_24: -1503345300
-      Tile_temp_25: -695505159
-      Tile_temp_26: 426293407
+      Tile_temp_23: -427719649
+      Tile_temp_24: 806804438
+      Tile_temp_25: -776457234
+      Tile_temp_26: 1685991628
+      Tile_temp_27: -512781447
+      Tile_temp_28: 333660212
+      Tile_temp_29: -1523828058
       Tile_temp_3: -237924136
+      Tile_temp_30: -1356336120
+      Tile_temp_31: -1261620768
+      Tile_temp_32: 1799667376
+      Tile_temp_33: -1622504541
+      Tile_temp_34: 1921034074
+      Tile_temp_35: -1911488442
       Tile_temp_4: -1552048761
       Tile_temp_5: -1131382047
       Tile_temp_6: -850048645

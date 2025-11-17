@@ -113,21 +113,22 @@ MonoBehaviour:
     y: 0
   groundTilemap: {fileID: 0}
   allowedTiles: {fileID: 11400000, guid: 6563e42056b1140418c10b9f96a37016, type: 2}
+  finishedTiles: {fileID: 11400000, guid: e45465468530bd941a2aebc4fe5caaf1, type: 2}
   barrierTiles:
-  - {fileID: 11400000, guid: acff222d55973d74b95aee7f9898da46, type: 2}
-  - {fileID: 11400000, guid: bc463adee9cd63644b4d3f83ca0552d4, type: 2}
-  - {fileID: 11400000, guid: 4311ea9d1ae387145b1b9dbabbfebdcc, type: 2}
-  - {fileID: 11400000, guid: bf23e4749b3e1f747b6980b8db6334f0, type: 2}
-  - {fileID: 11400000, guid: 703ab09a1ba2aee408efcf7463076ba8, type: 2}
   - {fileID: 11400000, guid: 41fa0a7f9442aca438f79e788cbbc9d2, type: 2}
-  - {fileID: 11400000, guid: 6adb5784a1483744ab6bd65825836379, type: 2}
   - {fileID: 11400000, guid: d61eb50bed669734d827798920548187, type: 2}
+  - {fileID: 11400000, guid: fd86d88fd58a9ce40b43aab4c45f82fd, type: 2}
   - {fileID: 11400000, guid: a948cdb4e615049458e1d90a568786db, type: 2}
+  - {fileID: 11400000, guid: 1d2caa6e5a03738458a027baf9d44da7, type: 2}
+  - {fileID: 11400000, guid: 7f0ada5baee3c734d9ece3ee79e24fa2, type: 2}
+  - {fileID: 11400000, guid: 7ec83a5c0443c9645a6416df4b95a223, type: 2}
+  - {fileID: 11400000, guid: 730bec92233dae1449af0c3090ba45e1, type: 2}
+  - {fileID: 11400000, guid: 410c78fd66aeff748a21a44913be41cf, type: 2}
   skillTiles:
-  - {fileID: 11400000, guid: b53ec7da468fb424694d5427c6832169, type: 2}
   - {fileID: 11400000, guid: 7f8c1fd79c58ef64bb00380086d86923, type: 2}
   - {fileID: 11400000, guid: e67bf5bb9bede8a47adfc84cc22b7eb1, type: 2}
   - {fileID: 11400000, guid: f677c94b80ccf784aac1565aec24dc43, type: 2}
+  - {fileID: 11400000, guid: b53ec7da468fb424694d5427c6832169, type: 2}
   TrackPrefab: {fileID: 7980013985442431122, guid: 797f3fbdb52e35f439b9206d90d51186, type: 3}
   element: 0
   tracking: 0
