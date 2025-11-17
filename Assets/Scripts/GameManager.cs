@@ -15,7 +15,7 @@ namespace SoundTrack{
         [Header("Music & Tempo")]
         public AudioSource intro_clip;
         public AudioSource Main_loop_clip;
-        [Min(1f)] public float bpm = 91f;
+        [Min(1f)] public float bpm = 105f;
         [Tooltip("Time to First Beat")]
         public double firstBeatOffset = 0.1;
 
