@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -12,7 +13,8 @@ namespace SoundTrack{
         private bool playing;
 
         [Header("Music & Tempo")]
-        public AudioSource music;
+        public AudioSource intro_clip;
+        public AudioSource Main_loop_clip;
         [Min(1f)] public float bpm = 91f;
         [Tooltip("Time to First Beat")]
         public double firstBeatOffset = 0.1;
@@ -91,8 +93,14 @@ namespace SoundTrack{
             beatIndex = -1;
             dspCanHit = AudioSettings.dspTime + 0.5;
             songStartDsp = AudioSettings.dspTime + 0.5;
-            music.time = 0f;
-            music.PlayScheduled(songStartDsp);
+            //music.time = 0f;
+            intro_clip.time = 0f;
+            Main_loop_clip.time = 0f;
+            //music.PlayScheduled(songStartDsp);
+            intro_clip.PlayScheduled(songStartDsp);
+            Main_loop_clip.loop = true;
+            Main_loop_clip.PlayScheduled(songStartDsp + intro_clip.clip.length);
+            
 
             LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
 

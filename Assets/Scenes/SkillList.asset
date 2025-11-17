@@ -22,30 +22,54 @@ MonoBehaviour:
         y: 2
       - x: 0
         y: 3
-      - x: 0
-        y: 3
     vfx:
-      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
+      attackVFX: {fileID: 7834434380170384362, guid: 68101499d07aced4aa0ded4acb624942, type: 3}
     number: 0
-  - binaryNumber: 00000001
+  - binaryNumber: 10101010
     attackPattern:
       items:
-      - x: -1
-        y: -1
-      - x: -1
-        y: 0
-      - x: -1
-        y: 1
       - x: 0
         y: -1
       - x: 0
-        y: 1
-      - x: 1
-        y: -1
-      - x: 1
-        y: 0
-      - x: 1
-        y: 1
+        y: -2
+      - x: 0
+        y: -3
     vfx:
-      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
-    number: 1
+      attackVFX: {fileID: 7834434380170384362, guid: 68101499d07aced4aa0ded4acb624942, type: 3}
+    number: 170
+  - binaryNumber: 11111111
+    attackPattern:
+      items: []
+    vfx:
+      attackVFX: {fileID: 7834434380170384362, guid: 68101499d07aced4aa0ded4acb624942, type: 3}
+    number: 255
+  - binaryNumber: 01010101
+    attackPattern:
+      items: []
+    vfx:
+      attackVFX: {fileID: 7834434380170384362, guid: 68101499d07aced4aa0ded4acb624942, type: 3}
+    number: 85
+  - binaryNumber: 11111100
+    attackPattern:
+      items: []
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 252
+  - binaryNumber: 11111110
+    attackPattern:
+      items: []
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 254
+  - binaryNumber: 01010100
+    attackPattern:
+      items: []
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 84
+  - binaryNumber: 01010110
+    attackPattern:
+      items: []
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 86
