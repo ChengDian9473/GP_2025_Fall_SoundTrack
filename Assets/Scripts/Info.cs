@@ -19,6 +19,8 @@ namespace SoundTrack{
         private VisualElement setting_page;
         private VisualElement end_page;
 
+        private Label TutorialLabel;
+
         private Button StartButton;
         private Button SettingButton;
         private Button QuitButton;
@@ -37,6 +39,11 @@ namespace SoundTrack{
         private Label HPLabel;
         private Label WinLabel;
         private Label SeqLabel;
+        
+        private string[] tutorialLines;
+        private int currentIndex = 0;
+        private Coroutine typingCoroutine;
+        private bool isTyping = false;
 
         private int current_scene;
         private int current_page;
@@ -94,6 +101,9 @@ namespace SoundTrack{
             pages.Add(RootVisualElement.Q<VisualElement>("Level")); // Page 2
 
             tutorial_page = RootVisualElement.Q<VisualElement>("Tutorial");
+            tutorial_page.RegisterCallback<ClickEvent>(OnClickAnywhere);
+            TutorialLabel = RootVisualElement.Q<Label>("TutorialLabel");
+
             home_page = RootVisualElement.Q<VisualElement>("Home");
             setting_page = RootVisualElement.Q<VisualElement>("Setting");
             end_page = RootVisualElement.Q<VisualElement>("End");
@@ -133,6 +143,81 @@ namespace SoundTrack{
             Scene current = SceneManager.GetActiveScene();
             GameInit(Utils.GetSceneNames().IndexOf(current.name));
         }
+
+
+        private void OnClickAnywhere(ClickEvent evt)
+        {
+            Debug.Log("Clicked");
+            HandleNextStep();
+        }
+
+        private void HandleNextStep()
+        {
+            if (isTyping)
+            {
+                FinishTypingCurrentLine();
+            }
+            else
+            {
+                ShowTutorial(currentIndex + 1);
+            }
+        }
+
+        public void StartTutorial(string[] lines){
+            GameManager.Instance.TurtorialStart();
+            tutorial_page.style.display = DisplayStyle.Flex;
+            tutorialLines = lines;
+            ShowTutorial(0);
+        }
+        private void ShowTutorial(int index)
+        {
+            if (index >= tutorialLines.Length)
+            {
+                EndTutorial();
+                return;
+            }
+
+            currentIndex = index;
+
+            if (typingCoroutine != null)
+                StopCoroutine(typingCoroutine);
+
+            typingCoroutine = StartCoroutine(TypeText(tutorialLines[index]));
+        }
+
+        private IEnumerator TypeText(string content)
+        {
+            isTyping = true;
+            TutorialLabel.text = "";
+
+            foreach (char c in content)
+            {
+                TutorialLabel.text += c;
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            isTyping = false;
+        }
+
+        private void FinishTypingCurrentLine()
+        {
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+            }
+
+            TutorialLabel.text = tutorialLines[currentIndex];
+            isTyping = false;
+        }
+
+        private void EndTutorial()
+        {
+            // 教學結束，隱藏整個教學 UI
+            tutorial_page.style.display = DisplayStyle.None;
+            GameManager.Instance.TurtorialEnd();
+        }
+
 
         private void OnDisable(){
             // DI for check cover != null
@@ -282,7 +367,7 @@ namespace SoundTrack{
             }else{
                 home_page.style.display = DisplayStyle.Flex;
             }
-
+            EndTutorial();
             end_page.style.display = DisplayStyle.None;
             if(load)
                 SceneManager.LoadScene(current_scene);

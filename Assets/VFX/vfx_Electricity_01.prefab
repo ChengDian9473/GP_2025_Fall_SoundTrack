@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3939764759394070279}
   - component: {fileID: 7373644630128741146}
   - component: {fileID: 2193125836256819593}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: vfx_Electricity_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4802,8 +4802,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1554386741
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_RenderMode: 5
   m_MeshDistribution: 0

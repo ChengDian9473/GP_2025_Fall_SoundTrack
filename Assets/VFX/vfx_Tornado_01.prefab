@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4197818805489383136}
   - component: {fileID: 7333237281262436535}
   - component: {fileID: 8364859326922873449}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: vfx_Tornado_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8776975491410898621}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.761599, y: -0.54448956, z: -0.21469228, w: 0.2782182}
-  m_LocalPosition: {x: 15.555555, y: 0, z: -10}
-  m_LocalScale: {x: 5.263535, y: 5.263535, z: 4.814924}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.6476959, y: -0.4689505, z: -0.35664672, w: 0.4830927}
+  m_LocalPosition: {x: 15.555555, y: 0, z: -1}
+  m_LocalScale: {x: 1.58, y: 1.58, z: 1.4453366}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -41.115, y: -541.829, z: -250.438}
+  m_LocalEulerAnglesHint: {x: -73.8, y: -541.829, z: -250.438}
 --- !u!198 &7333237281262436535
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8776975491410898621}
   serializedVersion: 8
-  lengthInSec: 2
+  lengthInSec: 1.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.7
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -288,7 +288,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1.2
-      minScalar: 0.8
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4801,8 +4801,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1554386741
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

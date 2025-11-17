@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace SoundTrack{
@@ -67,6 +68,7 @@ namespace SoundTrack{
                 var copy = new Room
                 {
                     trigger = new List<GridPos>(r.trigger),
+                    triggerInfo = r.triggerInfo.ToArray(),
                     monsters = new List<MonsterSpawnInfo>(r.monsters),
                     clear = false,
                     stage = r.stage
@@ -98,6 +100,9 @@ namespace SoundTrack{
             curRoom = r;
             inLevel = true;
             // Debug.Log("Room sStart");
+            if(r.triggerInfo != null && r.triggerInfo.Length > 0){
+                Info.Instance.StartTutorial(r.triggerInfo);
+            }
             foreach (var m in r.monsters)
             {
                 // Debug.Log("Monster * 1");
