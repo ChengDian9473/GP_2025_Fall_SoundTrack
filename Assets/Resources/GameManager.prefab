@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6357216071529181177}
   - component: {fileID: 7854717041004453818}
-  - component: {fileID: 8223060620182146764}
-  - component: {fileID: 7670421493920911132}
+  - component: {fileID: -9097556610196961675}
+  - component: {fileID: -963261904079232238}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,12 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7da337ac74890345a20914089c2e92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  intro_clip: {fileID: 8223060620182146764}
-  Main_loop_clip: {fileID: 7670421493920911132}
-  bpm: 91
-  firstBeatOffset: 0.1
+  intro_clip: {fileID: -9097556610196961675}
+  Main_loop_clip: {fileID: -963261904079232238}
+  bpm: 105
+  firstBeatOffset: 0.05
   LM: {fileID: 0}
---- !u!82 &8223060620182146764
+--- !u!82 &-9097556610196961675
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,11 +62,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 412d5b2c4f887419fb588e246b9949a2, type: 3}
+  m_Resource: {fileID: 8300000, guid: 736a23f7c467246efbc796627aa92be4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -148,7 +148,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &7670421493920911132
+--- !u!82 &-963261904079232238
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,11 +159,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 49ffa419b38ee4b43bcbaf0f1ec4e15d, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 8300000, guid: 092c93b81b7da4820bfeba24c3886a52, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
