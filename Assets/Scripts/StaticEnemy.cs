@@ -33,9 +33,7 @@ namespace SoundTrack{
         protected void Die(){
             LM.monsterOn.Remove(curGrid);
             LM.aliveMonsters.Remove(this);
-            if(LM.aliveMonsters.Count == 0){
-                LM.endRoom();
-            }
+            LM.CheckRoomComplete();
             Destroy(gameObject);
         }
 

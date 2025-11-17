@@ -9,12 +9,12 @@ namespace SoundTrack{
     {
 
         [SerializeField] private GameObject playerPrefab;
-        
+
         [NonSerialized] public Player player;
         public LevelData levelProfile;
         [HideInInspector] public LevelData level;
 
-        private Room curRoom;
+        public Room curRoom;
 
         public int curStage = 0;
         public bool inLevel = false;
@@ -69,6 +69,18 @@ namespace SoundTrack{
                     clear = false,
                     stage = r.stage
                 };
+
+                copy.endCondition = new List<RoomEndCondition>();
+
+                foreach (var cond in r.endCondition)
+                {
+                    var condCopy = new RoomEndCondition();
+                    condCopy.type = cond.type;
+                    condCopy.targetGrids = new List<GridPos>(cond.targetGrids);
+                    copy.endCondition.Add(condCopy);
+                }
+
+                copy.visited = new List<GridPos>();
                 level.rooms.Add(copy);
             }
             level.maxStage = levelProfile.maxStage;
@@ -118,6 +130,42 @@ namespace SoundTrack{
                     groundTilemap.SetTile(g.ToVector3Int(), doorOpened);
                 }
             }
+        }
+
+        public void CheckRoomComplete()
+        {
+            if (curRoom == null || curRoom.clear) return;
+
+            foreach (var cond in curRoom.endCondition)
+            {
+                switch (cond.type)
+                {
+                    case RoomEndConditionType.KillAllEnemies:
+                        if (aliveMonsters.Count > 0) return;
+                        break;
+
+                    case RoomEndConditionType.ExitRoom:
+                        bool exit = false;
+                        foreach(var g in cond.targetGrids)
+                        {
+                            if (curRoom.visited.Contains(g))
+                            {
+                                exit = true;
+                                break;
+                            }
+                        }
+                        if (!exit) return;
+                        break;
+
+                    case RoomEndConditionType.VisitGrids:
+                        foreach(var g in cond.targetGrids)
+                            if (!curRoom.visited.Contains(g)) return;
+                        break;
+                }
+            }
+
+            // 所有條件都 OK → 結束房間
+            endRoom();
         }
 
         public void OnBeatReceived(int beat){

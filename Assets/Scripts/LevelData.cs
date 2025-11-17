@@ -13,14 +13,19 @@ namespace SoundTrack{
     [System.Serializable]
     public class Room
     {
+        public int stage = 0;
+
         [Tooltip("Trigger Position")]
         public List<GridPos> trigger;
 
         [Tooltip("Monstet List")]
         public List<MonsterSpawnInfo> monsters = new();
 
+        [Tooltip("End Condition")]
+        public List<RoomEndCondition> endCondition = new();
         public bool clear = false;
-        public int stage = 0;
+
+        public List<GridPos> visited;
     }
 
     [System.Serializable]
@@ -32,5 +37,20 @@ namespace SoundTrack{
         public GridPos spawnGrid;
         [Tooltip("Element can hurt it")]
         public List<int> allowedElement;
+    }
+
+    public enum RoomEndConditionType
+    {
+        KillAllEnemies,
+        ExitRoom,
+        VisitGrids,
+    }
+
+    [System.Serializable]
+    public class RoomEndCondition
+    {
+        public RoomEndConditionType type;
+
+        public List<GridPos> targetGrids;
     }
 }
