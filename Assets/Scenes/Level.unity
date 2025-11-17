@@ -10517,6 +10517,61 @@ MonoBehaviour:
   fontSize: 10
   textColor: {r: 0, g: 0, b: 0, a: 1}
   worldOffset: {x: 0, y: 0, z: 0}
+--- !u!1 &804390271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804390273}
+  - component: {fileID: 804390272}
+  m_Layer: 0
+  m_Name: BeatBarManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &804390272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804390271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c833c040263642fe825c25be7004a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.BeatBarManager
+  beatBarPrefab: {fileID: -2170635002102688344, guid: aea6c8a242d9d428d89bf14cdd36c91f, type: 3}
+  followTarget: {fileID: 1433238179}
+  initialCenter: {x: 0.55, y: -3, z: 0}
+  leftSpawnX: -7.45
+  rightSpawnX: 8.55
+  spawnY: -3
+  spawnsPerMinute: 105
+  barMoveSpeed: 4
+  touchTolerance: 0.05
+  manualClearWindow: 0.2
+  initialSpawnDelay: 0
+--- !u!4 &804390273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804390271}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.2681, y: -0.08128, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &853301768
 GameObject:
   m_ObjectHideFlags: 0
@@ -24846,12 +24901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7393b744ca4de7c43909f0c22002197b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TriggerExtractor
-  gridSize: {x: 32, y: 32}
-  origin: {x: 0, y: 0}
-  cellSize: 1
-  sourceMask: {fileID: 0}
-  maskThreshold: 0.5
-  trigger: []
 --- !u!4 &1578432461
 Transform:
   m_ObjectHideFlags: 0
@@ -24987,3 +25036,4 @@ SceneRoots:
   - {fileID: 790051420720058036}
   - {fileID: 1450025447}
   - {fileID: 1578432461}
+  - {fileID: 804390273}
