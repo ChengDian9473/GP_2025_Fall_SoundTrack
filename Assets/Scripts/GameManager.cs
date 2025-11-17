@@ -98,7 +98,7 @@ namespace SoundTrack{
             //music.PlayScheduled(songStartDsp);
             intro_clip.PlayScheduled(songStartDsp);
             Main_loop_clip.loop = true;
-            Main_loop_clip.PlayScheduled(songStartDsp + intro_clip.clip.length);
+            Main_loop_clip.PlayScheduled(songStartDsp + intro_clip.clip.length - 0.1);
             
 
             LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
@@ -108,6 +108,8 @@ namespace SoundTrack{
 
         public void GameEnd(){
             playing = false;
+            intro_clip.Stop();
+            Main_loop_clip.Stop();
         }
     }
 }
