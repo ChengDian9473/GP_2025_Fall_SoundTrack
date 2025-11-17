@@ -87,17 +87,6 @@ namespace SoundTrack{
                 }
             }
             nextGrid = curGrid + dir;
-            
-            int skillTrigger = OnSkill(curGrid);
-            
-            if(skillTrigger != -1){
-                if(skillTrigger != element){
-                    ClearTrack();
-                    element = skillTrigger;
-                    this.GetComponent<SpriteRenderer>().color = colors[element];
-                }
-                tracking = true;
-            }
 
             if(IsWalkable(nextGrid)){
                 // DI 紀錄軌跡
@@ -166,10 +155,21 @@ namespace SoundTrack{
                     // Debug.Log("Upate Skill after Move E");
                 }
                 LM.UpdateAttackTile(false);
+                
+                int skillTrigger = OnSkill(curGrid);
+                
+                if(skillTrigger != -1){
+                    if(skillTrigger != element){
+                        ClearTrack();
+                        element = skillTrigger;
+                        this.GetComponent<SpriteRenderer>().color = colors[element];
+                    }
+                    tracking = true;
+                }
 
                 transform.position = curGrid.ToVector3();
                 // DI 移動攝影機
-                cam.Follow(curGrid.ToVector3Int() + Vector3Int.right * 4);
+                cam.Follow(curGrid.ToVector3());
             }
         }
 

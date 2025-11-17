@@ -4,16 +4,20 @@ using System.Collections;
 namespace SoundTrack{
     public class CameraMove : MonoBehaviour
     {
-        public Vector3 offset = new Vector3(0, 0, -10);
+        public Vector3 offset;
         public float moveDuration;
         
         private void Awake(){
+            offset = new Vector3(4.0f, 0.0f, -10.0f);
             moveDuration = (60f / GameManager.Instance.bpm) * 0.75f;
-            //Debug.Log(moveDuration);    
+            transform.position = offset + new Vector3(0.0f, 0.5f, 0.0f);
+            //Debug.Log(moveDuration);
         }
 
-        public void Follow(Vector3Int targetPos)
+        public void Follow(Vector3 targetPos)
         {
+            Debug.Log($"{targetPos}{offset}");
+            Debug.Log(targetPos+offset);
             StartCoroutine(MoveCoroutine(targetPos + offset));
         }
         IEnumerator MoveCoroutine(Vector3 endPos)
@@ -28,6 +32,7 @@ namespace SoundTrack{
             }
             
             transform.position = endPos;
+            Debug.Log(endPos);
         }
     }
 }
