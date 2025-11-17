@@ -3541,7 +3541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TilemapCoordOverlay
   tilemap: {fileID: 690381481}
-  show: 1
+  show: 0
   onlyOccupiedTiles: 1
   step: 1
   fontSize: 10
