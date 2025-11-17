@@ -11,6 +11,7 @@ namespace SoundTrack{
         public static GameManager Instance { get; private set; }
 
         private bool playing;
+        private bool turtorial;
 
         [Header("Music & Tempo")]
         public AudioSource intro_clip;
@@ -42,10 +43,11 @@ namespace SoundTrack{
             DontDestroyOnLoad(gameObject);
 
             playing = false;
+            turtorial = false;
         }
 
         private void Update(){
-            if(playing){
+            if(playing && !turtorial){
                 double dspNow = AudioSettings.dspTime;
                 songTime = Math.Max(0.0, (dspNow - songStartDsp) - firstBeatOffset);
 
@@ -74,7 +76,7 @@ namespace SoundTrack{
                         if(Keyboard.current.aKey.wasPressedThisFrame)
                             LM.player.move(3);
                         if(Keyboard.current.gKey.wasPressedThisFrame)
-                            Info.Instance.ShowTutorial(0);
+                            Info.Instance.StartTutorial(new string[] {"歡迎來到遊戲！","使用 WASD 進行移動。","按滑鼠左鍵使用技能。","準備好了嗎？開始吧！"});
                     }
                 }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
@@ -85,6 +87,12 @@ namespace SoundTrack{
                 //     LM.player.ClearTrack();
                 // }
             }
+        }
+        public void TurtorialStart(){
+            turtorial = true;
+        }
+        public void TurtorialEnd(){
+            turtorial = false;
         }
 
         public void GameStart(){

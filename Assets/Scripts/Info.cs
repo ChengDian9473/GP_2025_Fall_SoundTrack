@@ -40,12 +40,7 @@ namespace SoundTrack{
         private Label WinLabel;
         private Label SeqLabel;
         
-        private string[] tutorialLines = {
-            "歡迎來到遊戲！",
-            "使用 WASD 進行移動。",
-            "按滑鼠左鍵使用技能。",
-            "準備好了嗎？開始吧！"
-        };
+        private string[] tutorialLines;
         private int currentIndex = 0;
         private Coroutine typingCoroutine;
         private bool isTyping = false;
@@ -168,9 +163,14 @@ namespace SoundTrack{
             }
         }
 
-        public void ShowTutorial(int index)
-        {
+        public void StartTutorial(string[] lines){
+            GameManager.Instance.TurtorialStart();
             tutorial_page.style.display = DisplayStyle.Flex;
+            tutorialLines = lines;
+            ShowTutorial(0);
+        }
+        private void ShowTutorial(int index)
+        {
             if (index >= tutorialLines.Length)
             {
                 EndTutorial();
@@ -193,7 +193,7 @@ namespace SoundTrack{
             foreach (char c in content)
             {
                 TutorialLabel.text += c;
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForSeconds(0.1f);
             }
 
             isTyping = false;
@@ -215,6 +215,7 @@ namespace SoundTrack{
         {
             // 教學結束，隱藏整個教學 UI
             tutorial_page.style.display = DisplayStyle.None;
+            GameManager.Instance.TurtorialEnd();
         }
 
 
@@ -366,7 +367,7 @@ namespace SoundTrack{
             }else{
                 home_page.style.display = DisplayStyle.Flex;
             }
-
+            EndTutorial();
             end_page.style.display = DisplayStyle.None;
             if(load)
                 SceneManager.LoadScene(current_scene);
