@@ -28,6 +28,10 @@ namespace SoundTrack{
         [NonSerialized] public double exactBeat;
         [NonSerialized] public int    lastBeat;
         [NonSerialized] public double dspCanHit;
+        [NonSerialized] public double prevstart;
+        [NonSerialized] public double introduration;        
+        [NonSerialized] public double mainduration; 
+        [NonSerialized] public int    sourceflag;
 
         public LevelManager LM;
 
@@ -42,6 +46,10 @@ namespace SoundTrack{
             DontDestroyOnLoad(gameObject);
 
             playing = false;
+
+            introduration = (double)intro_clip.clip.samples/intro_clip.clip.frequency;
+            mainduration = (double)Main_loop_clip.clip.samples/Main_loop_clip.clip.frequency;
+            sourceflag = 0;
         }
 
         private void Update(){
@@ -52,6 +60,25 @@ namespace SoundTrack{
                 double secPerBeat = 60.0 / bpm;
                 exactBeat = songTime / secPerBeat;
                 beatIndex = (int)Math.Floor(exactBeat + 1e-9);
+
+                if(dspNow > prevstart + mainduration - 1)
+                {
+                    Debug.Log("Loop Start");
+                    prevstart += mainduration;
+                    if (sourceflag == 0)
+                    {
+                        intro_clip.clip = Main_loop_clip.clip;
+                        intro_clip.time = 0f;
+                        intro_clip.PlayScheduled(prevstart);
+                    }
+                    else
+                    {   
+                        Main_loop_clip.time = 0f;
+                        Main_loop_clip.PlayScheduled(prevstart);
+                    }
+                    sourceflag = 1 - sourceflag;
+
+                }
 
                 if (beatIndex != lastBeat)
                 {
@@ -98,7 +125,8 @@ namespace SoundTrack{
             //music.PlayScheduled(songStartDsp);
             intro_clip.PlayScheduled(songStartDsp);
             Main_loop_clip.loop = true;
-            Main_loop_clip.PlayScheduled(songStartDsp + intro_clip.clip.length - 0.1);
+            prevstart = songStartDsp + introduration; 
+            Main_loop_clip.PlayScheduled(prevstart);
             
 
             LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));

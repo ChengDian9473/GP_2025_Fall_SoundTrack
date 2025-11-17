@@ -18,14 +18,8 @@ MonoBehaviour:
       items:
       - x: 0
         y: 1
-      - x: 0
-        y: 2
-      - x: 0
-        y: 3
-      - x: 0
-        y: 3
     vfx:
-      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
+      attackVFX: {fileID: 8776975491410898621, guid: 5957607b6c8ff414f9a93b2d99869ca7, type: 3}
     number: 0
   - binaryNumber: 00000001
     attackPattern:
@@ -47,5 +41,5 @@ MonoBehaviour:
       - x: 1
         y: 1
     vfx:
-      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
+      attackVFX: {fileID: 8776975491410898621, guid: 5957607b6c8ff414f9a93b2d99869ca7, type: 3}
     number: 1
