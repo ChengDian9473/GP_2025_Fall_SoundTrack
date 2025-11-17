@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7918769476389217698, guid: f6dc3ee16996158498c7d7a3441577f6, type: 3}
       propertyPath: followTarget
-      value: 
+      value:
       objectReference: {fileID: 1433238179}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2649,7 +2649,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 297d0b162281ecf4294f588c4ae9319a, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::TilemapCoordOverlay
   tilemap: {fileID: 690381481}
   show: 1
@@ -4724,7 +4724,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
@@ -4768,7 +4768,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dde3d935d3fd593459292a6eff35e8d0, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.CameraMove
   offset: {x: 0, y: 0, z: -10}
   moveDuration: 0
@@ -4799,7 +4799,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20c3dc839b8529a49aa3855110104d7b, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   playerPrefab: {fileID: 1272982599348401881, guid: a482353c08fbf604eb0c970ed5fd9b7c, type: 3}
   levelProfile: {fileID: 11400000, guid: 0c4519ae3fd6b9c4b9bf2484d623a89d, type: 2}

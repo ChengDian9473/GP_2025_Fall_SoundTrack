@@ -34,6 +34,10 @@ MonoBehaviour:
         y: 1
       - x: 0
         y: 2
+      - x: 0
+        y: 3
+      - x: 0
+        y: 3
     vfx:
       attackVFX: {fileID: 0}
     number: 27
@@ -89,5 +93,5 @@ MonoBehaviour:
       - x: 0
         y: 4
     vfx:
-      attackVFX: {fileID: 0}
-    number: 27
+      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
+    number: 1

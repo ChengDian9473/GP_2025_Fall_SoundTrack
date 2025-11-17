@@ -3201,6 +3201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   playerPrefab: {fileID: 1272982599348401881, guid: a482353c08fbf604eb0c970ed5fd9b7c, type: 3}
+  beatBarManagerPrefab: {fileID: 7918769476389217698, guid: f6dc3ee16996158498c7d7a3441577f6, type: 3}
   levelProfile: {fileID: 11400000, guid: 4c5f6695957a94125bb8b09c3063b7d6, type: 2}
   level: {fileID: 0}
   curStage: 0

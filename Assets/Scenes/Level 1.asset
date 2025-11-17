@@ -20,6 +20,8 @@ MonoBehaviour:
       y: 0
     - x: 5
       y: 1
+    triggerInfo:
+    - Sdasdada
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:

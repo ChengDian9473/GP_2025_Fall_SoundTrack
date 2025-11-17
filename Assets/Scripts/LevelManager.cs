@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace SoundTrack{
@@ -9,6 +10,9 @@ namespace SoundTrack{
     {
 
         [SerializeField] private GameObject playerPrefab;
+
+        [SerializeField] private BeatBarManager beatBarManagerPrefab;
+        private BeatBarManager beatBarManagerInstance;
 
         [NonSerialized] public Player player;
         public LevelData levelProfile;
@@ -65,6 +69,7 @@ namespace SoundTrack{
                 var copy = new Room
                 {
                     trigger = new List<GridPos>(r.trigger),
+                    triggerInfo = r.triggerInfo.ToArray(),
                     monsters = new List<MonsterSpawnInfo>(r.monsters),
                     clear = false,
                     stage = r.stage
@@ -89,6 +94,13 @@ namespace SoundTrack{
                 groundTilemap.SetTile(g.ToVector3Int(), doorClosed);
                 level.bossDoor.Add(g);
             }
+
+            beatBarManagerInstance = Instantiate(beatBarManagerPrefab);
+            var camTransform = Camera.main != null ? Camera.main.transform : null;
+            if (camTransform != null)
+            {
+                beatBarManagerInstance.SetFollowTarget(camTransform);
+            }
         }
 
         void OnDestroy()
@@ -101,6 +113,9 @@ namespace SoundTrack{
             curRoom = r;
             inLevel = true;
             // Debug.Log("Room sStart");
+            if(r.triggerInfo != null && r.triggerInfo.Length > 0){
+                Info.Instance.StartTutorial(r.triggerInfo);
+            }
             foreach (var m in r.monsters)
             {
                 // Debug.Log("Monster * 1");
