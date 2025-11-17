@@ -13,7 +13,71 @@ MonoBehaviour:
   m_Name: SkillList
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.SkillList
   skills:
+  - binaryNumber: 00011011
+    attackPattern:
+      items:
+      - x: 1
+        y: 0
+      - x: -1
+        y: 0
+      - x: 0
+        y: 1
+      - x: 0
+        y: -1
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 27
   - binaryNumber: 00000000
+    attackPattern:
+      items:
+      - x: 0
+        y: 1
+      - x: 0
+        y: 2
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 27
+  - binaryNumber: 00000001
+    attackPattern:
+      items:
+      - x: 0
+        y: 1
+      - x: 1
+        y: 0
+      - x: -1
+        y: 0
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 27
+  - binaryNumber: 00100010
+    attackPattern:
+      items:
+      - x: 0
+        y: 1
+      - x: 0
+        y: 2
+      - x: 1
+        y: 2
+      - x: -1
+        y: 2
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 27
+  - binaryNumber: 00010001
+    attackPattern:
+      items:
+      - x: 1
+        y: 1
+      - x: -1
+        y: 1
+      - x: -1
+        y: -1
+      - x: -2
+        y: 2
+    vfx:
+      attackVFX: {fileID: 0}
+    number: 27
+  - binaryNumber: 00001010
     attackPattern:
       items:
       - x: 0
@@ -23,29 +87,7 @@ MonoBehaviour:
       - x: 0
         y: 3
       - x: 0
-        y: 3
+        y: 4
     vfx:
-      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
-    number: 0
-  - binaryNumber: 00000001
-    attackPattern:
-      items:
-      - x: -1
-        y: -1
-      - x: -1
-        y: 0
-      - x: -1
-        y: 1
-      - x: 0
-        y: -1
-      - x: 0
-        y: 1
-      - x: 1
-        y: -1
-      - x: 1
-        y: 0
-      - x: 1
-        y: 1
-    vfx:
-      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
-    number: 1
+      attackVFX: {fileID: 0}
+    number: 27
