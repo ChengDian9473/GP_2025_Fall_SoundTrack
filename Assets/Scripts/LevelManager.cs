@@ -9,6 +9,8 @@ namespace SoundTrack{
     {
 
         [SerializeField] private GameObject playerPrefab;
+        [SerializeField] private BeatBarManager beatBarManagerPrefab;
+        private BeatBarManager beatBarManagerInstance;
         
         [NonSerialized] public Player player;
         public LevelData levelProfile;
@@ -76,6 +78,13 @@ namespace SoundTrack{
             foreach (var g in levelProfile.bossDoor){
                 groundTilemap.SetTile(g.ToVector3Int(), doorClosed);
                 level.bossDoor.Add(g);
+            }
+
+            beatBarManagerInstance = Instantiate(beatBarManagerPrefab);
+            var camTransform = Camera.main != null ? Camera.main.transform : null;
+            if (camTransform != null)
+            {
+                beatBarManagerInstance.SetFollowTarget(camTransform);
             }
         }
 

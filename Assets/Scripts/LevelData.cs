@@ -16,7 +16,7 @@ namespace SoundTrack{
         [Tooltip("Trigger Position")]
         public List<GridPos> trigger;
 
-        [Tooltip("Monstet List")]
+        [Tooltip("Monster List")]
         public List<MonsterSpawnInfo> monsters = new();
 
         public bool clear = false;

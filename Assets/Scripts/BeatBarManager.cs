@@ -26,10 +26,19 @@ namespace SoundTrack
         [SerializeField] private float barMoveSpeed = 4f;
         [SerializeField, Range(0.01f, 0.5f)] private float touchTolerance = 0.05f;
         [SerializeField, Range(0f, 2f)] private float manualClearWindow = 0.2f;
-        [SerializeField, Min(0f)] private float initialSpawnDelay = 0f;
+        [SerializeField, Min(0f)] private float initialSpawnDelay = 0.31f;
+        [SerializeField, Range(0f, 1f)] private float centerDespawnDelay = 0.2f;
+
+        [Header("Chicken")]
+        [SerializeField] private ChickenBeatPulse chickenPrefab;
+        [SerializeField] private Vector3 chickenLocalOffset = Vector3.zero;
+        [SerializeField] private Vector2 chickenScale = new Vector2(8f, 8f);
+
+        public event Action<float> OnCenterBeat;
 
         private readonly List<BeatBarSpirit> activeBars = new();
         private readonly Dictionary<int, BeatBarPair> pairsById = new();
+        private readonly Queue<PendingDespawn> pendingDespawns = new();
         private int nextPairId;
         private float spawnTimer;
         private float delayTimer;
@@ -37,6 +46,7 @@ namespace SoundTrack
         private Vector3 followOffset;
         private bool followInitialized;
         private Vector3 currentCenter;
+        private ChickenBeatPulse chickenInstance;
 
         private void Awake()
         {
@@ -48,6 +58,8 @@ namespace SoundTrack
                 followOffset = initialCenter - followTarget.position;
                 followInitialized = true;
             }
+
+            SpawnChicken();
         }
 
         private void Update()
@@ -55,6 +67,23 @@ namespace SoundTrack
             FollowTargetTick();
             SpawnTick();
             HandlePlayerInput();
+            ProcessPendingDespawns();
+        }
+
+        public void SetFollowTarget(Transform target, bool snapImmediately = true)
+        {
+            followTarget = target;
+            followInitialized = followTarget != null;
+
+            if (followInitialized)
+            {
+                followOffset = initialCenter - followTarget.position;
+                if (snapImmediately)
+                {
+                    currentCenter = followTarget.position + followOffset;
+                    transform.position = currentCenter;
+                }
+            }
         }
 
         private void FollowTargetTick()
@@ -113,21 +142,28 @@ namespace SoundTrack
                 Mathf.Abs(a.transform.position.x - centerX).CompareTo(
                     Mathf.Abs(b.transform.position.x - centerX)));
 
-            int cleared = 0;
-            float window = manualClearWindow <= 0f ? float.PositiveInfinity : manualClearWindow;
-
-            while (cleared < 2 && activeBars.Count > 0)
+            if (activeBars.Count == 0)
             {
-                BeatBarSpirit bar = activeBars[0];
-                float distance = Mathf.Abs(bar.transform.position.x - centerX);
+                return;
+            }
 
-                if (distance > window)
+            BeatBarSpirit first = activeBars[0];
+            BeatBarPair pair = null;
+            pairsById.TryGetValue(first.PairId, out pair);
+
+            if (pair != null)
+            {
+                DespawnBar(pair.Left);
+                DespawnBar(pair.Right);
+            }
+            else
+            {
+                // fallback: remove two closest individual bars
+                int fallback = Mathf.Min(2, activeBars.Count);
+                for (int i = 0; i < fallback; i++)
                 {
-                    break;
+                    DespawnBar(activeBars[0]);
                 }
-
-                DespawnBar(bar);
-                cleared++;
             }
         }
 
@@ -152,6 +188,24 @@ namespace SoundTrack
 
         internal float CurrentCenterWorldX => currentCenter.x;
         internal Vector3 CurrentCenterWorldPosition => currentCenter;
+        public float SecondsPerBeat => 60f / Mathf.Max(1f, spawnsPerMinute);
+        public float BeatsPerMinute => spawnsPerMinute;
+
+        public float GetPredictedFirstCollisionDelay()
+        {
+            return initialSpawnDelay + GetLongestTravelTime();
+        }
+
+        private float GetLongestTravelTime()
+        {
+            return Mathf.Max(GetTravelTimeToCenter(leftSpawnX), GetTravelTimeToCenter(rightSpawnX));
+        }
+
+        private float GetTravelTimeToCenter(float spawnX)
+        {
+            float distance = Mathf.Abs(initialCenter.x - spawnX);
+            return distance / Mathf.Max(0.01f, barMoveSpeed);
+        }
 
         internal void NotifyReachedCenter(BeatBarSpirit bar)
         {
@@ -169,7 +223,8 @@ namespace SoundTrack
             pair.MarkReached(bar);
             if (pair.BothReached)
             {
-                DestroyPair(pair);
+                OnCenterBeat?.Invoke(Time.time);
+                SchedulePairDespawn(pair);
             }
         }
 
@@ -196,6 +251,11 @@ namespace SoundTrack
 
         private void DestroyPair(BeatBarPair pair)
         {
+            if (pair == null)
+            {
+                return;
+            }
+
             if (pair.Left != null)
             {
                 activeBars.Remove(pair.Left);
@@ -209,6 +269,54 @@ namespace SoundTrack
             }
 
             pairsById.Remove(pair.PairId);
+        }
+
+        private void SchedulePairDespawn(BeatBarPair pair)
+        {
+            if (pair == null)
+            {
+                return;
+            }
+
+            float delay = Mathf.Max(0f, centerDespawnDelay);
+            if (delay <= 0f)
+            {
+                DestroyPair(pair);
+                return;
+            }
+
+            pendingDespawns.Enqueue(new PendingDespawn(pair, Time.time + delay));
+        }
+
+        private void ProcessPendingDespawns()
+        {
+            float now = Time.time;
+            while (pendingDespawns.Count > 0 && pendingDespawns.Peek().ExecuteAt <= now)
+            {
+                PendingDespawn job = pendingDespawns.Dequeue();
+                if (pairsById.TryGetValue(job.PairId, out BeatBarPair pair))
+                {
+                    DestroyPair(pair);
+                }
+            }
+        }
+
+        private void SpawnChicken()
+        {
+            if (chickenPrefab == null || chickenInstance != null)
+            {
+                return;
+            }
+
+            chickenInstance = Instantiate(chickenPrefab, currentCenter, Quaternion.identity, transform);
+            chickenInstance.transform.localPosition = chickenLocalOffset;
+
+            Vector3 adjusted = chickenInstance.transform.localScale;
+            adjusted.x = chickenScale.x;
+            adjusted.y = chickenScale.y;
+            chickenInstance.transform.localScale = adjusted;
+
+            chickenInstance.Initialize(this);
         }
 
         private void PruneNullBars()
@@ -286,6 +394,18 @@ namespace SoundTrack
                 {
                     Right = null;
                 }
+            }
+        }
+
+        private sealed class PendingDespawn
+        {
+            public int PairId { get; }
+            public float ExecuteAt { get; }
+
+            public PendingDespawn(BeatBarPair pair, float executeAt)
+            {
+                PairId = pair.PairId;
+                ExecuteAt = executeAt;
             }
         }
     }
