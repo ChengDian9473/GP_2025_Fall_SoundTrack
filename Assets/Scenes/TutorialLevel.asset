@@ -126,11 +126,6 @@ MonoBehaviour:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 21
-        y: -9
-      allowedElement: 00000000010000000200000003000000
-    - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
-      spawnGrid:
-        x: 21
         y: -10
       allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
@@ -276,11 +271,6 @@ MonoBehaviour:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 5
-        y: -9
-      allowedElement: 00000000010000000200000003000000
-    - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
-      spawnGrid:
-        x: 8
         y: -9
       allowedElement: 00000000010000000200000003000000
     endCondition:
