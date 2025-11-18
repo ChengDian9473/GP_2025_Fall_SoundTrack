@@ -15,16 +15,20 @@ MonoBehaviour:
   startingInfo:
   - "\uFF1A\u9019\u662F\u54EA\uFF01"
   - "\uFF1A\u70BA\u4EC0\u9EBC\u6211\u52D5\u4E0D\u4E86\uFF1F"
-  - "\u8A66\u8457\u5728\u62CD\u9EDE\u4E0A\u79FB\u52D5\uFF0C\u63A7\u5236\u6A5F\u5668\u4EBA\u9003\u96E2\u9019\u500B\u5BE6\u9A57\u5BA4\u5427\uFF01"
-  - "\u62CD\u9EDE\u70BA\u97F3\u7B26\u79FB\u52D5\u81F3\u4E2D\u592E\u6642\uFF0C"
-  - "\u96A8\u610F\u79FB\u52D5\u4E26\u63A2\u7D22\u5427\uFF01"
+  - "\u8A66\u8457\u5728\u62CD\u9EDE\u4E0A\u79FB\u52D5"
+  - "\u5E6B\u52A9\u6A5F\u5668\u4EBA\u9003\u96E2\u9019\u88E1\u5427\uFF01"
   maxBeat: -1
   rooms:
   - stage: 0
     trigger:
     - x: 13
       y: -2
-    triggerInfo: []
+    triggerInfo:
+    - "\uFF1A\u9019\u500B\u5730\u65B9\u600E\u9EBC\u5806\u9019\u9EBC\u591A\u6771\u897F\uFF1F"
+    - "\uFF1A\u767C\u52D5\u6280\u80FD\u6E05\u9664\u6389\u9019\u4E9B\u969C\u7919\u5427\uFF01"
+    - "\u5F9E\u9ED1\u8272\u5730\u78DA\u958B\u59CB\u884C\u8D70"
+    - "\u7D2F\u8A08\u56DB\u62CD\u4E26\u65BD\u653E\u6280\u80FD\uFF01"
+    - "\u5148\u8A66\u8457\u7E5E\u4E00\u500B\u5708\u5708\u4E26\u767C\u73FE\u898F\u5F8B\u5427\uFF01"
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
@@ -95,7 +99,15 @@ MonoBehaviour:
       y: -8
     - x: 16
       y: -8
-    triggerInfo: []
+    triggerInfo:
+    - "\uFF1A\u592A\u597D\u4E86\uFF01\u9003\u51FA\u7B2C\u4E00\u500B\u623F\u9593\u4E86\uFF01"
+    - "\uFF1A\u4F46\uFF0C\u5DE6\u53F3\u600E\u9EBC\u597D\u50CF\u6709\u5176\u4ED6\u5925\u4F34\uFF1F"
+    - "\uFF1A\u4ED6\u5011\u4E5F\u662F\u88AB\u907A\u68C4\u5728\u9019\u88E1\u7684\u55CE\uFF1F"
+    - "\u89E3\u6551\u6A5F\u5668\u4EBA\u5925\u4F34\u5011\u5427\uFF01"
+    - "\u53EF\u4EE5\u8A66\u8457\u4F7F\u7528\u5225\u7684\u6280\u80FD"
+    - "\u8A66\u8A66\u5F9E\u5730\u78DA\u958B\u59CB\u9023\u7E8C\u8D70\u56DB\u683C"
+    - "\u53CA\u5F9E\u5730\u78DA\u9023\u7E8C\u8D70\u4E09\u683C\u5F8C\u8F49\u5F4E"
+    - "\u79FB\u9664\u6A5F\u5668\u4EBA\u5925\u4F34\u5011\u7684\u969C\u7919\u5427"
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
@@ -245,11 +257,6 @@ MonoBehaviour:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 6
-        y: -10
-      allowedElement: 00000000010000000200000003000000
-    - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
-      spawnGrid:
-        x: 6
         y: -11
       allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
@@ -290,7 +297,19 @@ MonoBehaviour:
     trigger:
     - x: 15
       y: -12
-    triggerInfo: []
+    triggerInfo:
+    - "\uFF1A\u592A\u597D\u4E86\uFF01"
+    - "\uFF1A\u73FE\u5728\u53EA\u8981\u6CBF\u8457\u9019\u500B\u9577\u5ECA\u5C31\u53EF\u4EE5\u9003\u51FA\u53BB\u4E86\uFF01"
+    - "\uFF1A\u4F46\u9019\u88E1\u770B\u8D77\u4F86\u61C9\u8A72\u662F\u500B\u5009\u5EAB..."
+    - "\uFF1A\u9019\u88E1\u5230\u5E95\u662F\u54EA\u88E1\uFF1F"
+    - "\u958B\u59CB\u51FA\u73FE\u4E0D\u540C\u984F\u8272\u7684\u5730\u78DA\u4E86"
+    - "\u4E0D\u540C\u5730\u78DA\u958B\u59CB\u7684\u6280\u80FD\u6703\u6709\u4E0D\u4E00\u6A23\u7684\u5C6C\u6027"
+    - "\u525B\u525B\u7684\u4E09\u7A2E\u6280\u80FD\u662F\u4E00\u822C\u6280\u80FD"
+    - "\u5728\u5404\u7A2E\u984F\u8272\u7684\u65B9\u584A\u4E0A\u90FD\u80FD\u4F7F\u7528"
+    - "\u800C\u7279\u6B8A\u984F\u8272\u7684\u5730\u78DA\u5728\u8E29\u4E0A\u53BB\u5F8C"
+    - "\u9084\u6703\u53EF\u4EE5\u4F7F\u7528\u7279\u6B8A\u7684\u6280\u80FD\uFF01"
+    - "\u8A66\u8457\u7528\u5C0D\u61C9\u5C6C\u6027\u7684\u653B\u64CA"
+    - "\u5354\u52A9\u6A5F\u5668\u4EBA\u5011\u9003\u96E2\u9019\u88E1\u5427\uFF01"
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
@@ -530,8 +549,8 @@ MonoBehaviour:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 30
-        y: -23
-      allowedElement: 01000000
+        y: -22
+      allowedElement: 02000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 30
@@ -561,11 +580,6 @@ MonoBehaviour:
       spawnGrid:
         x: 28
         y: -21
-      allowedElement: 02000000
-    - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
-      spawnGrid:
-        x: 28
-        y: -22
       allowedElement: 02000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
@@ -613,7 +627,9 @@ MonoBehaviour:
     trigger:
     - x: 34
       y: -22
-    triggerInfo: []
+    triggerInfo:
+    - "\u73FE\u5728\u4F60\u5B78\u6703\u5920\u591A\u6280\u80FD\u4E86"
+    - "\u8A66\u8457\u7D44\u5408\u904B\u7528\u4ED6\u5011\u9003\u96E2\u9019\u88E1\u5427\uFF01"
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
@@ -629,11 +645,6 @@ MonoBehaviour:
       spawnGrid:
         x: 37
         y: -20
-      allowedElement: 00000000010000000200000003000000
-    - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
-      spawnGrid:
-        x: 36
-        y: -21
       allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
