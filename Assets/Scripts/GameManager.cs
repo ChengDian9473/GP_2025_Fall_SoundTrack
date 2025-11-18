@@ -19,7 +19,7 @@ namespace SoundTrack{
         public AudioSource Main_loop_clip;
         [Min(1f)] public float bpm = 105f;
         [Tooltip("Time to First Beat")]
-        public double firstBeatOffset = 0.1;
+        public double firstBeatOffset = 0;
 
         [Header("Beat Input")]
         [SerializeField, Min(0f)] private float beatBarInputThreshold = 1f;

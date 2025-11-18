@@ -41,15 +41,21 @@ namespace SoundTrack{
             }
         }
 
-        public GridPos Mirror(int mirror){
-            if(mirror == 1)
+        public GridPos Mirror(int mirror, int axis){
+            if(mirror == 1 && axis == 0)
+                return new GridPos(-x,y);
+            else if(mirror == 1 && axis == 1)
                 return new GridPos(x,-y);
             else
                 return this;
         }
 
         public GridPos RM(int dir, int mirror){
-            return this.Rotate(dir).Mirror(mirror);
+            if(dir % 2 == 0){
+                return this.Rotate(dir).Mirror(mirror, 0);
+            }else{
+                return this.Rotate(dir).Mirror(mirror, 1);
+            }
         }
 
 
