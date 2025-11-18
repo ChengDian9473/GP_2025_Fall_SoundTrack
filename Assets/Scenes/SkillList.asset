@@ -35,10 +35,6 @@ MonoBehaviour:
         y: 1
       - x: 0
         y: 2
-      - x: 0
-        y: 3
-      - x: 0
-        y: 3
     vfx:
       attackVFX: {fileID: 0}
     allowedElement: 00000000010000000200000003000000

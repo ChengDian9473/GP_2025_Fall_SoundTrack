@@ -1620,8 +1620,8 @@ Tilemap:
   - first: {x: 9, y: -10, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 10
-      m_TileSpriteIndex: 10
+      m_TileIndex: 9
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 4
       m_TileObjectToInstantiateIndex: 65535
@@ -1630,8 +1630,8 @@ Tilemap:
   - first: {x: 10, y: -10, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 9
-      m_TileSpriteIndex: 9
+      m_TileIndex: 10
+      m_TileSpriteIndex: 10
       m_TileMatrixIndex: 0
       m_TileColorIndex: 4
       m_TileObjectToInstantiateIndex: 65535
@@ -6000,6 +6000,8 @@ MonoBehaviour:
   beatBarManagerPrefab: {fileID: 7918769476389217698, guid: f6dc3ee16996158498c7d7a3441577f6, type: 3}
   levelProfile: {fileID: 11400000, guid: 0c4519ae3fd6b9c4b9bf2484d623a89d, type: 2}
   level: {fileID: 0}
+  startingInfo: []
+  currentBeat: 0
   curRoom:
     stage: 0
     trigger: []
