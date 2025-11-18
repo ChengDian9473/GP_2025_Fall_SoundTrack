@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using System.Collections.Generic;
 using System;
 
@@ -27,7 +24,7 @@ namespace SoundTrack
         [SerializeField, Range(0.01f, 0.5f)] private float touchTolerance = 0.05f;
         [SerializeField, Range(0f, 2f)] private float manualClearWindow = 0.2f;
         [SerializeField, Min(0f)] private float initialSpawnDelay = 0.31f;
-        [SerializeField, Range(0f, 1f)] private float centerDespawnDelay = 0.2f;
+        [SerializeField, Range(0f, 1f)] private float centerDespawnDelay = 0.1f;
 
         [Header("Chicken")]
         [SerializeField] private ChickenBeatPulse chickenPrefab;
@@ -66,7 +63,6 @@ namespace SoundTrack
         {
             FollowTargetTick();
             SpawnTick();
-            HandlePlayerInput();
             ProcessPendingDespawns();
         }
 
@@ -124,49 +120,6 @@ namespace SoundTrack
             }
         }
 
-        private void HandlePlayerInput()
-        {
-            if (!WasAnyButtonPressedThisFrame())
-            {
-                return;
-            }
-
-            PruneNullBars();
-            if (activeBars.Count == 0)
-            {
-                return;
-            }
-
-            float centerX = CurrentCenterWorldX;
-            activeBars.Sort((a, b) =>
-                Mathf.Abs(a.transform.position.x - centerX).CompareTo(
-                    Mathf.Abs(b.transform.position.x - centerX)));
-
-            if (activeBars.Count == 0)
-            {
-                return;
-            }
-
-            BeatBarSpirit first = activeBars[0];
-            BeatBarPair pair = null;
-            pairsById.TryGetValue(first.PairId, out pair);
-
-            if (pair != null)
-            {
-                DespawnBar(pair.Left);
-                DespawnBar(pair.Right);
-            }
-            else
-            {
-                // fallback: remove two closest individual bars
-                int fallback = Mathf.Min(2, activeBars.Count);
-                for (int i = 0; i < fallback; i++)
-                {
-                    DespawnBar(activeBars[0]);
-                }
-            }
-        }
-
         private void SpawnPair()
         {
             int pairId = nextPairId++;
@@ -194,6 +147,43 @@ namespace SoundTrack
         public float GetPredictedFirstCollisionDelay()
         {
             return initialSpawnDelay + GetLongestTravelTime();
+        }
+
+        public bool TryGetClosestPairDistance(out float distance)
+        {
+            distance = float.PositiveInfinity;
+            float centerX = CurrentCenterWorldX;
+            bool found = false;
+
+            foreach (BeatBarPair pair in pairsById.Values)
+            {
+                if (!pair.HasBothBars)
+                {
+                    continue;
+                }
+
+                float leftDistance = Mathf.Abs(pair.Left.transform.position.x - centerX);
+                float rightDistance = Mathf.Abs(pair.Right.transform.position.x - centerX);
+                float pairDistance = Mathf.Min(leftDistance, rightDistance);
+
+                if (pairDistance < distance)
+                {
+                    distance = pairDistance;
+                    found = true;
+                }
+            }
+
+            if (!found)
+            {
+                distance = float.PositiveInfinity;
+            }
+
+            return found;
+        }
+
+        public bool IsClosestPairWithin(float threshold)
+        {
+            return TryGetClosestPairDistance(out float distance) && distance < threshold;
         }
 
         private float GetLongestTravelTime()
@@ -319,38 +309,10 @@ namespace SoundTrack
             chickenInstance.Initialize(this);
         }
 
-        private void PruneNullBars()
-        {
-            for (int i = activeBars.Count - 1; i >= 0; i--)
-            {
-                if (activeBars[i] == null)
-                {
-                    activeBars.RemoveAt(i);
-                }
-            }
-        }
-
         private Vector3 ComputeSpawnPosition(float baseX)
         {
             Vector3 offset = currentCenter - initialCenter;
             return new Vector3(baseX + offset.x, spawnY + offset.y, currentCenter.z);
-        }
-
-
-        private static bool WasAnyButtonPressedThisFrame()
-        {
-            foreach (InputDevice device in InputSystem.devices)
-            {
-                foreach (InputControl control in device.allControls)
-                {
-                    if (control is ButtonControl button && button.wasPressedThisFrame)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
         }
 
         private sealed class BeatBarPair
@@ -364,6 +326,7 @@ namespace SoundTrack
 
             public bool BothReached => leftReached && rightReached;
             public bool IsEmpty => Left == null && Right == null;
+            public bool HasBothBars => Left != null && Right != null;
 
             public BeatBarPair(int pairId, BeatBarSpirit left, BeatBarSpirit right)
             {

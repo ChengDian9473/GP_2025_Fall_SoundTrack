@@ -54,8 +54,8 @@ MonoBehaviour:
   barMoveSpeed: 4
   touchTolerance: 0.05
   manualClearWindow: 0.2
-  initialSpawnDelay: 0
-  centerDespawnDelay: 0.2
+  initialSpawnDelay: 0.31
+  centerDespawnDelay: 0.15
   chickenPrefab: {fileID: 9203845454653339360, guid: c381057e88e664d5290a92a43fc46ceb, type: 3}
   chickenLocalOffset: {x: 0, y: 0, z: 0}
   chickenScale: {x: 8, y: 8}
