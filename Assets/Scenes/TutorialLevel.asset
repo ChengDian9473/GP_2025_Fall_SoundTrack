@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: TutorialLevel
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   startingInfo:
-  - Welcome to SoundTrack
+  - "\u6B61\u8FCE\u4F86\u5230 SoundTrack\uFF0C"
+  - "\u4F60\u7684\u76EE\u6A19\u662F\u5728\u62CD\u5B50\u9650\u5236\u5167\u9003\u51FA\u5BE6\u9A57\u5BA4\uFF0C"
+  - "\u4F60\u53EF\u4EE5\u5728\u62CD\u5B50\u4E0A\u79FB\u52D5\uFF0C"
+  - "\u62CD\u9EDE\u70BA\u97F3\u7B26\u79FB\u52D5\u81F3\u4E2D\u592E\u6642\uFF0C"
+  - "\u96A8\u610F\u79FB\u52D5\u4E26\u63A2\u7D22\u5427\uFF01"
   maxBeat: -1
   rooms:
   - stage: 0

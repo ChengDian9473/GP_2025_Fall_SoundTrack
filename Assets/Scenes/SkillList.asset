@@ -60,13 +60,13 @@ MonoBehaviour:
     attackPattern:
       items:
       - x: 0
-        y: 1
+        y: -1
       - x: 0
-        y: 2
+        y: -2
       - x: 1
-        y: 2
+        y: -2
       - x: -1
-        y: 2
+        y: -2
     vfx:
       attackVFX: {fileID: 0}
     allowedElement: 01000000
@@ -90,13 +90,13 @@ MonoBehaviour:
     attackPattern:
       items:
       - x: 0
-        y: 1
+        y: -1
       - x: 0
-        y: 2
+        y: -2
       - x: 0
-        y: 3
+        y: -3
       - x: 0
-        y: 4
+        y: -4
     vfx:
       attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
     allowedElement: 02000000
