@@ -35,9 +35,6 @@ namespace SoundTrack{
 
         protected virtual void OnBeatReceived(int beat)
         {
-            if(beat % 4 != 0){
-                return;
-            }
             nextGrid = curGrid + walkPattern.items[moveCounter];
             if(IsWalkable(nextGrid)){
                 LM.monsterOn.Remove(curGrid);

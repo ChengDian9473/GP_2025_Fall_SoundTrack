@@ -48,8 +48,8 @@ MonoBehaviour:
       allowedElement: 00000000
     - prefab: {fileID: 1111605520155193308, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       spawnGrid:
-        x: 9
-        y: 4
+        x: 8
+        y: 5
       allowedElement: 00000000010000000200000003000000
     endCondition:
     - type: 0
