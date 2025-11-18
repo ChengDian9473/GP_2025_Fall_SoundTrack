@@ -131,6 +131,7 @@ namespace SoundTrack{
                 new_monster.GetComponent<SpriteRenderer>().color = Utils.elementColor[new_monster.allowedElement[0]];
                 if(new_monster is MovingEnemy me){
                     me.groundTilemap = groundTilemap;
+                    me.determineFlip();
                 }
                 monsterOn.Add(m.spawnGrid);
                 aliveMonsters.Add(new_monster);
@@ -207,7 +208,7 @@ namespace SoundTrack{
             {
                 var data = warningTileList[key];
                 var obj  = data.obj;
-                Debug.Log(key);
+                // Debug.Log(key);
                 obj.transform.position = key.ToVector3();
                 data.life--;
 
