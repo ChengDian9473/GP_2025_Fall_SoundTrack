@@ -13,6 +13,7 @@ namespace SoundTrack{
 
         [SerializeField] private BeatBarManager beatBarManagerPrefab;
         private BeatBarManager beatBarManagerInstance;
+        public BeatBarManager BeatBarManager => beatBarManagerInstance;
 
         public LevelData levelProfile;
         [NonSerialized] public Player player;

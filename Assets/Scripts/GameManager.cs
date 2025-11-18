@@ -21,6 +21,9 @@ namespace SoundTrack{
         [Tooltip("Time to First Beat")]
         public double firstBeatOffset = 0.1;
 
+        [Header("Beat Input")]
+        [SerializeField, Min(0f)] private float beatBarInputThreshold = 1f;
+
         // [Header("Beat Event")]
         public static event Action<int> OnBeat;
 
@@ -90,31 +93,29 @@ namespace SoundTrack{
                 }
 
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)
-                if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
-                    dspCanHit = dspNow + secPerBeat * 0.3f;
-                    // Debug.Log(exactBeat - Math.Round(exactBeat));
-                    if(exactBeat - Math.Round(exactBeat) <= 0.3f && exactBeat - Math.Round(exactBeat) >= -0.2f){
-                        dspCanHit = dspNow + secPerBeat * 0.5f;
-                        if(Keyboard.current.wKey.wasPressedThisFrame)
-                            LM.player.move(0);
-                        if(Keyboard.current.dKey.wasPressedThisFrame)
-                            LM.player.move(1);
-                        if(Keyboard.current.sKey.wasPressedThisFrame)
-                            LM.player.move(2);
-                        if(Keyboard.current.aKey.wasPressedThisFrame)
-                            LM.player.move(3);
-                        // if(Keyboard.current.gKey.wasPressedThisFrame){
-                        //     for(int i=0;i<4;i++){
-                        //         for(int j=0;j<4;j++){
-                        //             LM.player.element = i;
-                        //             LM.player.UseSkill(0,j,0);
-                        //         }
-                        //     }
-                        // }
+                // if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit)
+                if (Keyboard.current.anyKey.wasPressedThisFrame)
+                {
+                    if (dspNow > dspCanHit)
+                    {
+                        dspCanHit = dspNow + secPerBeat * 0.3f;
+                        if (IsInputSynchronizedWithBars())
+                        {
+                            dspCanHit = dspNow + secPerBeat * 0.5f;
+                            if (Keyboard.current.wKey.wasPressedThisFrame)
+                                LM.player.move(0);
+                            if (Keyboard.current.dKey.wasPressedThisFrame)
+                                LM.player.move(1);
+                            if (Keyboard.current.sKey.wasPressedThisFrame)
+                                LM.player.move(2);
+                            if (Keyboard.current.aKey.wasPressedThisFrame)
+                                LM.player.move(3);
+                        }
                     }
-                }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
-                    dspCanHit = dspNow + secPerBeat * 0.3f;
-                    // Debug.Log("Too Frequent.\n");
+                    else
+                    {
+                        dspCanHit = dspNow + secPerBeat * 0.3f;
+                    }
                 }
 
                 // if (Mouse.current.rightButton.wasReleasedThisFrame){
@@ -163,6 +164,22 @@ namespace SoundTrack{
             playing = false;
             intro_clip.Stop();
             Main_loop_clip.Stop();
+        }
+
+        private bool IsInputSynchronizedWithBars()
+        {
+            if (LM == null)
+            {
+                return false;
+            }
+
+            BeatBarManager beatBarManager = LM.BeatBarManager;
+            if (beatBarManager == null)
+            {
+                return false;
+            }
+
+            return beatBarManager.IsClosestPairWithin(beatBarInputThreshold);
         }
     }
 }
