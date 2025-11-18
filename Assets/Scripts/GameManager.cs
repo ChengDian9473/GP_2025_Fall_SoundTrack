@@ -110,6 +110,14 @@ namespace SoundTrack{
                                 LM.player.move(2);
                             if (Keyboard.current.aKey.wasPressedThisFrame)
                                 LM.player.move(3);
+                            if (Keyboard.current.gKey.wasPressedThisFrame){
+                                for(int i=0;i<4;i++){
+                                    for(int j=0;j<4;j++){
+                                        LM.player.element = i;
+                                        LM.player.UseSkill(0,j,0);
+                                    }
+                                }
+                            }
                         }
                     }
                     else
