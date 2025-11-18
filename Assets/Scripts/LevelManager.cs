@@ -14,9 +14,12 @@ namespace SoundTrack{
         [SerializeField] private BeatBarManager beatBarManagerPrefab;
         private BeatBarManager beatBarManagerInstance;
 
-        [NonSerialized] public Player player;
         public LevelData levelProfile;
+        [NonSerialized] public Player player;
         [HideInInspector] public LevelData level;
+
+        public string[] startingInfo;
+        public int currentBeat;
 
         public Room curRoom;
 
@@ -41,7 +44,7 @@ namespace SoundTrack{
         public TileBase doorOpened;
 
         void Start(){
-            // Debug.Log("Level Manager Start");
+
         }
 
         void Update(){
@@ -63,6 +66,8 @@ namespace SoundTrack{
 
 
             level = Instantiate(levelProfile);
+            level.startingInfo = levelProfile.startingInfo;
+            level.maxBeat = levelProfile.maxBeat;
             level.rooms = new List<Room>();
             foreach (var r in levelProfile.rooms)
             {
@@ -89,11 +94,6 @@ namespace SoundTrack{
                 level.rooms.Add(copy);
             }
             level.maxStage = levelProfile.maxStage;
-            level.bossDoor = new List<GridPos>();
-            foreach (var g in levelProfile.bossDoor){
-                groundTilemap.SetTile(g.ToVector3Int(), doorClosed);
-                level.bossDoor.Add(g);
-            }
 
             beatBarManagerInstance = Instantiate(beatBarManagerPrefab);
             var camTransform = Camera.main != null ? Camera.main.transform : null;
@@ -101,6 +101,10 @@ namespace SoundTrack{
             {
                 beatBarManagerInstance.SetFollowTarget(camTransform);
             }
+
+            currentBeat = level.maxBeat;
+
+            GameManager.Instance.GameStart();
         }
 
         void OnDestroy()
@@ -112,7 +116,7 @@ namespace SoundTrack{
         {
             curRoom = r;
             inLevel = true;
-            // Debug.Log("Room sStart");
+            Debug.Log("Room Start");
             if(r.triggerInfo != null && r.triggerInfo.Length > 0){
                 Info.Instance.StartTutorial(r.triggerInfo);
             }
@@ -136,14 +140,13 @@ namespace SoundTrack{
         public void endRoom()
         {
             inLevel = false;
+            Debug.Log("Room End");
             curRoom.clear = true;
             curStage = Math.Max(curStage, curRoom.stage + 1);
             if(curStage > level.maxStage)
             {
-                foreach (var g in level.bossDoor)
-                {
-                    groundTilemap.SetTile(g.ToVector3Int(), doorOpened);
-                }
+                GameManager.Instance.GameEnd();
+                Info.Instance.UpdateWin(0);
             }
         }
 
@@ -186,6 +189,14 @@ namespace SoundTrack{
         public void OnBeatReceived(int beat){
             UpdateWarningTile();
             UpdateAttackTile();
+            if(currentBeat > 0){
+                currentBeat--;
+                Info.Instance.UpdateHP(currentBeat);
+            }
+            if(currentBeat == 0){
+                GameManager.Instance.GameEnd();
+                Info.Instance.UpdateWin(0);
+            }
         }
 
         public void UpdateWarningTile(){

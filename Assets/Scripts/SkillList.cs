@@ -11,9 +11,9 @@ namespace SoundTrack
         [Header("All Skills")]
         public List<SkillData> skills = new();
 
-        public Dictionary<int, (GridList, SkillData)> ToDict()
+        public Dictionary<int, (GridList, SkillData, List<int>)> ToDict()
         {
-            Dictionary<int, (GridList, SkillData)> dict = new();
+            Dictionary<int, (GridList, SkillData, List<int>)> dict = new();
 
             foreach (var skill in skills)
             {
@@ -23,7 +23,7 @@ namespace SoundTrack
                 int num = skill.GetNumber();
                 if (num != -1 && !dict.ContainsKey(num))
                 {
-                    dict[num] = (skill.attackPattern,skill);
+                    dict[num] = (skill.attackPattern,skill,skill.allowedElement);
                 }
             }
 
@@ -34,7 +34,6 @@ namespace SoundTrack
     [Serializable]
     public class SkillVFX
     {
-
         [Header("Skill VFX")]
         public GameObject attackVFX;
     }
@@ -49,6 +48,9 @@ namespace SoundTrack
 
         [Header("Skill VFX")]
         public SkillVFX vfx;
+
+        [Header("allowedElement")]
+        public List<int> allowedElement;
 
         [HideInInspector] public int number;
 

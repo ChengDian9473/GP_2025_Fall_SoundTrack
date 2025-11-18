@@ -5,9 +5,10 @@ namespace SoundTrack{
     [CreateAssetMenu(fileName = "LevelData", menuName = "SoundTrack/LevelData")]
     public class LevelData : ScriptableObject
     {
+        public string[] startingInfo;
+        public int maxBeat;
         public List<Room> rooms = new();
         public int maxStage;
-        public List<GridPos> bossDoor = new();
     }
 
     [System.Serializable]

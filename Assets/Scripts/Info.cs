@@ -135,10 +135,6 @@ namespace SoundTrack{
             MenuButton.clicked += MenuButtonClicked;
             LevelSelectButton.clicked += LevelSelectButtonClicked;
             ReplayButton.clicked += ReplayButtonClicked;
-
-            HPLabel.text = $"Times Hit: 0";
-            WinLabel.text = "";
-            SeqLabel.text = "Seq: ";
             
             Scene current = SceneManager.GetActiveScene();
             GameInit(Utils.GetSceneNames().IndexOf(current.name));
@@ -147,7 +143,6 @@ namespace SoundTrack{
 
         private void OnClickAnywhere(ClickEvent evt)
         {
-            Debug.Log("Clicked");
             HandleNextStep();
         }
 
@@ -256,10 +251,21 @@ namespace SoundTrack{
         }
 
         public void UpdateHP(int HP){
-            HPLabel.text = $"Times Hit: {HP}";
+            if(HP == -1){
+                HPLabel.text = $"Time Remain: INF";
+            }else{
+                HPLabel.text = $"Time Remain: {HP}";
+            }
         }
-        public void UpdateWin(){
-            WinLabel.text = $"You Win";
+        public void UpdateWin(int win){
+            if(win == -1){
+                WinLabel.text = "";
+                return;
+            }
+            if(win == 1)
+                WinLabel.text = "You Win";
+            else
+                WinLabel.text = "You Lose";
             end_page.style.display = DisplayStyle.Flex;
         }
         public void UpdateSeq(List<int> Skill){

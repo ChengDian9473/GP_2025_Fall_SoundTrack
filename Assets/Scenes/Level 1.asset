@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec884bd870a556419d0b281e443c965, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  startingInfo: []
+  maxBeat: 100
   rooms:
-  - trigger:
+  - stage: 0
+    trigger:
     - x: 5
       y: -1
     - x: 5
@@ -43,13 +46,32 @@ MonoBehaviour:
         x: 11
         y: 0
       allowedElement: 00000000
+    endCondition:
+    - type: 0
+      targetGrids: []
     clear: 0
-    stage: 0
-  maxStage: 0
-  bossDoor:
-  - x: 13
-    y: -1
-  - x: 13
-    y: 0
-  - x: 13
-    y: 1
+    visited: []
+  - stage: 1
+    trigger:
+    - x: 15
+      y: -1
+    - x: 15
+      y: 0
+    - x: 15
+      y: 1
+    triggerInfo:
+    - Sdasdada
+    monsters:
+    - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
+      spawnGrid:
+        x: 11
+        y: -4
+      allowedElement: 
+    endCondition:
+    - type: 2
+      targetGrids:
+      - x: 16
+        y: 0
+    clear: 0
+    visited: []
+  maxStage: 1

@@ -26,7 +26,7 @@ namespace SoundTrack{
         private List<int> Skill;
 
         public SkillList SL;
-        public Dictionary<int, (GridList, SkillData)> Skills;
+        public Dictionary<int, (GridList, SkillData, List<int>)> Skills;
 
         [SerializeField] public CameraMove cam;
         [SerializeField] public LevelManager LM;
@@ -43,8 +43,6 @@ namespace SoundTrack{
 
             curGrid = new GridPos(0,0);
             transform.position = curGrid.ToVector3();
-
-            GameManager.Instance.GameStart();
 
             if (cam == null){
                 cam = Camera.main.GetComponent<CameraMove>();
@@ -108,14 +106,13 @@ namespace SoundTrack{
                         Track[0].GetComponent<SpriteRenderer>().color = Utils.elementColor[element];
                         Skill[0] = op;
                         Info.Instance.UpdateSeq(Skill);
-                    }else{
-                        ClearTrack();
                     }
                 }
                 // DI 偵測是否開啟關卡
                 if(OnTrigger(curGrid)){
                     Debug.Log("Trigger");
                     foreach (var r in LM.level.rooms){
+                        Debug.Log($"{LM.curStage} {r.stage}");
                         if(LM.curStage >= r.stage && !r.clear && r.trigger.Contains(nextGrid)){
                             LM.startRoom(r);
                             break;
@@ -146,21 +143,14 @@ namespace SoundTrack{
                     }
                     skillNumber = ((skillNumber >> 2) & ((1 << (Player.MAX_TRACK * 2 + 1)) - 1));
                     // Debug.Log("Upate Skill after Move S");
-                    if(Skills.ContainsKey(skillNumber)){
-                        foreach(var g in Skills[skillNumber].Item1.items){
-                            if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int()))
-                                LM.AddAttack(curGrid + g.RM(facing,mirror), 1, element);
-                        }
-                        UseSkill();
-                    }
+                    UseSkill(skillNumber, facing, mirror);
                     // Debug.Log("Upate Skill after Move E");
                 }
 
                 int skillTrigger = OnSkill(curGrid);
 
                 if(OnFinished(curGrid)){
-                    GameManager.Instance.GameEnd();
-                    Info.Instance.UpdateWin();
+                    groundTilemap.SetTile(curGrid.ToVector3Int(), allowedTiles);
                 }
 
                 if(skillTrigger != -1){
@@ -245,34 +235,18 @@ namespace SoundTrack{
             Debug.Log("Not Walkable Tile");
             return false;
         }
-        public void UseSkill(){
-            if(Track.Count == Player.MAX_TRACK){
-                int skillNumber = 0;
-                int facing = Skill[3];
-                int offset = 4 - facing;
-                int mirror = 0;
-                for(int i=Player.MAX_TRACK - 1;i>=0;i--){
-                    int x = (Skill[i] + offset) % 4;
-                    if(mirror == 0){
-                        if(x == 3)
-                            mirror = 1;
-                        if(x == 1)
-                            mirror = -1;
+        public void UseSkill(int skillNumber,int facing, int mirror){
+            Debug.Log("Use Skill");
+            if(Skills.ContainsKey(skillNumber) && Skills[skillNumber].Item3.Contains(element)){
+                foreach(var g in Skills[skillNumber].Item1.items){
+                    if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int())){
+                        LM.AddAttack(curGrid + g.RM(facing,mirror), 1, element);
                     }
-                    if(mirror == 1 && (x % 2) == 1){
-                        x = (x + 2) % 4;
-                    }
-                    skillNumber += x;
-                    skillNumber <<= 2;
                 }
-                skillNumber = ((skillNumber >> 2) & ((1 << (Player.MAX_TRACK * 2 + 1)) - 1));
-                if(Skills.ContainsKey(skillNumber)){
-                    LM.UpdateAttackTile();
-                    Skills[skillNumber].Item2.PerformSkill(Skills[skillNumber].Item1, facing, mirror, curGrid);
-                    //Debug.Log("Use skill");
-                    ClearTrack();
-                }
+                LM.UpdateAttackTile();
+                Skills[skillNumber].Item2.PerformSkill(Skills[skillNumber].Item1, facing, mirror, curGrid);
             }
+            ClearTrack();
         }
         public void ClearTrack(){
             while(Track.Count > 0){

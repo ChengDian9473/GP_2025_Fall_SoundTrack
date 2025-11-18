@@ -12,62 +12,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec884bd870a556419d0b281e443c965, type: 3}
   m_Name: TutorialLevel
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  startingInfo:
+  - Welcome to SoundTrack
+  maxBeat: -1
   rooms:
   - stage: 0
     trigger:
     - x: 13
       y: -2
+    triggerInfo: []
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 13
         y: -3
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 14
         y: -3
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 15
         y: -3
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 16
         y: -3
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 17
         y: -3
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 13
         y: -4
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 14
         y: -4
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 15
         y: -4
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 16
         y: -4
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 17
         y: -4
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     endCondition:
     - type: 1
       targetGrids:
@@ -82,202 +86,203 @@ MonoBehaviour:
   - stage: 1
     trigger:
     - x: 14
-      y: -5
+      y: -8
     - x: 15
-      y: -5
+      y: -8
     - x: 16
-      y: -5
+      y: -8
+    triggerInfo: []
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 20
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 20
         y: -8
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 20
         y: -10
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 20
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 21
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 21
         y: -8
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 21
         y: -9
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 21
         y: -10
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 21
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 22
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 22
         y: -8
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 22
         y: -10
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 22
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 23
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 23
         y: -8
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 23
         y: -10
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 23
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 24
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 24
         y: -8
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 24
         y: -10
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 24
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 25
         y: -9
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 26
         y: -9
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 6
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 7
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 8
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 9
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 10
         y: -7
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 6
         y: -8
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 6
         y: -9
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 6
         y: -10
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 6
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 7
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 8
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 9
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 10
         y: -11
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 5
         y: -9
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 8
         y: -9
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     endCondition:
     - type: 2
       targetGrids:
@@ -289,12 +294,9 @@ MonoBehaviour:
     visited: []
   - stage: 2
     trigger:
-    - x: 14
-      y: -11
     - x: 15
-      y: -11
-    - x: 16
-      y: -11
+      y: -12
+    triggerInfo: []
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
@@ -609,7 +611,7 @@ MonoBehaviour:
     endCondition:
     - type: 1
       targetGrids:
-      - x: 33
+      - x: 32
         y: -22
     clear: 0
     visited: []
@@ -617,47 +619,48 @@ MonoBehaviour:
     trigger:
     - x: 34
       y: -22
+    triggerInfo: []
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 35
         y: -20
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 36
         y: -20
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 37
         y: -20
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 36
         y: -21
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 36
         y: -22
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 35
         y: -23
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 37
         y: -24
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 39
         y: -22
-      allowedElement: 00000000
+      allowedElement: 00000000010000000200000003000000
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 38
@@ -715,7 +718,4 @@ MonoBehaviour:
         y: -22
     clear: 0
     visited: []
-  maxStage: 4
-  bossDoor:
-  - x: 34
-    y: -22
+  maxStage: 3

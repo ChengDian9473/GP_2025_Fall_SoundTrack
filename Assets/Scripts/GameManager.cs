@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -102,8 +103,14 @@ namespace SoundTrack{
                             LM.player.move(2);
                         if(Keyboard.current.aKey.wasPressedThisFrame)
                             LM.player.move(3);
-                        if(Keyboard.current.gKey.wasPressedThisFrame)
-                            Info.Instance.StartTutorial(new string[] {"歡迎來到遊戲！","使用 WASD 進行移動。","按滑鼠左鍵使用技能。","準備好了嗎？開始吧！"});
+                        // if(Keyboard.current.gKey.wasPressedThisFrame){
+                        //     for(int i=0;i<4;i++){
+                        //         for(int j=0;j<4;j++){
+                        //             LM.player.element = i;
+                        //             LM.player.UseSkill(0,j,0);
+                        //         }
+                        //     }
+                        // }
                     }
                 }else if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit){
                     dspCanHit = dspNow + secPerBeat * 0.3f;
@@ -142,6 +149,14 @@ namespace SoundTrack{
             LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
 
             playing = true;
+
+            if(LM.level.startingInfo != null && LM.level.startingInfo.Length > 0){
+                Info.Instance.StartTutorial(LM.level.startingInfo);
+            }
+
+            Info.Instance.UpdateHP(LM.currentBeat);
+            Info.Instance.UpdateSeq(new List<int>());
+            Info.Instance.UpdateWin(-1);
         }
 
         public void GameEnd(){
