@@ -61,7 +61,7 @@ MonoBehaviour:
         x: 6
         y: -1
       allowedElement: 01000000
-    - prefab: {fileID: 1111605520155193308, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
+    - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
         x: 10
         y: 0
@@ -79,8 +79,7 @@ MonoBehaviour:
       y: 0
     - x: 15
       y: 1
-    triggerInfo:
-    - Sdasdada
+    triggerInfo: []
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
