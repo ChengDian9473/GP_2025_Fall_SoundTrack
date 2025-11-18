@@ -64,9 +64,9 @@ MonoBehaviour:
     monsters:
     - prefab: {fileID: 4988270940921322977, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       spawnGrid:
-        x: 11
-        y: -4
-      allowedElement: 
+        x: 17
+        y: 0
+      allowedElement: 00000000
     endCondition:
     - type: 2
       targetGrids:

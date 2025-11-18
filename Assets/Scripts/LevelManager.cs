@@ -146,7 +146,7 @@ namespace SoundTrack{
             if(curStage > level.maxStage)
             {
                 GameManager.Instance.GameEnd();
-                Info.Instance.UpdateWin(0);
+                Info.Instance.UpdateWin(1);
             }
         }
 
