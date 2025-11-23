@@ -19,6 +19,11 @@ namespace SoundTrack{
                     Debug.Log("Cant find UI prefab");
                 }
                 Object.Instantiate(UI);
+                var LM = Resources.Load<GameObject>("LevelManager");
+                if(LM == null){
+                    Debug.Log("Cant find LM prefab");
+                }
+                Object.Instantiate(LM);
             }
         }
     }

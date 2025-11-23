@@ -11,6 +11,8 @@ namespace SoundTrack{
             offset = new Vector3(4.0f, 0.0f, -10.0f);
             moveDuration = (60f / GameManager.Instance.bpm) * 0.75f;
             transform.position = offset + new Vector3(0.0f, 0.5f, 0.0f);
+
+            GameManager.Instance.GameStart();
             //Debug.Log(moveDuration);
         }
 

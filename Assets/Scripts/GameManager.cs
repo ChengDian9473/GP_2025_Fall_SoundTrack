@@ -38,8 +38,6 @@ namespace SoundTrack{
         [NonSerialized] public double mainduration; 
         [NonSerialized] public int    sourceflag;
 
-        public LevelManager LM;
-
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -65,7 +63,7 @@ namespace SoundTrack{
 
                 double secPerBeat = 60.0 / bpm;
                 exactBeat = songTime / secPerBeat;
-                beatIndex = (int)Math.Floor(exactBeat + 1e-9);
+                beatIndex = (int)Math.Floor(2 * (exactBeat + 1e-9));
 
                 if(dspNow > prevstart + mainduration - 1)
                 {
@@ -89,7 +87,7 @@ namespace SoundTrack{
                 if (beatIndex != lastBeat)
                 {
                     lastBeat = beatIndex;
-                    OnBeat?.Invoke(beatIndex % 8);
+                    OnBeat?.Invoke(beatIndex % 16);
                 }
 
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -102,22 +100,22 @@ namespace SoundTrack{
                         if (IsInputSynchronizedWithBars())
                         {
                             dspCanHit = dspNow + secPerBeat * 0.5f;
-                            if (Keyboard.current.wKey.wasPressedThisFrame)
-                                LM.player.move(0);
                             if (Keyboard.current.dKey.wasPressedThisFrame)
-                                LM.player.move(1);
-                            if (Keyboard.current.sKey.wasPressedThisFrame)
-                                LM.player.move(2);
+                                LevelManager.Instance.player.move(0);
+                            if (Keyboard.current.wKey.wasPressedThisFrame)
+                                LevelManager.Instance.player.move(1);
                             if (Keyboard.current.aKey.wasPressedThisFrame)
-                                LM.player.move(3);
-                            if (Keyboard.current.gKey.wasPressedThisFrame){
-                                for(int i=0;i<4;i++){
-                                    for(int j=0;j<4;j++){
-                                        LM.player.element = i;
-                                        LM.player.UseSkill(0,j,0);
-                                    }
-                                }
-                            }
+                                LevelManager.Instance.player.move(2);
+                            if (Keyboard.current.sKey.wasPressedThisFrame)
+                                LevelManager.Instance.player.move(3);
+                            // if (Keyboard.current.gKey.wasPressedThisFrame){
+                            //     for(int i=0;i<4;i++){
+                            //         for(int j=0;j<4;j++){
+                            //             LevelManager.Instance.player.element = i.ToElementType();
+                            //             LevelManager.Instance.player.UseSkill(0,j,0);
+                            //         }
+                            //     }
+                            // }
                         }
                     }
                     else
@@ -127,7 +125,7 @@ namespace SoundTrack{
                 }
 
                 // if (Mouse.current.rightButton.wasReleasedThisFrame){
-                //     LM.player.ClearTrack();
+                //     LevelManager.Instance.player.ClearTrack();
                 // }
             }
         }
@@ -140,6 +138,7 @@ namespace SoundTrack{
 
         public void GameStart(){
             Debug.Log("GameStart");
+            LevelManager.Instance.GameStart();
 
             lastBeat = -1;
             beatIndex = -1;
@@ -153,22 +152,14 @@ namespace SoundTrack{
             Main_loop_clip.loop = true;
             prevstart = songStartDsp + introduration; 
             Main_loop_clip.PlayScheduled(prevstart);
-            
-
-            LM = (LevelManager) FindAnyObjectByType(typeof(LevelManager));
 
             playing = true;
 
-            if(LM.level.startingInfo != null && LM.level.startingInfo.Length > 0){
-                Info.Instance.StartTutorial(LM.level.startingInfo);
-            }
-
-            Info.Instance.UpdateHP(LM.currentBeat);
-            Info.Instance.UpdateSeq(new List<int>());
-            Info.Instance.UpdateWin(-1);
+            Info.Instance.GameStart();
         }
 
         public void GameEnd(){
+            LevelManager.Instance.GameEnd();
             playing = false;
             intro_clip.Stop();
             Main_loop_clip.Stop();
@@ -176,12 +167,7 @@ namespace SoundTrack{
 
         private bool IsInputSynchronizedWithBars()
         {
-            if (LM == null)
-            {
-                return false;
-            }
-
-            BeatBarManager beatBarManager = LM.BeatBarManager;
+            BeatBarManager beatBarManager = LevelManager.Instance.BeatBarManager;
             if (beatBarManager == null)
             {
                 return false;

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876095903447464495}
   - component: {fileID: 8978059625913545129}
-  - component: {fileID: 4512149203987063413}
+  - component: {fileID: 7091397817072785470}
   m_Layer: 0
   m_Name: Professor
   m_TagString: Untagged
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1111605520155193308}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 10.5, y: -1.5, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4512149203987063413
+--- !u!114 &7091397817072785470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,24 +100,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1111605520155193308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0d9f40e980d94e4c97073cd27afdc51, type: 3}
+  m_Script: {fileID: 11500000, guid: f77d279dd1216e948bb63da2fce24df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.MovingEnemy
   enemyName: 
-  allowedElement: 
+  allowedElement: 0
   LM: {fileID: 0}
-  HP: 1
+  HP: 0
   curGrid:
     x: 0
     y: 0
   walkPattern:
-    items:
-    - x: 1
-      y: 0
-    - x: -1
-      y: 0
+    items: []
   groundTilemap: {fileID: 0}
-  allowedTiles: {fileID: 11400000, guid: 6563e42056b1140418c10b9f96a37016, type: 2}
+  TL: {fileID: 11400000, guid: fced9b7cb30b20e43b2c438091a65d1b, type: 2}
   nextGrid:
     x: 0
     y: 0

@@ -3,35 +3,30 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-// TODO Tutorial Steps: Add lines
+// key / Trap / public private / BeatManager Optimizing / Music play and vfx
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {
-        public GridPos curGrid;
-        public GridPos nextGrid;
-
-        [Header("References")]
-        public Tilemap groundTilemap;
-        public TileBase allowedTiles;
-        public TileBase finishedTiles;
-        public TileBase[] barrierTiles;
-        public TileBase[] skillTiles;
+        [NonSerialized] public GridPos curGrid;
+        [NonSerialized] public GridPos nextGrid;
 
         public GameObject TrackPrefab;
 
-        public int element;
-        public bool tracking;
+        [Header("References")]
+        [NonSerialized] public Tilemap groundTilemap;
+
+        [NonSerialized] public ElementType element;
+        [NonSerialized] public bool tracking;
 
         private List<GameObject> Track;
         private List<int> Skill;
 
         public SkillList SL;
-        public Dictionary<int, (GridList, SkillData, List<int>)> Skills;
+        [NonSerialized] public Dictionary<SkillKey,SkillItem> Skills;
 
-        [SerializeField] public CameraMove cam;
-        [SerializeField] public LevelManager LM;
+        [NonSerialized] public CameraMove cam;
 
-        public int HP;
+        [NonSerialized] public int HP;
 
         public static int MAX_TRACK = 4;
 
@@ -48,7 +43,7 @@ namespace SoundTrack{
                 cam = Camera.main.GetComponent<CameraMove>();
             }
 
-            element = -1;
+            element = ElementType.Normal;
             tracking = false;
 
             Skills = SL.ToDict();
@@ -60,22 +55,21 @@ namespace SoundTrack{
 
         public void move(int op){
             GridPos dir;
-            // Debug.Log($"A {element}");
             switch(op){
                 case 0:{
-                    dir = GridPos.up;
-                    break;
-                }
-                case 1:{
                     dir = GridPos.right;
                     break;
                 }
+                case 1:{
+                    dir = GridPos.up;
+                    break;
+                }
                 case 2:{
-                    dir = GridPos.down;
+                    dir = GridPos.left;
                     break;
                 }
                 case 3:{
-                    dir = GridPos.left;
+                    dir = GridPos.down;
                     break;
                 }
                 default:{
@@ -90,9 +84,9 @@ namespace SoundTrack{
                 if(tracking){
                     // Debug.Log(Skill);
                     if(Track.Count < Player.MAX_TRACK){
-                        Debug.Log($"Tracking");
+                        // Debug.Log($"Tracking");
                         var obj = Instantiate(TrackPrefab);
-                        obj.GetComponent<SpriteRenderer>().color = Utils.elementColor[element];
+                        obj.GetComponent<SpriteRenderer>().color = Utils.elementColor[element.ToColorIndex()];
                         Track.Add(obj);
                         Skill.Add(op);
                         for(int i = Track.Count - 1; i > 0 ; i--){
@@ -103,24 +97,35 @@ namespace SoundTrack{
                             // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                         }
                         Track[0].transform.position = curGrid.ToVector3();
-                        Track[0].GetComponent<SpriteRenderer>().color = Utils.elementColor[element];
+                        Track[0].GetComponent<SpriteRenderer>().color = Utils.elementColor[element.ToColorIndex()];
+                        
                         Skill[0] = op;
                         Info.Instance.UpdateSeq(Skill);
                     }
                 }
                 // DI 偵測是否開啟關卡
-                if(OnTrigger(curGrid)){
-                    Debug.Log("Trigger");
-                    foreach (var r in LM.level.rooms){
-                        Debug.Log($"{LM.curStage} {r.stage}");
-                        if(LM.curStage >= r.stage && !r.clear && r.trigger.Contains(nextGrid)){
-                            LM.startRoom(r);
-                            break;
-                        }
-                    }
+                Room r = LevelManager.Instance.curRoom;
+
+                // if(r != null)
+                //     print(r.startTile[0]);
+
+                if(r != null && !r.clear && r.startTile.Contains(nextGrid)){
+                    LevelManager.Instance.startRoom();
+                }
+                else if(r != null && !r.clear && r.endTile.Contains(nextGrid)){
+                    LevelManager.Instance.endRoom();
                 }
                 // DI 更新資料
                 curGrid = nextGrid;
+
+                if(LevelManager.Instance.keyOn.Contains(curGrid)){
+                    for(int i=LevelManager.Instance.existingKey.Count - 1;i>=0;i--){
+                        var k = LevelManager.Instance.existingKey[i];
+                        if(k.curGrid == curGrid){
+                            k.beCollected();
+                        }
+                    }
+                }
 
                 if(Track.Count == Player.MAX_TRACK){
                     int skillNumber = 0;
@@ -147,31 +152,27 @@ namespace SoundTrack{
                     // Debug.Log("Upate Skill after Move E");
                 }
 
-                int skillTrigger = OnSkill(curGrid);
+                testSkill();
 
                 if(OnFinished(curGrid)){
-                    groundTilemap.SetTile(curGrid.ToVector3Int(), allowedTiles);
-                }
-
-                if(skillTrigger != -1){
-                    if(skillTrigger != element){
-                        ClearTrack();
-                        element = skillTrigger;
-                        this.GetComponent<SpriteRenderer>().color = Utils.elementColor[element];
-                    }
-                    tracking = true;
+                    LevelManager.Instance.TestEnd();
                 }
 
                 transform.position = curGrid.ToVector3();
                 // DI 移動攝影機
                 cam.Follow(curGrid.ToVector3());
             }
+        }
 
-            // DI 更新房間走過的格子
-            if (LM.inLevel && LM.curRoom != null)
-            {
-                LM.curRoom.visited.Add(curGrid);
-                LM.CheckRoomComplete();
+        public void testSkill(){
+
+            int skillTrigger = OnSkill(curGrid);
+
+            if(skillTrigger != -1){
+                ClearTrack();
+                element = skillTrigger.ToElementType();
+                this.GetComponent<SpriteRenderer>().color = Utils.elementColor[skillTrigger];
+                tracking = true;
             }
         }
 
@@ -181,70 +182,56 @@ namespace SoundTrack{
                 Info.Instance.UpdateHP(HP);
             }
         }
-        private bool OnTrigger(GridPos g)
-        {
-            Vector3Int c = g.ToVector3Int();
-            TileBase t = groundTilemap.GetTile(c);
-            // if (LM == null || LM.level == null) return false;
 
-            // foreach (var r in LM.level.rooms)
-            // {
-            //     if (!r.clear && r.trigger.Contains(g))
-            //         return true;
-            // }
-            // return false;
-            foreach (var a in barrierTiles)
-                if (t == a) return true;
-            return false;
-        }
         private bool OnFinished(GridPos g)
         {
             Vector3Int c = g.ToVector3Int();
             TileBase t = groundTilemap.GetTile(c);
-            if (t == finishedTiles) return true;
+            if (t == LevelManager.Instance.TL.finishedTile) return true;
             return false;
         }
         private int OnSkill(GridPos g)
         {
-            Vector3Int c = g.ToVector3Int();
-            TileBase t = groundTilemap.GetTile(c);
-            return Array.IndexOf(skillTiles,t);
+            foreach(var t in LevelManager.Instance.skillTiles){
+                if(t.getCurGrid() == g){
+                    return t.curElement.ToColorIndex();
+                }
+            }
+            return -1;
         }
         private bool IsWalkable(GridPos g)
         {
-            if (LM.monsterOn.Contains(g)) {
-                Debug.Log("Monster On");
-                return false;
-            }
             Vector3Int c = g.ToVector3Int();
-            if (!groundTilemap.HasTile(c)) {
-                Debug.Log("No Tile");
-                return false;
-            }
-            TileBase t = groundTilemap.GetTile(c);
+            if (!groundTilemap.HasTile(c)) return false;
+            if (LevelManager.Instance.monsterOn.Contains(g)) return false;
 
-            if(!LM.inLevel){
-                foreach (var a in barrierTiles)
-                    if (t == a) return true;
-            }
-            if(t == allowedTiles) return true;
-            if(t == finishedTiles) return true;
-            foreach(var a in skillTiles){
+            TileBase t = groundTilemap.GetTile(c);
+            if(t == LevelManager.Instance.TL.allowedTiles) return true;
+            if(t == LevelManager.Instance.TL.finishedTile) return true;
+            
+            foreach(var a in LevelManager.Instance.TL.skillTiles)
                 if (t == a) return true;
-            }
-            Debug.Log("Not Walkable Tile");
+            foreach (var a in LevelManager.Instance.TL.doorClosed)
+                if (t == a) return true;
+            foreach (var a in LevelManager.Instance.TL.doorOpened)
+                if (t == a) return true;
+
             return false;
         }
         public void UseSkill(int skillNumber,int facing, int mirror){
-            Debug.Log("Use Skill");
-            if(Skills.ContainsKey(skillNumber) && Skills[skillNumber].Item3.Contains(element)){
-                foreach(var g in Skills[skillNumber].Item1.items){
+            Debug.Log("UseSkill");
+            SkillKey sk = new SkillKey(skillNumber, element.ToColorIndex());
+            Debug.Log($"{sk.num} {sk.index}");
+            if(Skills.ContainsKey(sk)){
+                Debug.Log("Yes");
+                SkillItem skill = Skills[sk];
+                foreach(var g in skill.attackPattern){
                     if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int())){
-                        LM.AddAttack(curGrid + g.RM(facing,mirror), 1, element);
+                        LevelManager.Instance.AddAttack(curGrid + g.RM(facing,mirror), 1, element);
                     }
                 }
-                LM.UpdateAttackTile();
-                Skills[skillNumber].Item2.PerformSkill(Skills[skillNumber].Item1, facing, mirror, curGrid);
+                LevelManager.Instance.UpdateAttackTile();
+                skill.PerformSkill(facing, mirror, curGrid);
             }
             ClearTrack();
         }
@@ -256,7 +243,7 @@ namespace SoundTrack{
             Skill.Clear();
             Info.Instance.UpdateSeq(Skill);
             tracking = false;
-            element = -1;
+            element = ElementType.Normal;
             this.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }

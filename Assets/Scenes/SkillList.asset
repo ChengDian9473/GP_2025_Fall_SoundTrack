@@ -9,91 +9,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa9b4983cf13eae47bc88a548a482269, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fcb24acf34392d4da4eded716f1fb41, type: 3}
   m_Name: SkillList
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.SkillList
   skills:
-  - binaryNumber: 00011011
+  - binaryNumber: 00000000
     attackPattern:
       items:
       - x: 1
         y: 0
-      - x: -1
+      - x: 2
         y: 0
-      - x: 0
-        y: 1
-      - x: 0
-        y: -1
-    vfx:
-      attackVFX: {fileID: 0}
-    allowedElement: 00000000010000000200000003000000
-    number: 27
-  - binaryNumber: 00000000
-    attackPattern:
-      items:
-      - x: 0
-        y: 1
-      - x: 0
-        y: 2
-    vfx:
-      attackVFX: {fileID: 0}
-    allowedElement: 00000000010000000200000003000000
+    vfx: {fileID: 0}
+    SkillElement: 255
     number: 0
   - binaryNumber: 00000001
     attackPattern:
       items:
-      - x: 0
-        y: 1
       - x: 1
         y: 0
+      - x: -1
+        y: 0
       - x: 0
-        y: -1
-    vfx:
-      attackVFX: {fileID: 0}
-    allowedElement: 00000000010000000200000003000000
+        y: 1
+    vfx: {fileID: 0}
+    SkillElement: 255
     number: 1
-  - binaryNumber: 00100010
-    attackPattern:
-      items:
-      - x: 0
-        y: -1
-      - x: 0
-        y: -2
-      - x: 1
-        y: -2
-      - x: -1
-        y: -2
-    vfx:
-      attackVFX: {fileID: 0}
-    allowedElement: 01000000
-    number: 34
-  - binaryNumber: 00010001
-    attackPattern:
-      items:
-      - x: 1
-        y: 1
-      - x: -1
-        y: 1
-      - x: 1
-        y: -1
-      - x: 2
-        y: 2
-    vfx:
-      attackVFX: {fileID: 0}
-    allowedElement: 03000000
-    number: 17
-  - binaryNumber: 00001010
-    attackPattern:
-      items:
-      - x: 0
-        y: -1
-      - x: 0
-        y: -2
-      - x: 0
-        y: -3
-      - x: 0
-        y: -4
-    vfx:
-      attackVFX: {fileID: 7983047123919747811, guid: 0d3aeed1559714bb399d4c541e9e1ad9, type: 3}
-    allowedElement: 02000000
-    number: 10

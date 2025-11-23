@@ -39,6 +39,7 @@ namespace SoundTrack{
         private Label HPLabel;
         private Label WinLabel;
         private Label SeqLabel;
+        private Label KeyLabel;
         
         private string[] tutorialLines;
         private int currentIndex = 0;
@@ -87,6 +88,7 @@ namespace SoundTrack{
             HPLabel = RootVisualElement.Q<Label>("HPLabel");
             WinLabel = RootVisualElement.Q<Label>("WinLabel");
             SeqLabel = RootVisualElement.Q<Label>("SeqLabel");
+            KeyLabel = RootVisualElement.Q<Label>("KeyLabel");
 
             current_scene = 0;
             current_page = 0;
@@ -210,9 +212,16 @@ namespace SoundTrack{
         {
             // 教學結束，隱藏整個教學 UI
             tutorial_page.style.display = DisplayStyle.None;
-            GameManager.Instance.TurtorialEnd();
+            if(GameManager.Instance != null)
+                GameManager.Instance.TurtorialEnd();
         }
 
+        public void GameStart(){
+            UpdateHP(LevelManager.Instance.currentBeat);
+            UpdateSeq(new List<int>());
+            UpdateWin(-1);
+            UpdateKey(0,-1);
+        }
 
         private void OnDisable(){
             // DI for check cover != null
@@ -275,6 +284,12 @@ namespace SoundTrack{
             for(int i=Skill.Count - 1;i>=0;i--){
                 SeqLabel.text += arrow[Skill[i]];
             }
+        }
+        public void UpdateKey(int keyCount, int maxKeyCount){
+            if(maxKeyCount == -1)
+                KeyLabel.text = $"Keyy: --";
+            else
+                KeyLabel.text = $"Keyy: {keyCount}/{maxKeyCount}";
         }
 
         public void SetTargetScene(int scene, int page)

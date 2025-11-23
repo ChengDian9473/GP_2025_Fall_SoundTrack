@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa240b1f7423f5408332e953b5aa367, type: 3}
+  m_Name: TileList
+  m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.TileList
+  allowedTiles: {fileID: 11400000, guid: 939b98d3e0144234da046c01794de569, type: 2}
+  finishedTiles: {fileID: 11400000, guid: 4bcd0cdb1db6bcb40ba92cec2ce6295f, type: 2}
+  skillTiles:
+  - {fileID: 11400000, guid: 147ef46aa8afccf48bdda6d96184b8c2, type: 2}
+  - {fileID: 11400000, guid: ea615531d851bf94095c7bac3b4e7827, type: 2}
+  - {fileID: 11400000, guid: 3913a03d198aa2d4a86207c99b42770e, type: 2}
+  - {fileID: 11400000, guid: 0e0b02e165b6c2c46b1236267eec8e05, type: 2}
+  - {fileID: 11400000, guid: a6076366df0fc1440aa931052ff8fda8, type: 2}
+  doorOpened:
+  - {fileID: 11400000, guid: 22cd17dc02cc2e24b989cd1b3c450fcc, type: 2}
+  - {fileID: 11400000, guid: 7b84eaca8d4450448bc4c26d5d1acf2c, type: 2}
+  - {fileID: 11400000, guid: b61cf4559f41b024b8a7897379c6a2a7, type: 2}
+  - {fileID: 11400000, guid: d94c9558174e48c47ace3fecaa49a14f, type: 2}
+  doorClosed:
+  - {fileID: 11400000, guid: 967907f5300a7454ca80c7769c8783f8, type: 2}
+  - {fileID: 11400000, guid: d19eb98fa7df7004f8bb143c6bd3c88c, type: 2}
+  - {fileID: 11400000, guid: d40dbf988044df94081eee11ae9f0cc1, type: 2}
+  - {fileID: 11400000, guid: 5cf1c6015794e1c478ab94eb6e869a26, type: 2}
