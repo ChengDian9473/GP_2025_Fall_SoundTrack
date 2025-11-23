@@ -143,7 +143,6 @@ namespace SoundTrack{
             return "[" + string.Join(", ", items) + "]";
         }
         
-        [Header("Grid Points")]
         public List<GridPos> items = new();
     }   
 }

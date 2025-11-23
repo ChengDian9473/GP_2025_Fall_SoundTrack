@@ -12,14 +12,14 @@ namespace SoundTrack{
         public static GameManager Instance { get; private set; }
 
         private bool playing;
-        private bool turtorial;
+        private bool tutorial;
 
         [Header("Music & Tempo")]
-        public AudioSource intro_clip;
-        public AudioSource Main_loop_clip;
-        [Min(1f)] public float bpm = 105f;
+        [SerializeField] private AudioSource intro_clip;
+        [SerializeField] private AudioSource Main_loop_clip;
+        [SerializeField, Min(1f)] public float bpm = 105f;
         [Tooltip("Time to First Beat")]
-        public double firstBeatOffset = 0;
+        [SerializeField] private double firstBeatOffset = 0;
 
         [Header("Beat Input")]
         [SerializeField, Min(0f)] private float beatBarInputThreshold = 1f;
@@ -27,16 +27,16 @@ namespace SoundTrack{
         // [Header("Beat Event")]
         public static event Action<int> OnBeat;
 
-        [NonSerialized] public double songStartDsp;
-        [NonSerialized] public double songTime;
-        [NonSerialized] public int    beatIndex;
-        [NonSerialized] public double exactBeat;
-        [NonSerialized] public int    lastBeat;
-        [NonSerialized] public double dspCanHit;
-        [NonSerialized] public double prevstart;
-        [NonSerialized] public double introduration;        
-        [NonSerialized] public double mainduration; 
-        [NonSerialized] public int    sourceflag;
+        private double songStartDsp;
+        private double songTime;
+        private int    beatIndex;
+        private double exactBeat;
+        private int    lastBeat;
+        private double dspCanHit;
+        private double prevstart;
+        private double introduration;        
+        private double mainduration; 
+        private int    sourceflag;
 
         private void Awake()
         {
@@ -49,7 +49,7 @@ namespace SoundTrack{
             DontDestroyOnLoad(gameObject);
 
             playing = false;
-            turtorial = false;
+            tutorial = false;
 
             introduration = (double)intro_clip.clip.samples/intro_clip.clip.frequency;
             mainduration = (double)Main_loop_clip.clip.samples/Main_loop_clip.clip.frequency;
@@ -57,7 +57,7 @@ namespace SoundTrack{
         }
 
         private void Update(){
-            if(playing && !turtorial){
+            if(playing && !tutorial){
                 double dspNow = AudioSettings.dspTime;
                 songTime = Math.Max(0.0, (dspNow - songStartDsp) - firstBeatOffset);
 
@@ -130,14 +130,13 @@ namespace SoundTrack{
             }
         }
         public void TurtorialStart(){
-            turtorial = true;
+            tutorial = true;
         }
         public void TurtorialEnd(){
-            turtorial = false;
+            tutorial = false;
         }
 
         public void GameStart(){
-            Debug.Log("GameStart");
             LevelManager.Instance.GameStart();
 
             lastBeat = -1;
@@ -154,12 +153,9 @@ namespace SoundTrack{
             Main_loop_clip.PlayScheduled(prevstart);
 
             playing = true;
-
-            Info.Instance.GameStart();
         }
 
         public void GameEnd(){
-            LevelManager.Instance.GameEnd();
             playing = false;
             intro_clip.Stop();
             Main_loop_clip.Stop();

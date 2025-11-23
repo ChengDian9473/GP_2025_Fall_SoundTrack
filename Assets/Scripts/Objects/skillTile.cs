@@ -9,10 +9,9 @@ namespace SoundTrack{
     public class skillTile : MonoBehaviour
     {
         protected RoomRegister R;
-
         protected GridPos curGrid;
 
-        [SerializeField] protected ElementType[] elementList;
+        [SerializeField] protected ElementTileType[] elementList;
         private int elementListCounter;
         private int elementListLength;
 
@@ -27,7 +26,7 @@ namespace SoundTrack{
             loopCounter = 0;
             elementListCounter = 0;
             elementListLength = elementList.Length;
-            curElement = elementList[0];
+            curElement = elementList[0].ToElementType();
             GetComponent<SpriteRenderer>().enabled = false;
         }
 
@@ -40,7 +39,7 @@ namespace SoundTrack{
             loopCounter = (loopCounter + 1) % loopLength;
             if(loopCounter == 0){
                 elementListCounter = (elementListCounter + 1) % elementListLength;
-                curElement = elementList[elementListCounter];
+                curElement = elementList[elementListCounter].ToElementType();
                 LevelManager.Instance.groundTilemap.SetTile(curGrid.ToVector3Int(),LevelManager.Instance.TL.skillTiles[curElement.ToSkillTileIndex()]);
             }
         }

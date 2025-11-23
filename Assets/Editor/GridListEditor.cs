@@ -10,7 +10,7 @@ namespace SoundTrack
     [CustomPropertyDrawer(typeof(GridList))]
     public class GridListDrawer : PropertyDrawer
     {
-        bool foldTools = true;
+        bool foldTools = false;
         int cx = 0, cy = 0, radius = 0;
         int px = 0, py = 0;
         int ax = 0, ay = 0, bx = 0, by = 0;
@@ -30,10 +30,11 @@ namespace SoundTrack
             EditorGUI.BeginProperty(position, label, property);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
+
             // --- Items（縮排 1 格）---
             int old = EditorGUI.indentLevel;
             EditorGUI.indentLevel = old + 1;
-            EditorGUILayout.PropertyField(listProp, new GUIContent("Items"), true);
+            EditorGUILayout.PropertyField(listProp, label, true);
             EditorGUI.indentLevel = old;
 
             EditorGUILayout.Space(2);

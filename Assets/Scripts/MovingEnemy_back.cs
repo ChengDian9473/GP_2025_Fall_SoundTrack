@@ -184,7 +184,7 @@
 //                 GridPos rotatedOffset = RotateOffset(offset, facingDir);
 //                 GridPos attackGrid = curGrid + rotatedOffset;
 //                 if (groundTilemap.HasTile(attackGrid.ToVector3Int()))
-//                     LevelManager.Instance.AddWarning(attackGrid, warningBeats);
+//                     LevelManager.Instance.addWarning(attackGrid, warningBeats);
 //             }
 //             // Debug.Log($"{enemyName} shows warning for next attack.");
 //         }

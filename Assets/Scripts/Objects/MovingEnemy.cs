@@ -8,11 +8,10 @@ namespace SoundTrack{
     // public abstract class BaseEnemies : MonoBehaviour
     public class MovingEnemy : StaticEnemy
     {
-        [Header("walk Pattern")]
-        public GridList walkPattern;   // Attack pattern offsets
+        [SerializeField] private GridList walkPattern;   // Attack pattern offsets
 
-        [NonSerialized] protected int moveCounter;
-        [NonSerialized] protected int moveLength;
+        protected int moveCounter;
+        protected int moveLength;
 
         private Tilemap groundTilemap;
 
@@ -45,7 +44,7 @@ namespace SoundTrack{
         {
             Vector3Int c = g.ToVector3Int();
             if (LevelManager.Instance.monsterOn.Contains(g)) return false;
-            if (g == LevelManager.Instance.player.curGrid) return false;
+            if (g == LevelManager.Instance.player.getCurGrid()) return false;
             if (!groundTilemap.HasTile(c)) return false;
             if (groundTilemap.GetTile(c) == LevelManager.Instance.TL.allowedTiles) return true;
             return false;

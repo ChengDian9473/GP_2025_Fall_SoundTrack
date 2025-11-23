@@ -15,6 +15,14 @@ namespace SoundTrack
         Water = 1 << 3,
         All = Normal | Fire | Grass | Water
     }
+    
+    public enum ElementTileType : byte
+    {
+        Normal  = 0,
+        Fire  = 1,
+        Grass = 2,
+        Water = 3
+    }
 
     public static class ElementTypeTools
     {
@@ -116,6 +124,22 @@ namespace SoundTrack
                 8 => ElementType.All,
                 _ => ElementType.None
             };
+        }
+    }
+    
+    public static class ElementTileTypeTools
+    {
+        public static ElementType ToElementType(this ElementTileType value)
+        {
+            if(value == ElementTileType.Normal)
+                return ElementType.Normal;
+            if(value == ElementTileType.Fire)
+                return ElementType.Fire;
+            if(value == ElementTileType.Grass)
+                return ElementType.Grass;
+            if(value == ElementTileType.Water)
+                return ElementType.Water;
+            return ElementType.Normal;
         }
     }
 }

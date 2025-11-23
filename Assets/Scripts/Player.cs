@@ -3,36 +3,34 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-// key / Trap / public private / BeatManager Optimizing / Music play and vfx
+// TODO: Trap / BeatManager Optimizing / Music play and vfx
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {
-        [NonSerialized] public GridPos curGrid;
-        [NonSerialized] public GridPos nextGrid;
+        private GridPos curGrid;
+        private GridPos nextGrid;
 
-        public GameObject TrackPrefab;
+        [SerializeField] private GameObject TrackPrefab;
 
-        [Header("References")]
-        [NonSerialized] public Tilemap groundTilemap;
+        private Tilemap groundTilemap;
 
-        [NonSerialized] public ElementType element;
-        [NonSerialized] public bool tracking;
+        private ElementType element;
+        private bool tracking;
 
         private List<GameObject> Track;
         private List<int> Skill;
 
-        public SkillList SL;
-        [NonSerialized] public Dictionary<SkillKey,SkillItem> Skills;
+        [SerializeField] private SkillList SL;
+        private Dictionary<SkillKey,SkillItem> Skills;
 
-        [NonSerialized] public CameraMove cam;
+        private CameraMove cam;
 
-        [NonSerialized] public int HP;
+        private int HP;
 
-        public static int MAX_TRACK = 4;
+        private static int MAX_TRACK = 4;
 
         private void Awake()
         {
-
             Track = new List<GameObject>();
             Skill = new List<int>();
 
@@ -43,7 +41,9 @@ namespace SoundTrack{
                 cam = Camera.main.GetComponent<CameraMove>();
             }
 
-            element = ElementType.Normal;
+            groundTilemap = LevelManager.Instance.groundTilemap;
+
+            element = ElementType.None;
             tracking = false;
 
             Skills = SL.ToDict();
@@ -51,6 +51,10 @@ namespace SoundTrack{
 
         void Start(){
 
+        }
+
+        public GridPos getCurGrid(){
+            return curGrid;
         }
 
         public void move(int op){
@@ -155,7 +159,7 @@ namespace SoundTrack{
                 testSkill();
 
                 if(OnFinished(curGrid)){
-                    LevelManager.Instance.TestEnd();
+                    LevelManager.Instance.testEnd();
                 }
 
                 transform.position = curGrid.ToVector3();
@@ -169,10 +173,12 @@ namespace SoundTrack{
             int skillTrigger = OnSkill(curGrid);
 
             if(skillTrigger != -1){
-                ClearTrack();
-                element = skillTrigger.ToElementType();
-                this.GetComponent<SpriteRenderer>().color = Utils.elementColor[skillTrigger];
-                tracking = true;
+                if(element != skillTrigger.ToElementType()){
+                    ClearTrack();
+                    element = skillTrigger.ToElementType();
+                    this.GetComponent<SpriteRenderer>().color = Utils.elementColor[skillTrigger];
+                    tracking = true;
+                }
             }
         }
 
@@ -227,10 +233,10 @@ namespace SoundTrack{
                 SkillItem skill = Skills[sk];
                 foreach(var g in skill.attackPattern){
                     if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int())){
-                        LevelManager.Instance.AddAttack(curGrid + g.RM(facing,mirror), 1, element);
+                        LevelManager.Instance.addAttack(curGrid + g.RM(facing,mirror), 1, element);
                     }
                 }
-                LevelManager.Instance.UpdateAttackTile();
+                LevelManager.Instance.updateAttackTile();
                 skill.PerformSkill(facing, mirror, curGrid);
             }
             ClearTrack();
@@ -243,7 +249,7 @@ namespace SoundTrack{
             Skill.Clear();
             Info.Instance.UpdateSeq(Skill);
             tracking = false;
-            element = ElementType.Normal;
+            element = ElementType.None;
             this.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }

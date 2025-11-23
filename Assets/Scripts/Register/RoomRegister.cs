@@ -35,15 +35,27 @@ namespace SoundTrack{
                 groundTilemap.SetTile(f.ToVector3Int(), LevelManager.Instance.TL.finishedTile);
             }
         }
+
+        public void Clear(){
+            room.triggerInfo = new string[0];
+            
+            room.startTile.Clear();
+            room.doorTile.Clear();
+            room.inDoorTile.Clear();
+            room.outDoorTile.Clear();
+            room.endTile.Clear();
+            room.finishTile.Clear();
+
+            room.keyCount = 0;
+            room.clear = false;
+        }
     }
 
     [Serializable]
     public class Room
     {
-        [Header("Trigger Info")]
         public string[] triggerInfo;
 
-        [Header("Tiles")]
         public GridList startTile = new GridList();
         public GridList doorTile = new GridList();
         public GridList inDoorTile = new GridList();

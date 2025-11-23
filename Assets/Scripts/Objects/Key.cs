@@ -8,9 +8,9 @@ namespace SoundTrack{
     // public abstract class BaseEnemies : MonoBehaviour
     public class Key : MonoBehaviour
     {
-        public RoomRegister R;
+        private RoomRegister R;
 
-        public GridPos curGrid;
+        [NonSerialized] public GridPos curGrid;
 
         protected virtual void Awake(){
             curGrid = new GridPos(transform.position);

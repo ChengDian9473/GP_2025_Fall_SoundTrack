@@ -49,9 +49,11 @@ namespace SoundTrack{
         private int current_scene;
         private int current_page;
 
-        public static int LEVEL_START = 2;
+        private static int LEVEL_START = 2;
 
-        public bool firstTime;
+        private bool firstTime;
+
+        public event Action OnTutorialEnded;
 
         private void Awake()
         {
@@ -67,7 +69,6 @@ namespace SoundTrack{
         }
 
         private void OnEnable(){
-
             RootVisualElement = GetComponent<UIDocument>().rootVisualElement;
             cover = RootVisualElement.Q<VisualElement>("Cover");
             StartButton = RootVisualElement.Q<Button>("StartButton");
@@ -210,17 +211,11 @@ namespace SoundTrack{
 
         private void EndTutorial()
         {
+            OnTutorialEnded?.Invoke();
             // 教學結束，隱藏整個教學 UI
             tutorial_page.style.display = DisplayStyle.None;
             if(GameManager.Instance != null)
                 GameManager.Instance.TurtorialEnd();
-        }
-
-        public void GameStart(){
-            UpdateHP(LevelManager.Instance.currentBeat);
-            UpdateSeq(new List<int>());
-            UpdateWin(-1);
-            UpdateKey(0,-1);
         }
 
         private void OnDisable(){
@@ -275,6 +270,7 @@ namespace SoundTrack{
                 WinLabel.text = "You Win";
             else
                 WinLabel.text = "You Lose";
+
             end_page.style.display = DisplayStyle.Flex;
         }
         public void UpdateSeq(List<int> Skill){
@@ -286,7 +282,7 @@ namespace SoundTrack{
             }
         }
         public void UpdateKey(int keyCount, int maxKeyCount){
-            if(maxKeyCount == -1)
+            if(maxKeyCount == -1 || maxKeyCount == 0)
                 KeyLabel.text = $"Keyy: --";
             else
                 KeyLabel.text = $"Keyy: {keyCount}/{maxKeyCount}";

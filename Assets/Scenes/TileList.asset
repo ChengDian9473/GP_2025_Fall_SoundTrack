@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TileList
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.TileList
   allowedTiles: {fileID: 11400000, guid: 939b98d3e0144234da046c01794de569, type: 2}
-  finishedTiles: {fileID: 11400000, guid: 4bcd0cdb1db6bcb40ba92cec2ce6295f, type: 2}
+  finishedTile: {fileID: 11400000, guid: 4bcd0cdb1db6bcb40ba92cec2ce6295f, type: 2}
   skillTiles:
   - {fileID: 11400000, guid: 147ef46aa8afccf48bdda6d96184b8c2, type: 2}
   - {fileID: 11400000, guid: ea615531d851bf94095c7bac3b4e7827, type: 2}

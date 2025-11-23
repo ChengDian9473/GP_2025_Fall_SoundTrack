@@ -11,58 +11,50 @@ namespace SoundTrack{
         public static LevelManager Instance { get; private set; }
 
         [SerializeField] private GameObject playerPrefab;
-
         [SerializeField] private BeatBarManager beatBarManagerPrefab;
+
+        [SerializeField] private GameObject warningTilePrefab;
+        [SerializeField] private GameObject attackTilePrefab;
+        
+        [SerializeField] public TileList TL; // read
 
         private BeatBarManager beatBarManagerInstance;
         public BeatBarManager BeatBarManager => beatBarManagerInstance;
 
-        [NonSerialized] public Player player;
+        [NonSerialized] public Player player; // read
+        private StoryRegister SR;
+        
+        [NonSerialized] public Tilemap groundTilemap; // read
 
-        [NonSerialized] private StoryRegister SR;
+        private int currentBeat;
 
-        [NonSerialized] public int currentBeat;
-
-        [NonSerialized] public int curRoomIndex;
-        [NonSerialized] public int maxRoomIndex;
+        private int curRoomIndex;
+        private int maxRoomIndex;
 
         [NonSerialized] public Room curRoom = null;
-        [NonSerialized] public List<Room> rooms = new List<Room>();
+        private List<Room> rooms = new List<Room>();
 
-        [NonSerialized] public int keyCount;
+        private int keyCount;
 
         [NonSerialized] public bool inLevel = false;
 
-        [SerializeField] public GameObject warningTilePrefab;
-        [SerializeField] public GameObject attackTilePrefab;
 
-        [NonSerialized] public GridList monsterOn = new GridList();
-        [NonSerialized] public List<StaticEnemy> aliveMonsters = new List<StaticEnemy>();
+        [NonSerialized] public GridList monsterOn = new GridList(); // interact
+        [NonSerialized] public List<StaticEnemy> aliveMonsters = new List<StaticEnemy>(); // interact
 
-        [NonSerialized] public GridList keyOn = new GridList();
-        [NonSerialized] public List<Key> existingKey = new List<Key>();
+        [NonSerialized] public GridList keyOn = new GridList(); // interact
+        [NonSerialized] public List<Key> existingKey = new List<Key>(); // interact
 
-        [NonSerialized] public List<skillTile> skillTiles = new List<skillTile>();
+        [NonSerialized] public List<skillTile> skillTiles = new List<skillTile>(); // interact
 
-        [NonSerialized] List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject, bool)>();
-        [NonSerialized] Dictionary<GridPos, (GameObject obj, int life)> warningTileList = new Dictionary<GridPos, (GameObject, int)>();
+        private List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject, bool)>();
+        private Dictionary<GridPos, (GameObject obj, int life)> warningTileList = new Dictionary<GridPos, (GameObject, int)>();
 
-        [NonSerialized] List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
-        [NonSerialized] Dictionary<GridPos, (GameObject obj, int life, ElementType element)> attackTileList = new Dictionary<GridPos, (GameObject, int, ElementType)>();
+        private List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
+        private Dictionary<GridPos, (GameObject obj, int life, ElementType element)> attackTileList = new Dictionary<GridPos, (GameObject, int, ElementType)>();
 
-        [NonSerialized] public Tilemap groundTilemap;
-        [SerializeField] public TileList TL;
 
-        void Start(){
-
-        }
-
-        void Update(){
-            
-        }
-
-        void Awake()
-        {
+        private void Awake(){
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
@@ -71,20 +63,19 @@ namespace SoundTrack{
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            GameManager.OnBeat += OnBeatReceived;
+            GameManager.OnBeat +=
+            OnBeatReceived;
         }
 
-        void OnDestroy()
-        {
+        private void OnDestroy(){
             GameManager.OnBeat -= OnBeatReceived;
         }
 
-        public void GameStart(){
+        public void SceneInit(){
             groundTilemap = GameObject.Find("Grid").GetComponentInChildren<Tilemap>();
 
             GameObject obj = Instantiate(playerPrefab);
             player = obj.GetComponent<Player>();
-            player.groundTilemap = groundTilemap;
 
             beatBarManagerInstance = Instantiate(beatBarManagerPrefab);
             var camTransform = Camera.main != null ? Camera.main.transform : null;
@@ -94,101 +85,28 @@ namespace SoundTrack{
             }
 
             SR = (StoryRegister) FindAnyObjectByType(typeof(StoryRegister));
+        }
 
+        public void GameStart(){
             currentBeat = SR.maxBeat;
 
             curRoomIndex = 0;
             maxRoomIndex = 0;
+
             if(SR.startingInfo != null && SR.startingInfo.Length > 0){
                 Info.Instance.StartTutorial(SR.startingInfo);
             }
-        }
-
-        public void GameEnd(){
-            ResetPool();
-        }
-
-        private void ResetPool(){
-            monsterOn = new GridList();
-            aliveMonsters = new List<StaticEnemy>();
-            skillTiles = new List<skillTile>();
             
-            keyOn = new GridList();
-            existingKey = new List<Key>();
-
-            warningTilePool = new List<(GameObject, bool)>();
-            warningTileList = new Dictionary<GridPos, (GameObject, int)>();
-
-            attackTilePool = new List<(GameObject, bool)>();
-            attackTileList = new Dictionary<GridPos, (GameObject, int, ElementType)>();
-        }
-        
-        public void addRoom(RoomRegister r)
-        {
-            while(rooms.Count <= r.roomIndex){
-                rooms.Add(null);
-            }
-            rooms[r.roomIndex] = r.room;
-            curRoom = rooms[0];
-        }
-
-        public void startRoom()
-        {
-            if(!inLevel){
-                foreach(var d in curRoom.doorTile){
-                    int index = Array.IndexOf(TL.doorOpened, groundTilemap.GetTile(d.ToVector3Int()));
-                    groundTilemap.SetTile(d.ToVector3Int(), TL.doorClosed[index]);
-                }
-                Debug.Log("Room Start");
-                inLevel = true;
-                keyCount = 0;
-                curRoom = rooms[curRoomIndex];
-                Info.Instance.UpdateKey(keyCount,curRoom.keyCount);
-                if(curRoom.triggerInfo != null && curRoom.triggerInfo.Length > 0){
-                    Info.Instance.StartTutorial(curRoom.triggerInfo);
-                }
-            }
-        }
-
-        public void endRoom()
-        {
-            if(inLevel && keyCount >= curRoom.keyCount){
-                foreach(var d in curRoom.inDoorTile){
-                    int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
-                    groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
-                }
-                Debug.Log("Room End");
-                inLevel = false;
-                curRoom.clear = true;
-                curRoomIndex++;
-                Info.Instance.UpdateKey(0,-1);
-            }
-        }
-
-        public void TestEnd(){
-            if(curRoomIndex > maxRoomIndex)
-            {
-                GameManager.Instance.GameEnd();
-                Info.Instance.UpdateWin(1);
-            }
-        }
-
-        public void collectKey(){
-            
-            keyCount++;
-            Info.Instance.UpdateKey(keyCount,curRoom.keyCount);
-            if(keyCount == curRoom.keyCount){
-                foreach(var d in curRoom.outDoorTile){
-                    int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
-                    groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
-                }
-            }
+            Info.Instance.UpdateHP(currentBeat);
+            Info.Instance.UpdateSeq(new List<int>());
+            Info.Instance.UpdateWin(-1);
+            Info.Instance.UpdateKey(0,-1);
         }
 
         public void OnBeatReceived(int beat){
             if(beat % 2 == 1){
-                UpdateWarningTile();
-                UpdateAttackTile();
+                updateWarningTile();
+                updateAttackTile();
                 foreach(var m in aliveMonsters){
                     if(m is MovingEnemy me){
                         me.OnBeatReceived(beat);
@@ -209,10 +127,100 @@ namespace SoundTrack{
             }
         }
 
-        public void UpdateWarningTile(){
+        private void resetPool(){
+            monsterOn = new GridList();
+            aliveMonsters = new List<StaticEnemy>();
+            skillTiles = new List<skillTile>();
+            
+            keyOn = new GridList();
+            existingKey = new List<Key>();
+
+            warningTilePool = new List<(GameObject, bool)>();
+            warningTileList = new Dictionary<GridPos, (GameObject, int)>();
+
+            attackTilePool = new List<(GameObject, bool)>();
+            attackTileList = new Dictionary<GridPos, (GameObject, int, ElementType)>();
+        }
+        
+        public void addRoom(RoomRegister r){
+            while(rooms.Count <= r.roomIndex){
+                rooms.Add(null);
+            }
+            rooms[r.roomIndex] = r.room;
+            curRoom = rooms[0];
+        }
+
+        public void startRoom(){
+            if(!inLevel){
+                foreach(var d in curRoom.doorTile){
+                    int index = Array.IndexOf(TL.doorOpened, groundTilemap.GetTile(d.ToVector3Int()));
+                    groundTilemap.SetTile(d.ToVector3Int(), TL.doorClosed[index]);
+                }
+                Debug.Log("Room Start");
+                inLevel = true;
+                keyCount = 0;
+                if(keyCount == curRoom.keyCount){
+                    foreach(var d in curRoom.outDoorTile){
+                        int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
+                        groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
+                    }
+                }
+                curRoom = rooms[curRoomIndex];
+                Info.Instance.UpdateKey(keyCount,curRoom.keyCount);
+                if(curRoom.triggerInfo != null && curRoom.triggerInfo.Length > 0){
+                    Info.Instance.StartTutorial(curRoom.triggerInfo);
+                }
+            }
+        }
+
+        public void endRoom(){
+            if(inLevel && keyCount >= curRoom.keyCount){
+                foreach(var d in curRoom.inDoorTile){
+                    int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
+                    groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
+                }
+                Debug.Log("Room End");
+                inLevel = false;
+                curRoom.clear = true;
+                curRoomIndex++;
+                Info.Instance.UpdateKey(0,-1);
+            }
+        }
+
+        public void testEnd(){
+            if(curRoomIndex > maxRoomIndex)
+            {
+                Info.Instance.OnTutorialEnded += GameEnd;
+                if(SR.endInfo != null && SR.endInfo.Length > 0){
+                    Info.Instance.StartTutorial(SR.endInfo);
+                }else{
+                    GameEnd();
+                }
+            }
+        }
+
+        public void GameEnd(){
+            Info.Instance.OnTutorialEnded -= GameEnd;
+            GameManager.Instance.GameEnd();
+            Info.Instance.UpdateWin(1);
+            resetPool();
+        }
+
+        public void collectKey(){
+            keyCount++;
+            Info.Instance.UpdateKey(keyCount,curRoom.keyCount);
+            if(keyCount == curRoom.keyCount){
+                foreach(var d in curRoom.outDoorTile){
+                    int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
+                    groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
+                }
+            }
+        }
+
+        public void updateWarningTile(){
             var keys = new List<GridPos>(warningTileList.Keys);
 
-            // Debug.Log("UpdateAttackTile S");
+            // Debug.Log("updateAttackTile S");
             foreach (var key in keys)
             {
                 var data = warningTileList[key];
@@ -232,13 +240,13 @@ namespace SoundTrack{
                     warningTileList[key] = (data.obj, data.life);
                 }
             }
-            // Debug.Log("UpdateAttackTile E");
+            // Debug.Log("updateAttackTile E");
         }
 
-        public void UpdateAttackTile(){
+        public void updateAttackTile(){
             var keys = new List<GridPos>(attackTileList.Keys);
 
-            // Debug.Log("UpdateAttackTile S");
+            // Debug.Log("updateAttackTile S");
             foreach (var key in keys)
             {
                 var data = attackTileList[key];
@@ -270,7 +278,7 @@ namespace SoundTrack{
                             }
                         }
                     }
-                    ReleaseAttackTile(obj);
+                    releaseAttackTile(obj);
                     attackTileList.Remove(key);
                 }
                 else
@@ -278,36 +286,34 @@ namespace SoundTrack{
                     attackTileList[key] = (data.obj, data.life, data.element);
                 }
             }
-            // Debug.Log("UpdateAttackTile E");
+            // Debug.Log("updateAttackTile E");
         }
 
-        public void AddWarning(GridPos g, int life){
+        public void addWarning(GridPos g, int life){
             // Debug.Log(warningTileList.Count);
             // Debug.Log(g);
             if (warningTileList.ContainsKey(g))
                 warningTileList[g] = (warningTileList[g].obj, life);
             else
-                warningTileList[g] = (GetAvailableWarningTile(), life);
+                warningTileList[g] = (getAvailableWarningTile(), life);
             warningTileList[g].obj.transform.position = g.ToVector3();
         }
 
-        public void AddAttack(GridPos g, int life, ElementType element){
+        public void addAttack(GridPos g, int life, ElementType element){
             // Debug.Log(attackTileList.Count);
             Debug.Log(g);
             GameObject t;
             if (attackTileList.ContainsKey(g))
                 t = attackTileList[g].obj;
             else
-                t = GetAvailableAttackTile();
+                t = getAvailableAttackTile();
             
     
             t.GetComponent<SpriteRenderer>().color = Utils.transparentElementColor[element.ToColorIndex()];
             attackTileList[g] = (t, life, element);
         }
 
-
-        public GameObject GetAvailableAttackTile()
-        {
+        public GameObject getAvailableAttackTile(){
             for (int i = 0; i < attackTilePool.Count; i++)
             {
                 if (!attackTilePool[i].inUse)
@@ -325,8 +331,7 @@ namespace SoundTrack{
             return newTile;
         }
 
-        public void ReleaseAttackTile(GameObject tile)
-        {
+        public void releaseAttackTile(GameObject tile){
             for (int i = 0; i < attackTilePool.Count; i++)
             {
                 if (attackTilePool[i].obj == tile)
@@ -340,8 +345,7 @@ namespace SoundTrack{
             }
         }
 
-        public GameObject GetAvailableWarningTile()
-        {
+        public GameObject getAvailableWarningTile(){
             for (int i = 0; i < warningTilePool.Count; i++)
             {
                 if (!warningTilePool[i].inUse)
@@ -359,8 +363,7 @@ namespace SoundTrack{
             return newTile;
         }
 
-        public void ReleaseWarningTile(GameObject tile)
-        {
+        public void ReleaseWarningTile(GameObject tile){
             for (int i = 0; i < warningTilePool.Count; i++)
             {
                 if (warningTilePool[i].obj == tile)

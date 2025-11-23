@@ -12,11 +12,10 @@ namespace SoundTrack{
 
         protected GridPos curGrid;
 
-        protected virtual void Awake(){
+        public virtual void BakeRegister(RoomRegister room){
             curGrid = new GridPos(transform.position);
-            R = (RoomRegister) GetComponentInParent(typeof(RoomRegister));
+            R = room;
             Register();
-            Destroy(gameObject);
         }
         protected virtual void Register(){
             
