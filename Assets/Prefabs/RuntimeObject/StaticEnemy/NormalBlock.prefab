@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.StaticEnemy
   enemyName: 
-  allowedElements: 1
+  remainingElements: 1
   HP: 0

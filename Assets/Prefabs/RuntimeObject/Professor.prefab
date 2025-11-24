@@ -104,19 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.MovingEnemy
   enemyName: 
-  allowedElement: 0
-  LM: {fileID: 0}
+  remainingElements: 1
   HP: 0
-  curGrid:
-    x: 0
-    y: 0
   walkPattern:
     items: []
-  groundTilemap: {fileID: 0}
-  TL: {fileID: 11400000, guid: fced9b7cb30b20e43b2c438091a65d1b, type: 2}
-  nextGrid:
-    x: 0
-    y: 0
-  previewGrid:
-    x: 0
-    y: 0

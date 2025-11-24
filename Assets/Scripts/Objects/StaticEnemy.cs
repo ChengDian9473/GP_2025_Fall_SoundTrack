@@ -10,7 +10,7 @@ namespace SoundTrack{
     {
         [Header("Enemy Settings")]
         public string enemyName;
-        public ElementType allowedElements;
+        public MonsterElementType remainingElements;
 
         public int HP;
 
@@ -23,15 +23,21 @@ namespace SoundTrack{
             updateColor();
         }
 
-        private void updateColor(){
-            GetComponent<SpriteRenderer>().color = Utils.elementColor[allowedElements.ToColorIndex()];
+        protected void OnValidate()
+        {
+            remainingElements.Sanitized();
         }
 
-        public void removeHP(int damage){
-            if(HP > 0){
-                HP -= damage;
+        private void updateColor(){
+            // GetComponent<SpriteRenderer>().color = remainingElements.ToSpriteIndex();
+        }
+
+        public void removeHP(PlayerElementType element){
+            if(remainingElements.HasAny(element.ToMonsterElement())){
+                remainingElements.RemoveElement(element.ToMonsterElement());
             }
-            if(HP <= 0){
+            // Debug.Log($"{remainingElements.IsEmpty()} {remainingElements}");
+            if(remainingElements.IsEmpty()){
                 Die();
             }
         }

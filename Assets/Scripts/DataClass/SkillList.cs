@@ -21,15 +21,13 @@ namespace SoundTrack
                     continue;
 
                 int num = skill.GetNumber();
-                Debug.Log($"{skill.GetNumber()} {skill.SkillElement}");
-                for(int i=1;i<=4;i++){
-                    if(skill.SkillElement.HasAny(i.ToElementType())){
-                        SkillKey sk = new SkillKey(num, i);
-                        SkillItem si = new SkillItem(skill.attackPattern,skill.vfx,skill.SkillElement);
-                        if (!dict.ContainsKey(sk))
-                        {
-                            dict[sk] = si;
-                        }
+
+                foreach(var e in skill.element.ToPlayerElementList()){
+                    SkillKey sk = new SkillKey(num, e);
+                    SkillItem si = new SkillItem(skill.attackPattern,skill.vfx,skill.element);
+                    if (!dict.ContainsKey(sk))
+                    {
+                        dict[sk] = si;
                     }
                 }
             }
@@ -40,15 +38,15 @@ namespace SoundTrack
 
     public class SkillKey
     {
-        public SkillKey(int num, int index){
+        public SkillKey(int num, PlayerElementType element){
             this.num = num;
-            this.index = index;
+            this.element = element;
         }
         public override bool Equals(object obj)
         {
             if (!(obj is SkillKey)) return false;
             SkillKey other = (SkillKey)obj;
-            return num == other.num && index == other.index;
+            return num == other.num && element == other.element;
         }
 
         public override int GetHashCode()
@@ -57,17 +55,17 @@ namespace SoundTrack
             {
                 int hash = 17;
                 hash = hash * 31 + num;
-                hash = hash * 31 + index;
+                hash = hash * 31 + element.ToIndex();
                 return hash;
             }
         }
 
         public int num;
-        public int index;
+        public PlayerElementType element;
     }
     public class SkillItem
     {
-        public SkillItem(GridList attackPattern, GameObject vfx, ElementType element){
+        public SkillItem(GridList attackPattern, GameObject vfx, SkillElementType element){
             this.attackPattern = attackPattern;
             this.vfx = vfx;
             this.element = element;
@@ -86,7 +84,7 @@ namespace SoundTrack
         }
         public GridList attackPattern;
         public GameObject vfx;
-        public ElementType element;
+        public SkillElementType element;
     }
 
     [Serializable]
@@ -101,7 +99,7 @@ namespace SoundTrack
         public GameObject vfx;
 
         [Header("Element")]
-        public ElementType SkillElement;
+        public SkillElementType element;
 
         [HideInInspector] public int number;
 

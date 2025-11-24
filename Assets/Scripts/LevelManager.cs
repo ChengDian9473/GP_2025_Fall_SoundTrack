@@ -51,7 +51,7 @@ namespace SoundTrack{
         private Dictionary<GridPos, (GameObject obj, int life)> warningTileList = new Dictionary<GridPos, (GameObject, int)>();
 
         private List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
-        private Dictionary<GridPos, (GameObject obj, int life, ElementType element)> attackTileList = new Dictionary<GridPos, (GameObject, int, ElementType)>();
+        private Dictionary<GridPos, (GameObject obj, int life, PlayerElementType element)> attackTileList = new Dictionary<GridPos, (GameObject, int, PlayerElementType)>();
 
 
         private void Awake(){
@@ -139,7 +139,7 @@ namespace SoundTrack{
             warningTileList = new Dictionary<GridPos, (GameObject, int)>();
 
             attackTilePool = new List<(GameObject, bool)>();
-            attackTileList = new Dictionary<GridPos, (GameObject, int, ElementType)>();
+            attackTileList = new Dictionary<GridPos, (GameObject, int, PlayerElementType)>();
         }
         
         public void addRoom(RoomRegister r){
@@ -254,11 +254,11 @@ namespace SoundTrack{
                 // Debug.Log(key);
                 obj.transform.position = key.ToVector3();
                 data.life--;
-                Debug.Log($"Monsters {monsterOn}");
+                // Debug.Log($"Monsters {monsterOn}");
                 if (data.life < 0)
                 {
 
-                    Debug.Log($"Updating {key} with {data.element}");
+                    // Debug.Log($"Updating {key} with {data.element}");
                     if (monsterOn.Contains(key)){
                         for(int i = aliveMonsters.Count - 1; i >= 0; i--)
                         {
@@ -266,15 +266,7 @@ namespace SoundTrack{
                             
                             if (m.curGrid == key) //  && m.allowedElement.Contains(data.element)
                             {
-                                if(m.allowedElements.HasAny(data.element)){
-                                    m.allowedElements.RemoveElement(data.element);
-                                }
-                                if(m.allowedElements == ElementType.Normal && data.element.HasElement()){
-                                    m.allowedElements.RemoveElement(ElementType.Normal);
-                                }
-                                if(m.allowedElements == ElementType.None){
-                                    m.removeHP(1);
-                                }
+                                m.removeHP(data.element);
                             }
                         }
                     }
@@ -299,9 +291,9 @@ namespace SoundTrack{
             warningTileList[g].obj.transform.position = g.ToVector3();
         }
 
-        public void addAttack(GridPos g, int life, ElementType element){
+        public void addAttack(GridPos g, int life, PlayerElementType element){
             // Debug.Log(attackTileList.Count);
-            Debug.Log(g);
+            // Debug.Log(g);
             GameObject t;
             if (attackTileList.ContainsKey(g))
                 t = attackTileList[g].obj;
@@ -309,7 +301,7 @@ namespace SoundTrack{
                 t = getAvailableAttackTile();
             
     
-            t.GetComponent<SpriteRenderer>().color = Utils.transparentElementColor[element.ToColorIndex()];
+            t.GetComponent<SpriteRenderer>().color = element.ToTColor();
             attackTileList[g] = (t, life, element);
         }
 

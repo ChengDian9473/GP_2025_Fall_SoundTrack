@@ -14,7 +14,7 @@ namespace SoundTrack{
 
         private Tilemap groundTilemap;
 
-        private ElementType element;
+        private PlayerElementType element;
         private bool tracking;
 
         private List<GameObject> Track;
@@ -43,7 +43,7 @@ namespace SoundTrack{
 
             groundTilemap = LevelManager.Instance.groundTilemap;
 
-            element = ElementType.None;
+            element = PlayerElementType.None;
             tracking = false;
 
             Skills = SL.ToDict();
@@ -90,7 +90,7 @@ namespace SoundTrack{
                     if(Track.Count < Player.MAX_TRACK){
                         // Debug.Log($"Tracking");
                         var obj = Instantiate(TrackPrefab);
-                        obj.GetComponent<SpriteRenderer>().color = Utils.elementColor[element.ToColorIndex()];
+                        obj.GetComponent<SpriteRenderer>().color = element.ToColor();
                         Track.Add(obj);
                         Skill.Add(op);
                         for(int i = Track.Count - 1; i > 0 ; i--){
@@ -101,7 +101,7 @@ namespace SoundTrack{
                             // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                         }
                         Track[0].transform.position = curGrid.ToVector3();
-                        Track[0].GetComponent<SpriteRenderer>().color = Utils.elementColor[element.ToColorIndex()];
+                        Track[0].GetComponent<SpriteRenderer>().color = element.ToColor();
                         
                         Skill[0] = op;
                         Info.Instance.UpdateSeq(Skill);
@@ -169,14 +169,12 @@ namespace SoundTrack{
         }
 
         public void testSkill(){
-
             int skillTrigger = OnSkill(curGrid);
-
             if(skillTrigger != -1){
-                if(element != skillTrigger.ToElementType()){
+                if(skillTrigger != element.ToIndex()){
                     ClearTrack();
-                    element = skillTrigger.ToElementType();
-                    this.GetComponent<SpriteRenderer>().color = Utils.elementColor[skillTrigger];
+                    element = skillTrigger.ToPlayerElementType();
+                    this.GetComponent<SpriteRenderer>().color = element.ToColor();
                     tracking = true;
                 }
             }
@@ -200,7 +198,7 @@ namespace SoundTrack{
         {
             foreach(var t in LevelManager.Instance.skillTiles){
                 if(t.getCurGrid() == g){
-                    return t.curElement.ToColorIndex();
+                    return t.curElement.ToIndex();
                 }
             }
             return -1;
@@ -225,11 +223,8 @@ namespace SoundTrack{
             return false;
         }
         public void UseSkill(int skillNumber,int facing, int mirror){
-            Debug.Log("UseSkill");
-            SkillKey sk = new SkillKey(skillNumber, element.ToColorIndex());
-            Debug.Log($"{sk.num} {sk.index}");
+            SkillKey sk = new SkillKey(skillNumber, element);
             if(Skills.ContainsKey(sk)){
-                Debug.Log("Yes");
                 SkillItem skill = Skills[sk];
                 foreach(var g in skill.attackPattern){
                     if(groundTilemap.HasTile((curGrid + g.RM(facing,mirror)).ToVector3Int())){
@@ -249,7 +244,7 @@ namespace SoundTrack{
             Skill.Clear();
             Info.Instance.UpdateSeq(Skill);
             tracking = false;
-            element = ElementType.None;
+            element = PlayerElementType.None;
             this.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }

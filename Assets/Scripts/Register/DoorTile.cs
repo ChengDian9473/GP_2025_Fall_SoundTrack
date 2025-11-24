@@ -10,7 +10,7 @@ namespace SoundTrack{
     {
         protected override void Register(){
             R.room.doorTile.Add(curGrid);
-            Debug.Log($"Register {curGrid}");
+            // Debug.Log($"Register {curGrid}");
         }
     }
 }

@@ -21,7 +21,7 @@ MonoBehaviour:
       - x: 2
         y: 0
     vfx: {fileID: 0}
-    SkillElement: 255
+    element: 1
     number: 0
   - binaryNumber: 00000001
     attackPattern:
@@ -33,7 +33,7 @@ MonoBehaviour:
       - x: 0
         y: 1
     vfx: {fileID: 0}
-    SkillElement: 255
+    element: 255
     number: 1
   - binaryNumber: 00011011
     attackPattern:
@@ -47,5 +47,5 @@ MonoBehaviour:
       - x: 0
         y: -1
     vfx: {fileID: 0}
-    SkillElement: 255
+    element: 255
     number: 27
