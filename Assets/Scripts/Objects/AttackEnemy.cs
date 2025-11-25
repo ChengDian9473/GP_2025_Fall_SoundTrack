@@ -11,8 +11,8 @@ namespace SoundTrack{
         [SerializeField] private GridList attackPattern;   // Attack pattern offsets
 
         protected int attackCounter;
-        [SerializeField, Min(2)] protected int attackLoop = 2;
-        [SerializeField, Min(1)] protected int attackLatency = 1;
+        [SerializeField, Min(1)] protected int attackLoop = 2;
+        [SerializeField, Range(1,4)] protected int attackLatency = 1;
 
         private Tilemap groundTilemap;
 

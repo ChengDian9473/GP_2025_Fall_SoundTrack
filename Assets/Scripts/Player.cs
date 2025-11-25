@@ -56,7 +56,6 @@ namespace SoundTrack{
         }
 
         public void move(int op){
-            Debug.Log("Move");
             GridPos dir;
             switch(op){
                 case 0:{

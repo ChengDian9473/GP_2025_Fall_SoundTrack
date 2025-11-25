@@ -6,6 +6,15 @@ using System.Linq;
 using System.Collections.Generic;
 
 namespace SoundTrack{
+    public struct WarningEvent
+    {
+        public int damage;
+    }
+    public struct WarningTileData
+    {
+        public GameObject obj;
+        public SpriteRenderer sr;
+    }
     public class LevelManager : MonoBehaviour
     {
         public static LevelManager Instance { get; private set; }
@@ -47,8 +56,14 @@ namespace SoundTrack{
 
         [NonSerialized] public List<skillTile> skillTiles = new List<skillTile>(); // interact
 
-        private List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject, bool)>();
-        private Dictionary<GridPos, (GameObject obj, int life)> warningTileList = new Dictionary<GridPos, (GameObject, int)>();
+        private int currentTime = 0;
+
+        private Dictionary<int, Dictionary<GridPos, List<WarningEvent>>> schedule = new Dictionary<int, Dictionary<GridPos, List<WarningEvent>>>();
+        private Dictionary<GridPos, WarningTileData> warningTileDisplay = new Dictionary<GridPos, WarningTileData>();
+        private Dictionary<GridPos, int> warningEventCount = new Dictionary<GridPos, int>();
+        private List<(GameObject obj, bool inUse)> warningTilePool = new List<(GameObject obj, bool inUse)>();
+
+        private List<GridPos> posBuffer = new List<GridPos>();
 
         private List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
         private Dictionary<GridPos, (GameObject obj, int life, PlayerElementType element)> attackTileList = new Dictionary<GridPos, (GameObject, int, PlayerElementType)>();
@@ -137,9 +152,15 @@ namespace SoundTrack{
             
             keyOn = new GridList();
             existingKey = new List<Key>();
+            
+            currentTime = 0;
+            
+            schedule = new Dictionary<int, Dictionary<GridPos, List<WarningEvent>>>();
+            warningTileDisplay = new Dictionary<GridPos, WarningTileData>();
+            warningEventCount = new Dictionary<GridPos, int>();
+            warningTilePool = new List<(GameObject obj, bool inUse)>();
 
-            warningTilePool = new List<(GameObject, bool)>();
-            warningTileList = new Dictionary<GridPos, (GameObject, int)>();
+            posBuffer = new List<GridPos>();
 
             attackTilePool = new List<(GameObject, bool)>();
             attackTileList = new Dictionary<GridPos, (GameObject, int, PlayerElementType)>();
@@ -220,33 +241,150 @@ namespace SoundTrack{
             }
         }
 
-        public void updateWarningTile(){
-            var keys = new List<GridPos>(warningTileList.Keys);
-
-            // Debug.Log("updateAttackTile S");
-            foreach (var key in keys)
+        public void updateWarningTile()
+        {
+            if (schedule.TryGetValue(currentTime, out var eventMap))
             {
-                var data = warningTileList[key];
-                var obj  = data.obj;
-                // Debug.Log(key);
-                obj.transform.position = key.ToVector3();
-                data.life--;
+                posBuffer.Clear();
+                foreach (var kv in eventMap)
+                    posBuffer.Add(kv.Key);
 
-                if (data.life < 0)
+                foreach (var g in posBuffer)
                 {
-                    if(key == player.getCurGrid()){
+                    if (player.getCurGrid() == g)
+                    {
                         player.beHit();
                     }
-                    ReleaseWarningTile(obj);
-                    warningTileList.Remove(key);
+
+                    if (warningEventCount.TryGetValue(g, out var count))
+                    {
+                        int thisTimeEventCount = eventMap[g].Count;
+                        count -= thisTimeEventCount;
+
+                        if (count <= 0)
+                        {
+                            warningEventCount.Remove(g);
+
+                            if (warningTileDisplay.TryGetValue(g, out var disp))
+                            {
+                                ReleaseWarningTile(disp.obj);
+                                warningTileDisplay.Remove(g);
+                            }
+                        }
+                        else
+                        {
+                            warningEventCount[g] = count;
+                        }
+                    }
                 }
-                else
+
+                schedule.Remove(currentTime);
+            }
+
+            currentTime++;
+            UpdateAllTileVisuals();
+        }
+
+
+        public void addWarning(GridPos g, int delay)
+        {
+            int eventTime = currentTime + delay;
+
+            if (!schedule.TryGetValue(eventTime, out var eventMap))
+            {
+                eventMap = new Dictionary<GridPos, List<WarningEvent>>();
+                schedule[eventTime] = eventMap;
+            }
+
+            if (!eventMap.TryGetValue(g, out var list))
+            {
+                list = new List<WarningEvent>();
+                eventMap[g] = list;
+            }
+
+            list.Add(new WarningEvent());
+
+            if (!warningEventCount.ContainsKey(g))
+                warningEventCount[g] = 0;
+            warningEventCount[g] += 1;
+
+            if (!warningTileDisplay.ContainsKey(g))
+            {
+                var obj = getAvailableWarningTile();
+                var sr = obj.GetComponent<SpriteRenderer>();
+                warningTileDisplay[g] = new WarningTileData { obj = obj, sr = sr };
+            }
+
+            UpdateTileVisual(g);
+        }
+
+
+        private void UpdateAllTileVisuals()
+        {
+            foreach (var kv in warningTileDisplay)
+            {
+                UpdateTileVisual(kv.Key);
+            }
+        }
+
+        private void UpdateTileVisual(GridPos g)
+        {
+            if (!warningTileDisplay.TryGetValue(g, out var disp))
+                return;
+
+            int smallestRemain = int.MaxValue;
+
+            foreach (var kv in schedule)
+            {
+                int scheduledTime = kv.Key;
+                if (scheduledTime < currentTime) continue;
+
+                if (kv.Value.ContainsKey(g))
                 {
-                    data.obj.GetComponent<SpriteRenderer>().SetAlpha(0.7f - data.life / 10f);
-                    warningTileList[key] = (data.obj, data.life);
+                    int remain = scheduledTime - currentTime;
+                    if (remain < smallestRemain)
+                        smallestRemain = remain;
+                }
+            }   
+
+            float alpha = Mathf.Lerp(0.7f, 0.3f, smallestRemain / 3f);
+
+            disp.sr.SetAlpha(alpha);
+            disp.obj.transform.position = g.ToVector3();
+        }
+
+        public GameObject getAvailableWarningTile()
+        {
+            for (int i = 0; i < warningTilePool.Count; i++)
+            {
+                if (!warningTilePool[i].inUse)
+                {
+                    var d = warningTilePool[i];
+                    d.inUse = true;
+                    d.obj.SetActive(true);
+                    warningTilePool[i] = d;
+                    return d.obj;
                 }
             }
-            // Debug.Log("updateAttackTile E");
+
+            var newTile = Instantiate(warningTilePrefab);
+            warningTilePool.Add((newTile, true));
+            return newTile;
+        }
+        
+        public void ReleaseWarningTile(GameObject tile)
+        {
+            for (int i = 0; i < warningTilePool.Count; i++)
+            {
+                if (warningTilePool[i].obj == tile)
+                {
+                    var d = warningTilePool[i];
+                    d.inUse = false;
+                    d.obj.SetActive(false);
+                    warningTilePool[i] = d;
+                    break;
+                }
+            }
         }
 
         public void updateAttackTile(){
@@ -285,16 +423,6 @@ namespace SoundTrack{
                 }
             }
             // Debug.Log("updateAttackTile E");
-        }
-
-        public void addWarning(GridPos g, int life){
-            // Debug.Log(warningTileList.Count);
-            // Debug.Log(g);
-            if (warningTileList.ContainsKey(g))
-                warningTileList[g] = (warningTileList[g].obj, life);
-            else
-                warningTileList[g] = (getAvailableWarningTile(), life);
-            warningTileList[g].obj.transform.position = g.ToVector3();
         }
 
         public void addAttack(GridPos g, int life, PlayerElementType element){
@@ -338,38 +466,6 @@ namespace SoundTrack{
                     entry.inUse = false;
                     entry.obj.SetActive(false);
                     attackTilePool[i] = entry;
-                    break;
-                }
-            }
-        }
-
-        public GameObject getAvailableWarningTile(){
-            for (int i = 0; i < warningTilePool.Count; i++)
-            {
-                if (!warningTilePool[i].inUse)
-                {
-                    var tile = warningTilePool[i];
-                    tile.inUse = true;
-                    tile.obj.SetActive(true);
-                    warningTilePool[i] = tile;
-                    return tile.obj;
-                }
-            }
-
-            var newTile = Instantiate(warningTilePrefab);
-            warningTilePool.Add((newTile, true));
-            return newTile;
-        }
-
-        public void ReleaseWarningTile(GameObject tile){
-            for (int i = 0; i < warningTilePool.Count; i++)
-            {
-                if (warningTilePool[i].obj == tile)
-                {
-                    var entry = warningTilePool[i];
-                    entry.inUse = false;
-                    entry.obj.SetActive(false);
-                    warningTilePool[i] = entry;
                     break;
                 }
             }
