@@ -23,8 +23,12 @@ namespace SoundTrack{
             base.Awake();
             moveCounter = 0;
             moveLength = walkPattern.Count;
-            groundTilemap = LevelManager.Instance.groundTilemap;
             determineFlip();
+        }
+
+        protected virtual void Start()
+        {
+            groundTilemap = LevelManager.Instance.groundTilemap;
         }
 
         public virtual void OnBeatReceived(int beat)

@@ -63,8 +63,7 @@ namespace SoundTrack{
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            GameManager.OnBeat +=
-            OnBeatReceived;
+            GameManager.OnBeat += OnBeatReceived;
         }
 
         private void OnDestroy(){
@@ -105,13 +104,17 @@ namespace SoundTrack{
 
         public void OnBeatReceived(int beat){
             if(beat % 2 == 1){
-                updateWarningTile();
+                Debug.Log("LM beat 1");
                 updateAttackTile();
                 foreach(var m in aliveMonsters){
                     if(m is MovingEnemy me){
                         me.OnBeatReceived(beat);
                     }
+                    if(m is AttackEnemy ae){
+                        ae.OnBeatReceived(beat);
+                    }
                 }
+                updateWarningTile();
                 foreach(var st in skillTiles){
                     st.OnBeatReceived(beat);
                 }
@@ -231,12 +234,15 @@ namespace SoundTrack{
 
                 if (data.life < 0)
                 {
-                    player.beHit(key);
+                    if(key == player.getCurGrid()){
+                        player.beHit();
+                    }
                     ReleaseWarningTile(obj);
                     warningTileList.Remove(key);
                 }
                 else
                 {
+                    data.obj.GetComponent<SpriteRenderer>().SetAlpha(0.7f - data.life / 10f);
                     warningTileList[key] = (data.obj, data.life);
                 }
             }

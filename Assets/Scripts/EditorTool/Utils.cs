@@ -23,4 +23,13 @@ namespace SoundTrack{
             return list;
         }
     }
+    public static class ColorUtil
+    {
+        public static void SetAlpha(this SpriteRenderer sr, float a)
+        {
+            Color c = sr.color;
+            c.a = a;
+            sr.color = c;
+        }
+    }
 }

@@ -45,4 +45,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.RoomRegister
   roomIndex: 0
-  TL: {fileID: 11400000, guid: fced9b7cb30b20e43b2c438091a65d1b, type: 2}
+  room:
+    triggerInfo: []
+    startTile:
+      items: []
+    doorTile:
+      items: []
+    inDoorTile:
+      items: []
+    outDoorTile:
+      items: []
+    endTile:
+      items: []
+    finishTile:
+      items: []
+    keyCount: 0
+    clear: 0

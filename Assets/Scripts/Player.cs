@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
-// TODO: Trap / BeatManager Optimizing / Music play and vfx
+// TODO: Facing Attack DATA structure / BeatManager Optimizing / Music play and vfx
 namespace SoundTrack{
     public class Player : MonoBehaviour
     {
@@ -24,8 +24,6 @@ namespace SoundTrack{
         private Dictionary<SkillKey,SkillItem> Skills;
 
         private CameraMove cam;
-
-        private int HP;
 
         private static int MAX_TRACK = 4;
 
@@ -58,6 +56,7 @@ namespace SoundTrack{
         }
 
         public void move(int op){
+            Debug.Log("Move");
             GridPos dir;
             switch(op){
                 case 0:{
@@ -180,11 +179,8 @@ namespace SoundTrack{
             }
         }
 
-        public void beHit(GridPos g){
-            if(g == curGrid){
-                HP++;
-                Info.Instance.UpdateHP(HP);
-            }
+        public void beHit(){
+            Debug.Log("Player Be HIT");
         }
 
         private bool OnFinished(GridPos g)
