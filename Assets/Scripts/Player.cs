@@ -110,7 +110,7 @@ namespace SoundTrack{
 
                 // if(r != null)
                 //     print(r.startTile[0]);
-
+                
                 if(r != null && !r.clear && r.startTile.Contains(nextGrid)){
                     LevelManager.Instance.startRoom();
                 }

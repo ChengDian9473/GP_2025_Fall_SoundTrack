@@ -207,6 +207,7 @@ namespace SoundTrack{
                 inLevel = false;
                 curRoom.clear = true;
                 curRoomIndex++;
+                curRoom = rooms[curRoomIndex];
                 Info.Instance.UpdateKey(0,-1);
             }
         }
