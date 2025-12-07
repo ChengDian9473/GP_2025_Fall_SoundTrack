@@ -100,7 +100,7 @@ namespace SoundTrack{
                         }
                         Track[0].transform.position = curGrid.ToVector3();
                         Track[0].GetComponent<SpriteRenderer>().color = element.ToColor();
-                        
+
                         Skill[0] = op;
                         Info.Instance.UpdateSeq(Skill);
                     }
@@ -207,11 +207,11 @@ namespace SoundTrack{
             TileBase t = groundTilemap.GetTile(c);
             if(t == LevelManager.Instance.TL.allowedTiles) return true;
             if(t == LevelManager.Instance.TL.finishedTile) return true;
-            
+
             foreach(var a in LevelManager.Instance.TL.skillTiles)
                 if (t == a) return true;
             foreach (var a in LevelManager.Instance.TL.doorClosed)
-                if (t == a) return true;
+                if (t == a) return false;
             foreach (var a in LevelManager.Instance.TL.doorOpened)
                 if (t == a) return true;
 

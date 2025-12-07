@@ -67,7 +67,11 @@
     flex-wrap: nowrap;
     background-color: rgba(255, 255, 255, 0);
     background-size: cover;
+<<<<<<< HEAD
     background-image: url("project://database/Assets/Images/Button/metal.png?fileID=2800000&guid=d7060f64c4d72f54fb97c31ee13d3492&type=3#metal");
+=======
+    background-image: url("project://database/Assets/Images/Button/metal.png?fileID=2800000&guid=19b1c700b6d7e4345a818e2d786ddabb&type=3#metal");
+>>>>>>> Rex
     border-left-color: rgb(186, 186, 186);
     border-right-color: rgb(186, 186, 186);
     border-top-color: rgb(186, 186, 186);

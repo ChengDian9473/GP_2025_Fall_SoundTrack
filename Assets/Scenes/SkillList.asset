@@ -18,34 +18,154 @@ MonoBehaviour:
       items:
       - x: 1
         y: 0
+      - x: 1
+        y: 1
+      - x: 1
+        y: -1
+    vfx: {fileID: 0}
+    element: 2
+    number: 0
+  - binaryNumber: 00000000
+    attackPattern:
+      items:
+      - x: 1
+        y: 0
       - x: 2
         y: 0
+      - x: 3
+        y: 0
     vfx: {fileID: 0}
-    element: 3
+    element: 8
+    number: 0
+  - binaryNumber: 00000000
+    attackPattern:
+      items:
+      - x: 0
+        y: -1
+      - x: -1
+        y: 1
+      - x: -2
+        y: -1
+      - x: -3
+        y: 1
+    vfx: {fileID: 0}
+    element: 4
     number: 0
   - binaryNumber: 00000001
     attackPattern:
       items:
       - x: 1
         y: 0
-      - x: -1
-        y: 0
       - x: 0
         y: 1
+      - x: -1
+        y: 0
     vfx: {fileID: 0}
-    element: 255
+    element: 2
     number: 1
-  - binaryNumber: 00011011
+  - binaryNumber: 00000001
+    attackPattern:
+      items:
+      - x: 0
+        y: 1
+      - x: 0
+        y: -2
+      - x: 0
+        y: -3
+    vfx: {fileID: 0}
+    element: 8
+    number: 1
+  - binaryNumber: 00000001
     attackPattern:
       items:
       - x: 1
         y: 0
+      - x: 1
+        y: 1
+      - x: 1
+        y: -1
+    vfx: {fileID: 0}
+    element: 4
+    number: 1
+  - binaryNumber: 00011011
+    attackPattern:
+      items:
       - x: -1
         y: 0
-      - x: 0
-        y: 1
+      - x: -1
+        y: -1
       - x: 0
         y: -1
     vfx: {fileID: 0}
-    element: 255
+    element: 2
     number: 27
+  - binaryNumber: 00011011
+    attackPattern:
+      items:
+      - x: -1
+        y: -1
+      - x: -1
+        y: 2
+      - x: 2
+        y: 2
+      - x: 2
+        y: -1
+    vfx: {fileID: 0}
+    element: 8
+    number: 27
+  - binaryNumber: 00011011
+    attackPattern:
+      items:
+      - x: -1
+        y: 0
+      - x: -1
+        y: 1
+      - x: 0
+        y: -1
+      - x: 1
+        y: -1
+    vfx: {fileID: 0}
+    element: 4
+    number: 27
+  - binaryNumber: 00100010
+    attackPattern:
+      items:
+      - x: -1
+        y: 0
+      - x: -2
+        y: 0
+      - x: -2
+        y: 1
+      - x: -2
+        y: -1
+    vfx: {fileID: 0}
+    element: 2
+    number: 34
+  - binaryNumber: 00010001
+    attackPattern:
+      items:
+      - x: 1
+        y: 1
+      - x: -1
+        y: 1
+      - x: 1
+        y: -1
+      - x: 2
+        y: 2
+    vfx: {fileID: 0}
+    element: 8
+    number: 51
+  - binaryNumber: 00001010
+    attackPattern:
+      items:
+      - x: -1
+        y: 0
+      - x: -2
+        y: 1
+      - x: -2
+        y: -1
+      - x: -3
+        y: 0
+    vfx: {fileID: 0}
+    element: 4
+    number: 10

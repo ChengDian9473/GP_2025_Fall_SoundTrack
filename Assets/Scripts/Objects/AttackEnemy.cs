@@ -13,13 +13,14 @@ namespace SoundTrack{
         protected int attackCounter;
         [SerializeField, Min(1)] protected int attackLoop = 2;
         [SerializeField, Range(1,4)] protected int attackLatency = 1;
+        [SerializeField] protected int attackOffset = 0;
 
         private Tilemap groundTilemap;
 
         protected virtual void Awake()
         {
             base.Awake();
-            attackCounter = 0;
+            attackCounter = attackOffset;
             groundTilemap = LevelManager.Instance.groundTilemap;
         }
 
