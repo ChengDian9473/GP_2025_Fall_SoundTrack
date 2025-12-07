@@ -21,7 +21,7 @@ MonoBehaviour:
       - x: 2
         y: 0
     vfx: {fileID: 0}
-    element: 3
+    element: 255
     number: 0
   - binaryNumber: 00000001
     attackPattern:
