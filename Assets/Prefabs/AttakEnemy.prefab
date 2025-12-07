@@ -121,7 +121,7 @@ MonoBehaviour:
   attackPattern:
     items: []
   attackLoop: 0
-  attackLatency: 0
+  attackLatency: 1
 --- !u!1001 &2754097618019286471
 PrefabInstance:
   m_ObjectHideFlags: 0
