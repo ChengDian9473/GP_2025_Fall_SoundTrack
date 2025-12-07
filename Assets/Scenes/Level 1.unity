@@ -332,11 +332,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8012838898552599470, guid: 014ded5223762b44c8af65264b712c49, type: 3}
       propertyPath: attackLoop
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8012838898552599470, guid: 014ded5223762b44c8af65264b712c49, type: 3}
       propertyPath: attackLatency
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8012838898552599470, guid: 014ded5223762b44c8af65264b712c49, type: 3}
       propertyPath: attackPattern.items.Array.size
