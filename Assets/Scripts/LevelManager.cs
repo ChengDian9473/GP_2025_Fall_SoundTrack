@@ -13,7 +13,7 @@ namespace SoundTrack{
     public struct WarningTileData
     {
         public GameObject obj;
-        public SpriteRenderer sr;
+        public SpriteRenderer[] sr;
     }
     public class LevelManager : MonoBehaviour
     {
@@ -105,7 +105,7 @@ namespace SoundTrack{
             currentBeat = SR.maxBeat;
 
             curRoomIndex = 0;
-            maxRoomIndex = 0;
+            // maxRoomIndex = 0;
 
             if(SR.startingInfo != null && SR.startingInfo.Length > 0){
                 Info.Instance.StartTutorial(SR.startingInfo);
@@ -172,6 +172,7 @@ namespace SoundTrack{
             }
             rooms[r.roomIndex] = r.room;
             curRoom = rooms[0];
+            maxRoomIndex = rooms.Count;
         }
 
         public void startRoom(){
@@ -207,13 +208,15 @@ namespace SoundTrack{
                 inLevel = false;
                 curRoom.clear = true;
                 curRoomIndex++;
-                curRoom = rooms[curRoomIndex];
+                Debug.Log($"{curRoomIndex} {maxRoomIndex}");
+                if(curRoomIndex < maxRoomIndex)
+                    curRoom = rooms[curRoomIndex];
                 Info.Instance.UpdateKey(0,-1);
             }
         }
 
         public void testEnd(){
-            if(curRoomIndex > maxRoomIndex)
+            if(curRoomIndex >= maxRoomIndex)
             {
                 Info.Instance.OnTutorialEnded += GameEnd;
                 if(SR.endInfo != null && SR.endInfo.Length > 0){
@@ -312,7 +315,7 @@ namespace SoundTrack{
             if (!warningTileDisplay.ContainsKey(g))
             {
                 var obj = getAvailableWarningTile();
-                var sr = obj.GetComponent<SpriteRenderer>();
+                var sr = obj.GetComponentsInChildren<SpriteRenderer>();
                 warningTileDisplay[g] = new WarningTileData { obj = obj, sr = sr };
             }
 
@@ -348,9 +351,12 @@ namespace SoundTrack{
                 }
             }   
 
-            float alpha = Mathf.Lerp(0.7f, 0.3f, smallestRemain / 3f);
+            for(int i=0;i < warningTileDisplay[g].sr.Length;i++){
+                warningTileDisplay[g].sr[i].enabled = false;
+                if(i == smallestRemain)
+                    warningTileDisplay[g].sr[smallestRemain].enabled = true;
+            }
 
-            disp.sr.SetAlpha(alpha);
             disp.obj.transform.position = g.ToVector3();
         }
 
