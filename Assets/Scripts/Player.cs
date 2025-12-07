@@ -11,6 +11,7 @@ namespace SoundTrack{
         private GridPos nextGrid;
 
         [SerializeField] private GameObject TrackPrefab;
+        [SerializeField] private Sprite[] Animation;
 
         private Tilemap groundTilemap;
 
@@ -19,6 +20,9 @@ namespace SoundTrack{
 
         private List<GameObject> Track;
         private List<int> Skill;
+
+        private int walkLoop;
+        private int walkLoopLength;
 
         [SerializeField] private SkillList SL;
         private Dictionary<SkillKey,SkillItem> Skills;
@@ -43,6 +47,9 @@ namespace SoundTrack{
 
             element = PlayerElementType.None;
             tracking = false;
+
+            walkLoop = 0;
+            walkLoopLength = Animation.Length;
 
             Skills = SL.ToDict();
         }
@@ -176,6 +183,11 @@ namespace SoundTrack{
                     tracking = true;
                 }
             }
+        }
+
+        public void walking(){
+            walkLoop = (walkLoop + 1) % walkLoopLength;
+            this.GetComponent<SpriteRenderer>().sprite = Animation[walkLoop];
         }
 
         public void beHit(){

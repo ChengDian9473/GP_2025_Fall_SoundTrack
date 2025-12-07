@@ -105,21 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851c88d3f808ed5488b54b9984b76359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Player
-  curGrid:
-    x: 0
-    y: 0
-  nextGrid:
-    x: 0
-    y: 0
-  groundTilemap: {fileID: 0}
-  TL: {fileID: 11400000, guid: fced9b7cb30b20e43b2c438091a65d1b, type: 2}
   TrackPrefab: {fileID: 7980013985442431122, guid: 797f3fbdb52e35f439b9206d90d51186, type: 3}
-  element: 0
-  tracking: 0
+  Animation:
+  - {fileID: 4528772707897070517, guid: df53cf12d42814468866a6062102774c, type: 3}
+  - {fileID: 8889492907315670035, guid: b0a95850fadc34013b7ccf049179cb99, type: 3}
   SL: {fileID: 11400000, guid: fed8cb78cab38a14ea6b1850eb1827fd, type: 2}
-  cam: {fileID: 0}
-  LM: {fileID: 0}
-  HP: 0
 --- !u!50 &9039420292929674038
 Rigidbody2D:
   serializedVersion: 5

@@ -142,6 +142,8 @@ namespace SoundTrack{
                     GameManager.Instance.GameEnd();
                     Info.Instance.UpdateWin(0);
                 }
+            }else{
+                player.walking();
             }
         }
 

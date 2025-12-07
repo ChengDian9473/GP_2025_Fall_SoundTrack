@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 19b1c700b6d7e4345a818e2d786ddabb
+guid: ead2c82047a265648b9d23a4cd0f3279
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -262108834630032882
-    second: metal_0
+      213: -2185472608353246101
+    second: robot_0
+  - first:
+      213: 406595380662849328
+    second: robot_1
+  - first:
+      213: 9048603163218632696
+    second: robot_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,11 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
-    filterMode: 0
-=======
     filterMode: 1
->>>>>>> Rex
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -79,11 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-<<<<<<< HEAD
-    textureCompression: 0
-=======
     textureCompression: 1
->>>>>>> Rex
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,18 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: metal_0
+      name: robot_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-<<<<<<< HEAD
-        width: 1024
-        height: 1024
-=======
-        width: 1600
-        height: 900
->>>>>>> Rex
+        x: 1044
+        y: 1552
+        width: 477
+        height: 471
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e02a263576dcc5cf0800000000000000
-      internalID: -262108834630032882
+      spriteID: b6422c8ed34aba1e0800000000000000
+      internalID: -2185472608353246101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot_1
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 1039
+        width: 477
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03f49bf285484a500800000000000000
+      internalID: 406595380662849328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot_2
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 1043
+        width: 476
+        height: 474
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ff5f19a2a8139d70800000000000000
+      internalID: 9048603163218632696
       vertices: []
       indices: 
       edges: []
@@ -161,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      metal_0: -262108834630032882
+      robot_0: -2185472608353246101
+      robot_1: 406595380662849328
+      robot_2: 9048603163218632696
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
