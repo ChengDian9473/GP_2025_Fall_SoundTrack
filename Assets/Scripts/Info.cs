@@ -298,7 +298,7 @@ namespace SoundTrack{
         public void GameInit(int scene)
         {
             current_scene = scene;
-    
+
             if(current_scene == 0){
                 current_scene = 1;
             }
@@ -333,7 +333,7 @@ namespace SoundTrack{
         }
         private void LevelButtonClicked(Button btn)
         {
-            SetTargetScene(LEVEL_START + int.Parse(btn.text), 2);
+            SetTargetScene(LEVEL_START + int.Parse(btn.text.Replace("Level","")), 2);
         }
 
 
