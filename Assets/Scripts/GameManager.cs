@@ -106,12 +106,18 @@ namespace SoundTrack{
                 // if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit)
                 if (Keyboard.current.anyKey.wasPressedThisFrame)
                 {
+                        Debug.Log(dspCanHit);
+                        Debug.Log(dspNow);
                     if (dspNow > dspCanHit)
                     {
                         // Calculate timing relative to nearest beat
-                        double timeSinceLastBeat = songTime - (lastBeat * secPerBeat);
-                        double timeToNextBeat = secPerBeat - timeSinceLastBeat;
-                        double nearestBeatOffset = Math.Min(timeSinceLastBeat, timeToNextBeat);
+                        // double timeSinceLastBeat = songTime - (lastBeat * secPerBeat);
+                        // double timeToNextBeat = secPerBeat - timeSinceLastBeat;
+                        // double nearestBeatOffset = Math.Min(timeSinceLastBeat, timeToNextBeat);
+
+                        double nearestBeat = Math.Round(exactBeat);
+                        double difference = Math.Abs(exactBeat - nearestBeat);
+                        double nearestBeatOffset = difference * secPerBeat;
                         
                         // Check if within 0.15s window of a beat
                         bool withinBeatWindow = nearestBeatOffset <= 0.15;
