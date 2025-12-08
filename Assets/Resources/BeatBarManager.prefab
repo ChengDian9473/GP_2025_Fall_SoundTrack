@@ -61,3 +61,5 @@ MonoBehaviour:
   chickenScale: {x: 8, y: 8}
   beatBackgroundPrefab: {fileID: 8513306532692620649, guid: 150c2da976c404fb29cd59d935cfe18d, type: 3}
   beatBackgroundOffset: {x: 0, y: -3, z: 10}
+  beatBackgroundRecPrefab: {fileID: 2777048922499063769, guid: c7af232ccba814d4d8dfd8da889138a6, type: 3}
+  beatBackgroundRecOffset: {x: 0, y: -3, z: 10}

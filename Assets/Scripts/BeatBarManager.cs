@@ -35,6 +35,10 @@ namespace SoundTrack
         [SerializeField] private Vector3 beatBackgroundOffset = new Vector3(0f, -3f, 0f);
         private Transform beatBackgroundInstance;
 
+        [SerializeField] private GameObject beatBackgroundRecPrefab;
+        [SerializeField] private Vector3 beatBackgroundRecOffset = new Vector3(0f, -3f, 0f);
+        private Transform beatBackgroundRecInstance;
+
         public event Action<float> OnCenterBeat;
 
         private readonly List<BeatBarSpirit> activeBars = new();
@@ -61,6 +65,7 @@ namespace SoundTrack
             }
 
             EnsureBeatBackground();
+            EnsureBeatBackgroundRec();
             SpawnChicken();
         }
 
@@ -101,12 +106,12 @@ namespace SoundTrack
                 followInitialized = false;
             }
 
-            EnsureBeatBackground();
+            // EnsureBeatBackground();
         }
 
         private void FollowTargetTick()
         {
-            EnsureBeatBackground();
+            // EnsureBeatBackground();
 
             if (followInitialized && followTarget != null)
             {
@@ -322,13 +327,13 @@ namespace SoundTrack
 
         private void EnsureBeatBackground()
         {
-            Debug.Log($"EnsureBeatBackground called - prefab: {beatBackgroundPrefab != null}, instance: {beatBackgroundInstance != null}");
+            // Debug.Log($"EnsureBeatBackground called - prefab: {beatBackgroundPrefab != null}, instance: {beatBackgroundInstance != null}");
 
             if (beatBackgroundPrefab == null || beatBackgroundInstance != null)
                 return;
 
             Transform cam = followTarget != null ? followTarget : (Camera.main != null ? Camera.main.transform : null);
-            Debug.Log($"Camera/target: {cam != null}");
+            // Debug.Log($"Camera/target: {cam != null}");
 
             if (cam == null) return;
 
@@ -336,7 +341,26 @@ namespace SoundTrack
             beatBackgroundInstance = obj.transform;
             beatBackgroundInstance.localPosition = beatBackgroundOffset; // lock offset to camera
 
-            Debug.Log($"Beat background spawned at {beatBackgroundInstance.position}");
+            // Debug.Log($"Beat background spawned at {beatBackgroundInstance.position}");
+        }
+
+        private void EnsureBeatBackgroundRec()
+        {
+            // Debug.Log($"EnsureBeatBackground called - prefab: {beatBackgroundPrefab != null}, instance: {beatBackgroundInstance != null}");
+
+            if (beatBackgroundRecPrefab == null || beatBackgroundRecInstance != null)
+                return;
+
+            Transform cam = followTarget != null ? followTarget : (Camera.main != null ? Camera.main.transform : null);
+            // Debug.Log($"Camera/target: {cam != null}");
+
+            if (cam == null) return;
+
+            var obj = Instantiate(beatBackgroundRecPrefab, cam.position + beatBackgroundRecOffset, Quaternion.identity, cam);
+            beatBackgroundRecInstance = obj.transform;
+            beatBackgroundRecInstance.localPosition = beatBackgroundRecOffset; // lock offset to camera
+
+            // Debug.Log($"Beat background spawned at {beatBackgroundInstance.position}");
         }
 
         private void SpawnChicken()
