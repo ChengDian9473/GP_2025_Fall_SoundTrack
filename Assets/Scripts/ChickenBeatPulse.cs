@@ -76,7 +76,7 @@ namespace SoundTrack
             //     pulseDuration = GameManager.Instance.SecondsPerBeat * pulseDurationFraction;
             // }
             // pulseStartTime = Time.time;
-
+            if (beat % 2 != 0) return;
             beatCounter++;
     
             // Only pulse every 2 beats (to match bar arrival rate)
