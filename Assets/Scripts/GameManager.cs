@@ -79,11 +79,13 @@ namespace SoundTrack{
                     {
                         intro_clip.clip = Main_loop_clip.clip;
                         intro_clip.time = 0f;
+                        intro_clip.volume = 1f;
                         intro_clip.PlayScheduled(prevstart);
                     }
                     else
                     {   
                         Main_loop_clip.time = 0f;
+                        Main_loop_clip.volume = 1f;
                         Main_loop_clip.PlayScheduled(prevstart);
                     }
                     sourceflag = 1 - sourceflag;
@@ -91,9 +93,10 @@ namespace SoundTrack{
                 }
 
                 if (beatIndex != lastBeat)
-                {
+                {   
+                    if(lastBeat != -1)
+                        OnBeat?.Invoke(beatIndex % 16);
                     lastBeat = beatIndex;
-                    OnBeat?.Invoke(beatIndex % 16);
                 }
 
                 // if(Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -163,7 +166,6 @@ namespace SoundTrack{
             Main_loop_clip.time = 0f;
             //music.PlayScheduled(songStartDsp);
             intro_clip.PlayScheduled(songStartDsp);
-            Main_loop_clip.loop = true;
             prevstart = songStartDsp + introduration; 
             Main_loop_clip.PlayScheduled(prevstart);
 

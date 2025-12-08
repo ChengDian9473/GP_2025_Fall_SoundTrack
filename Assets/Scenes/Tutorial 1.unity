@@ -14318,6 +14318,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fced9b7cb30b20e43b2c438091a65d1b, type: 2}
     - target: {fileID: 3548178865775909973, guid: 02bbe54c68584314588ce8533afb6ba2, type: 3}
+      propertyPath: room.finishportal
+      value: 
+      objectReference: {fileID: 6993514473038874698, guid: d97797ea8703b4f79b8ff75ca216a73a, type: 3}
+    - target: {fileID: 3548178865775909973, guid: 02bbe54c68584314588ce8533afb6ba2, type: 3}
       propertyPath: room.endTile.items.Array.size
       value: 3
       objectReference: {fileID: 0}
