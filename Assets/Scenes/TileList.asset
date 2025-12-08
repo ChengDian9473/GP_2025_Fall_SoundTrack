@@ -15,10 +15,10 @@ MonoBehaviour:
   allowedTiles: {fileID: 11400000, guid: 939b98d3e0144234da046c01794de569, type: 2}
   finishedTile: {fileID: 11400000, guid: 4bcd0cdb1db6bcb40ba92cec2ce6295f, type: 2}
   skillTiles:
-  - {fileID: 11400000, guid: 147ef46aa8afccf48bdda6d96184b8c2, type: 2}
-  - {fileID: 11400000, guid: ea615531d851bf94095c7bac3b4e7827, type: 2}
-  - {fileID: 11400000, guid: 3913a03d198aa2d4a86207c99b42770e, type: 2}
-  - {fileID: 11400000, guid: 0e0b02e165b6c2c46b1236267eec8e05, type: 2}
+  - {fileID: 11400000, guid: 2e5945dcb6801644d984c5261ce9631a, type: 2}
+  - {fileID: 11400000, guid: bd9af86aef90b8c4b89380c90538eece, type: 2}
+  - {fileID: 11400000, guid: d3ee7158f940bb54da78c39c07517877, type: 2}
+  - {fileID: 11400000, guid: a8eb223274e874e4f8b322e0a7794bb7, type: 2}
   - {fileID: 11400000, guid: a6076366df0fc1440aa931052ff8fda8, type: 2}
   doorOpened:
   - {fileID: 11400000, guid: 22cd17dc02cc2e24b989cd1b3c450fcc, type: 2}
