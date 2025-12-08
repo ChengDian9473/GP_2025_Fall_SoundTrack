@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b07c4d2d291e463bad756739dc2fa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.ChickenBeatPulse
-  beatBarManager: {fileID: 0}
   amplitude: 0.2
-  pulseDurationFraction: 0.35
+  pulseDurationFraction: 0.3
   syncScaleX: 0

@@ -10,6 +10,9 @@ namespace SoundTrack
     public class BeatBarSpirit : MonoBehaviour
     {
         [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField, Range(0f, 1f)] private float spawnAlpha = 0.06f;
+        [SerializeField, Range(0.01f, 6f)] private float solidifyDistance = 6f;
 
         private int direction;
         private BeatBarManager manager;
@@ -27,6 +30,13 @@ namespace SoundTrack
             PairId = pairId;
             tolerance = Mathf.Abs(touchTolerance);
             hasReachedCenter = false;
+
+            if (spriteRenderer == null)
+            {
+                spriteRenderer = GetComponent<SpriteRenderer>();
+            }
+
+            SetAlpha(spawnAlpha);
         }
 
         private void Update()
@@ -39,12 +49,45 @@ namespace SoundTrack
             float step = moveSpeed * Time.deltaTime * direction;
             transform.position += new Vector3(step, 0f, 0f);
 
+            UpdateAlpha();
+
             if (ReachedCenter())
             {
                 hasReachedCenter = true;
+                SetAlpha(1f);
                 manager?.NotifyReachedCenter(this);
             }
         }
+
+        private void UpdateAlpha()
+        {
+            if (spriteRenderer == null)
+            {
+                return;
+            }
+
+            float centerX = manager != null ? manager.CurrentCenterWorldX : transform.position.x;
+            float distance = Mathf.Abs(transform.position.x - centerX);
+
+            if (distance <= 2)
+            {
+                SetAlpha(1f);
+            }
+            else
+            {
+                float t = 1f - Mathf.Clamp01((distance - 2f) / Mathf.Max(0.001f, solidifyDistance));
+                float targetAlpha = Mathf.Lerp(spawnAlpha, 1f, t);
+                SetAlpha(targetAlpha);
+            }
+        }
+
+        private void SetAlpha(float alpha)
+        {
+            Color c = spriteRenderer.color;
+            c.a = Mathf.Clamp01(alpha);
+            spriteRenderer.color = c;
+        }
+
 
         private bool ReachedCenter()
         {

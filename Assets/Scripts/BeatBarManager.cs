@@ -17,13 +17,14 @@ namespace SoundTrack
         [SerializeField] private float spawnY = -3f;
 
         [Header("Timing")]
-        [SerializeField, Range(1f, 200f)] private float spawnsPerMinute = 105f;
+        [SerializeField, Tooltip("Spawn bars every N beats (1 = every beat, 2 = every other beat)")]
+        [Range(1, 4)] private int spawnEveryNBeats = 1;
 
         [Header("Movement")]
         [SerializeField] private float barMoveSpeed = 4f;
         [SerializeField, Range(0.01f, 0.5f)] private float touchTolerance = 0.05f;
-        [SerializeField, Range(0f, 2f)] private float manualClearWindow = 0.2f;
-        [SerializeField, Min(0f)] private float initialSpawnDelay = 0.31f;
+        // [SerializeField, Range(0f, 2f)] private float manualClearWindow = 0.2f;
+        // [SerializeField, Min(0f)] private float initialSpawnDelay = 0.31f;
         [SerializeField, Range(0f, 1f)] private float centerDespawnDelay = 0.1f;
 
         [Header("Chicken")]
@@ -45,13 +46,16 @@ namespace SoundTrack
         private readonly Dictionary<int, BeatBarPair> pairsById = new();
         private readonly Queue<PendingDespawn> pendingDespawns = new();
         private int nextPairId;
-        private float spawnTimer;
-        private float delayTimer;
-        private bool spawnDelayElapsed;
+        // private float spawnTimer;
+        // private float delayTimer;
+        // private bool spawnDelayElapsed;
         private Vector3 followOffset;
         private bool followInitialized;
         private Vector3 currentCenter;
         private ChickenBeatPulse chickenInstance;
+        private bool isSubscribed;
+        private int beatCounter;
+        private float scheduledSpawnTime = -1f;
 
         private void Awake()
         {
@@ -69,11 +73,68 @@ namespace SoundTrack
             SpawnChicken();
         }
 
+        private void OnEnable()
+        {
+            if (!isSubscribed)
+            {
+                GameManager.OnBeat += OnBeatReceived;
+                isSubscribed = true;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (isSubscribed)
+            {
+                GameManager.OnBeat -= OnBeatReceived;
+                isSubscribed = false;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (isSubscribed)
+            {
+                GameManager.OnBeat -= OnBeatReceived;
+                isSubscribed = false;
+            }
+        }
+
+        private void OnBeatReceived(int beat)
+        {
+            // Spawn bars on every beat so they arrive at center on the next beat
+            // SpawnPair();
+            beatCounter++;
+            
+            // Only schedule spawns every N beats
+            if (beatCounter % spawnEveryNBeats == 0)
+            {
+                // Calculate travel time from spawn position to center
+                float spawnDistance = Mathf.Abs(rightSpawnX - initialCenter.x);
+                float travelTime = spawnDistance / barMoveSpeed;
+                
+                // Schedule spawn to happen (travelTime) seconds before the next arrival beat
+                float secondsPerBeat = GameManager.Instance != null ? GameManager.Instance.SecondsPerBeat : 60f / 105f;
+                float timeUntilNextArrival = secondsPerBeat * spawnEveryNBeats;
+                scheduledSpawnTime = Time.time + (timeUntilNextArrival - travelTime);
+            }
+        }
+
         private void Update()
         {
             FollowTargetTick();
-            SpawnTick();
+            // SpawnTick();
+            ProcessScheduledSpawns();
             ProcessPendingDespawns();
+        }
+
+        private void ProcessScheduledSpawns()
+        {
+            if (scheduledSpawnTime > 0f && Time.time >= scheduledSpawnTime)
+            {
+                SpawnPair();
+                scheduledSpawnTime = -1f;
+            }
         }
 
         public void SetFollowTarget(Transform target, bool snapImmediately = true)
@@ -126,43 +187,62 @@ namespace SoundTrack
             }
         }
 
-        private void SpawnTick()
+        // private void SpawnTick()
+        // {
+        //     if (beatBarPrefab == null || spawnsPerMinute <= 0f)
+        //     {
+        //         return;
+        //     }
+
+        //     if (!spawnDelayElapsed)
+        //     {
+        //         delayTimer += Time.deltaTime;
+        //         if (delayTimer < initialSpawnDelay)
+        //         {
+        //             return;
+        //         }
+
+        //         spawnDelayElapsed = true;
+        //         spawnTimer = 0f;
+        //     }
+
+        //     spawnTimer += Time.deltaTime;
+        //     float interval = 60f / Mathf.Max(1f, spawnsPerMinute);
+        //     while (spawnTimer >= interval)
+        //     {
+        //         spawnTimer -= interval;
+        //         SpawnPair();
+        //     }
+        // }
+
+        private void SpawnPair()
         {
-            if (beatBarPrefab == null || spawnsPerMinute <= 0f)
+            if (beatBarPrefab == null || GameManager.Instance == null)
             {
                 return;
             }
 
-            if (!spawnDelayElapsed)
-            {
-                delayTimer += Time.deltaTime;
-                if (delayTimer < initialSpawnDelay)
-                {
-                    return;
-                }
+            // Calculate how far bars need to spawn to arrive at center in 'beatsAhead' beats
+            // float timeToCenter = GameManager.Instance.SecondsPerBeat * beatsAhead;
+            // float spawnDistance = barMoveSpeed * timeToCenter;
 
-                spawnDelayElapsed = true;
-                spawnTimer = 0f;
-            }
-
-            spawnTimer += Time.deltaTime;
-            float interval = 60f / Mathf.Max(1f, spawnsPerMinute);
-            while (spawnTimer >= interval)
-            {
-                spawnTimer -= interval;
-                SpawnPair();
-            }
-        }
-
-        private void SpawnPair()
-        {
             int pairId = nextPairId++;
 
-            Vector3 leftPosition = ComputeSpawnPosition(leftSpawnX);
+            // Vector3 leftPosition = ComputeSpawnPosition(leftSpawnX);
+            Vector3 leftPosition = new Vector3(
+                leftSpawnX + (currentCenter.x - initialCenter.x),
+                spawnY + (currentCenter.y - initialCenter.y),
+                currentCenter.z
+            );
             BeatBarSpirit leftBar = Instantiate(beatBarPrefab, leftPosition, Quaternion.identity, transform);
             leftBar.Initialize(barMoveSpeed, 1, pairId, this, touchTolerance);
 
-            Vector3 rightPosition = ComputeSpawnPosition(rightSpawnX);
+            // Vector3 rightPosition = ComputeSpawnPosition(rightSpawnX);
+            Vector3 rightPosition = new Vector3(
+                rightSpawnX + (currentCenter.x - initialCenter.x),
+                spawnY + (currentCenter.y - initialCenter.y),
+                currentCenter.z
+            );
             BeatBarSpirit rightBar = Instantiate(beatBarPrefab, rightPosition, Quaternion.identity, transform);
             rightBar.Initialize(barMoveSpeed, -1, pairId, this, touchTolerance);
 
@@ -175,13 +255,15 @@ namespace SoundTrack
 
         internal float CurrentCenterWorldX => currentCenter.x;
         internal Vector3 CurrentCenterWorldPosition => currentCenter;
-        public float SecondsPerBeat => 60f / Mathf.Max(1f, spawnsPerMinute);
-        public float BeatsPerMinute => spawnsPerMinute;
+        // public float SecondsPerBeat => 60f / Mathf.Max(1f, spawnsPerMinute);
+        // public float BeatsPerMinute => spawnsPerMinute;
+        public float SecondsPerBeat => GameManager.Instance != null ? GameManager.Instance.SecondsPerBeat : 60f / 105f;
+        public float BeatsPerMinute => GameManager.Instance != null ? GameManager.Instance.bpm : 105f;
 
-        public float GetPredictedFirstCollisionDelay()
-        {
-            return initialSpawnDelay + GetLongestTravelTime();
-        }
+        // public float GetPredictedFirstCollisionDelay()
+        // {
+        //     return initialSpawnDelay + GetLongestTravelTime();
+        // }
 
         public bool TryGetClosestPairDistance(out float distance)
         {
@@ -220,16 +302,16 @@ namespace SoundTrack
             return TryGetClosestPairDistance(out float distance) && distance < threshold;
         }
 
-        private float GetLongestTravelTime()
-        {
-            return Mathf.Max(GetTravelTimeToCenter(leftSpawnX), GetTravelTimeToCenter(rightSpawnX));
-        }
+        // private float GetLongestTravelTime()
+        // {
+        //     return Mathf.Max(GetTravelTimeToCenter(leftSpawnX), GetTravelTimeToCenter(rightSpawnX));
+        // }
 
-        private float GetTravelTimeToCenter(float spawnX)
-        {
-            float distance = Mathf.Abs(initialCenter.x - spawnX);
-            return distance / Mathf.Max(0.01f, barMoveSpeed);
-        }
+        // private float GetTravelTimeToCenter(float spawnX)
+        // {
+        //     float distance = Mathf.Abs(initialCenter.x - spawnX);
+        //     return distance / Mathf.Max(0.01f, barMoveSpeed);
+        // }
 
         internal void NotifyReachedCenter(BeatBarSpirit bar)
         {
@@ -378,14 +460,14 @@ namespace SoundTrack
             adjusted.y = chickenScale.y;
             chickenInstance.transform.localScale = adjusted;
 
-            chickenInstance.Initialize(this);
+            // chickenInstance.Initialize(this);
         }
 
-        private Vector3 ComputeSpawnPosition(float baseX)
-        {
-            Vector3 offset = currentCenter - initialCenter;
-            return new Vector3(baseX + offset.x, spawnY + offset.y, currentCenter.z);
-        }
+        // private Vector3 ComputeSpawnPosition(float baseX)
+        // {
+        //     Vector3 offset = currentCenter - initialCenter;
+        //     return new Vector3(baseX + offset.x, spawnY + offset.y, currentCenter.z);
+        // }
 
         private sealed class BeatBarPair
         {

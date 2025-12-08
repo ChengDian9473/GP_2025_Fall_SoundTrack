@@ -104,3 +104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.BeatBarSpirit
   moveSpeed: 5
+  spriteRenderer: {fileID: 0}
+  spawnAlpha: 0.134
+  solidifyDistance: 6

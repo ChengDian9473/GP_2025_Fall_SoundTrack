@@ -38,6 +38,8 @@ namespace SoundTrack{
         private double mainduration; 
         private int    sourceflag;
 
+        public float SecondsPerBeat => 60f / bpm;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -63,7 +65,7 @@ namespace SoundTrack{
 
                 double secPerBeat = 60.0 / bpm;
                 exactBeat = songTime / secPerBeat;
-                beatIndex = (int)Math.Floor(2 * (exactBeat + 1e-9));
+                beatIndex = (int)Math.Floor(exactBeat + 1e-9);
 
                 if (Keyboard.current.escapeKey.wasPressedThisFrame){
                     Info.Instance.Home();
@@ -100,8 +102,17 @@ namespace SoundTrack{
                 {
                     if (dspNow > dspCanHit)
                     {
+                        // Calculate timing relative to nearest beat
+                        double timeSinceLastBeat = songTime - (lastBeat * secPerBeat);
+                        double timeToNextBeat = secPerBeat - timeSinceLastBeat;
+                        double nearestBeatOffset = Math.Min(timeSinceLastBeat, timeToNextBeat);
+                        
+                        // Check if within 0.15s window of a beat
+                        bool withinBeatWindow = nearestBeatOffset <= 0.15;
+
                         dspCanHit = dspNow + secPerBeat * 0.3f;
-                        if (IsInputSynchronizedWithBars())
+                        // if (IsInputSynchronizedWithBars())
+                        if (withinBeatWindow)
                         {
                             dspCanHit = dspNow + secPerBeat * 0.5f;
                             if (Keyboard.current.dKey.wasPressedThisFrame)
