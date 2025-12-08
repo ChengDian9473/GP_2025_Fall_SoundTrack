@@ -38,7 +38,7 @@ namespace SoundTrack{
         }
 
         public void OnBeatReceived(int beat){
-            loopCounter = (loopCounter + 1) % loopLength;
+            loopCounter = (loopCounter + 1) % (loopLength + 1);
             if(loopCounter == 0){
                 elementListCounter = (elementListCounter + 1) % elementListLength;
                 curElement = elementList[elementListCounter];
