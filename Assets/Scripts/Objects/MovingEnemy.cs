@@ -61,10 +61,15 @@ namespace SoundTrack{
         public void determineFlip(){
             previewGrid = curGrid + walkPattern[moveCounter];
             if(previewGrid.x < curGrid.x){
-                this.GetComponent<SpriteRenderer>().flipX = true;
-            }else{
-                this.GetComponent<SpriteRenderer>().flipX = false;
+                facing = 2;
+            }else if(previewGrid.x > curGrid.x){
+                facing = 0;
+            }else if(previewGrid.y < curGrid.y){
+                facing = 3;
+            }else if(previewGrid.y > curGrid.y){
+                facing = 1;
             }
+            UpdateIcons();
         }
     }
 }

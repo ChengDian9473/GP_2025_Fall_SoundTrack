@@ -85,7 +85,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.14, y: 5.09}
+  m_Size: {x: 0.80859375, y: 0.9941406}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,34 +105,79 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.MovingEnemy
   enemyName: 
   remainingElements: 1
-  iconSlots:
-  - element: 1
-    iconRenderer: {fileID: 0}
-  - element: 2
-    iconRenderer: {fileID: 0}
-  - element: 4
-    iconRenderer: {fileID: 0}
-  - element: 8
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
   skin:
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+  - sprites:
+    - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   walkPattern:
     items:
     - x: 1

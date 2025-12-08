@@ -105,31 +105,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.StaticEnemy
   enemyName: 
   remainingElements: 1
-  iconSlots:
-  - element: 1
-    iconRenderer: {fileID: 0}
-  - element: 2
-    iconRenderer: {fileID: 0}
-  - element: 4
-    iconRenderer: {fileID: 0}
-  - element: 8
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
-  - element: 0
-    iconRenderer: {fileID: 0}
   skin:
-  - {fileID: -1529027881024391214, guid: eba14fa0764659a4cbae03461007863f, type: 3}
-  - {fileID: -7531327395744080548, guid: eba14fa0764659a4cbae03461007863f, type: 3}
-  - {fileID: 4426169007528591141, guid: eba14fa0764659a4cbae03461007863f, type: 3}
-  - {fileID: 4730929856936734691, guid: eba14fa0764659a4cbae03461007863f, type: 3}
-  - {fileID: -8555397769313165811, guid: eba14fa0764659a4cbae03461007863f, type: 3}
-  - {fileID: -8211118717002810041, guid: eba14fa0764659a4cbae03461007863f, type: 3}
-  - {fileID: 6055717505344634700, guid: eba14fa0764659a4cbae03461007863f, type: 3}
-  - {fileID: 8475814761938181301, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - sprites:
+    - {fileID: -1529027881024391214, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+    - {fileID: -7531327395744080548, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+    - {fileID: 4426169007528591141, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+    - {fileID: 4730929856936734691, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+    - {fileID: -8555397769313165811, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+    - {fileID: -8211118717002810041, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+    - {fileID: 6055717505344634700, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+    - {fileID: 8475814761938181301, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

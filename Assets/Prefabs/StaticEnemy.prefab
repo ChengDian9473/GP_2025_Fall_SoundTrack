@@ -106,11 +106,8 @@ MonoBehaviour:
   enemyName: 
   remainingElements: 1
   skin:
-  - {fileID: 1534614178524928647, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
-  - {fileID: 2976161804204873256, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
-  - {fileID: -8937849042749529948, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
-  - {fileID: -998540918927878186, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
-  - {fileID: 1534614178524928647, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
-  - {fileID: 1534614178524928647, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
-  - {fileID: 1534614178524928647, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
-  - {fileID: 1534614178524928647, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
+  - sprites:
+    - {fileID: 1534614178524928647, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
+    - {fileID: 2976161804204873256, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
+    - {fileID: -8937849042749529948, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
+    - {fileID: -998540918927878186, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
