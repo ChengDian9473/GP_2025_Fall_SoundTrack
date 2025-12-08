@@ -95,7 +95,7 @@ namespace SoundTrack{
                     if(Track.Count < Player.MAX_TRACK){
                         // Debug.Log($"Tracking");
                         var obj = Instantiate(TrackPrefab);
-                        obj.GetComponent<SpriteRenderer>().color = element.ToColor();
+                        obj.GetComponent<SpriteRenderer>().color = element.ToTColor();
                         Track.Add(obj);
                         Skill.Add(op);
                         for(int i = Track.Count - 1; i > 0 ; i--){
@@ -106,7 +106,7 @@ namespace SoundTrack{
                             // Track[i].GetComponent<SpriteRenderer>.sortingOrder
                         }
                         Track[0].transform.position = curGrid.ToVector3();
-                        Track[0].GetComponent<SpriteRenderer>().color = element.ToColor();
+                        Track[0].GetComponent<SpriteRenderer>().color = element.ToTColor();
 
                         Skill[0] = op;
                         Info.Instance.UpdateSeq(Skill);
