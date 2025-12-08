@@ -22,7 +22,7 @@ MonoBehaviour:
         y: 1
       - x: 1
         y: -1
-    vfx: {fileID: 0}
+    vfx: {fileID: 2360655870356088562, guid: 57a776ff377f3c44e8403e2067a4d41f, type: 3}
     element: 2
     number: 0
   - binaryNumber: 00000000
@@ -34,7 +34,7 @@ MonoBehaviour:
         y: 0
       - x: 3
         y: 0
-    vfx: {fileID: 0}
+    vfx: {fileID: 888444077320411739, guid: 0c2509361b13505428ce788b7f846686, type: 3}
     element: 8
     number: 0
   - binaryNumber: 00000000
@@ -48,7 +48,7 @@ MonoBehaviour:
         y: -1
       - x: -3
         y: 1
-    vfx: {fileID: 0}
+    vfx: {fileID: 5631927496442371602, guid: 6c52ee79710704a4dab242c5ba8e0408, type: 3}
     element: 4
     number: 0
   - binaryNumber: 00000001
@@ -60,7 +60,7 @@ MonoBehaviour:
         y: 1
       - x: -1
         y: 0
-    vfx: {fileID: 0}
+    vfx: {fileID: 2360655870356088562, guid: 57a776ff377f3c44e8403e2067a4d41f, type: 3}
     element: 2
     number: 1
   - binaryNumber: 00000001
@@ -72,7 +72,7 @@ MonoBehaviour:
         y: -2
       - x: 0
         y: -3
-    vfx: {fileID: 0}
+    vfx: {fileID: 888444077320411739, guid: 0c2509361b13505428ce788b7f846686, type: 3}
     element: 8
     number: 1
   - binaryNumber: 00000001
@@ -84,7 +84,7 @@ MonoBehaviour:
         y: 1
       - x: 1
         y: -1
-    vfx: {fileID: 0}
+    vfx: {fileID: 5631927496442371602, guid: 6c52ee79710704a4dab242c5ba8e0408, type: 3}
     element: 4
     number: 1
   - binaryNumber: 00011011
@@ -138,7 +138,7 @@ MonoBehaviour:
         y: 1
       - x: -2
         y: -1
-    vfx: {fileID: 0}
+    vfx: {fileID: 2360655870356088562, guid: 57a776ff377f3c44e8403e2067a4d41f, type: 3}
     element: 2
     number: 34
   - binaryNumber: 00010001
@@ -152,9 +152,9 @@ MonoBehaviour:
         y: -1
       - x: 2
         y: 2
-    vfx: {fileID: 0}
+    vfx: {fileID: 888444077320411739, guid: 0c2509361b13505428ce788b7f846686, type: 3}
     element: 8
-    number: 51
+    number: 17
   - binaryNumber: 00001010
     attackPattern:
       items:
@@ -166,6 +166,6 @@ MonoBehaviour:
         y: -1
       - x: -3
         y: 0
-    vfx: {fileID: 0}
+    vfx: {fileID: 4276699273897994009, guid: 0e6ba2dee725e4c71b1fee7f6c365cbd, type: 3}
     element: 4
     number: 10
