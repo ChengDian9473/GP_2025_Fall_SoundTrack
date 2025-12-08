@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 4528772707897070517, guid: df53cf12d42814468866a6062102774c, type: 3}
+  m_Sprite: {fileID: -2185472608353246101, guid: ead2c82047a265648b9d23a4cd0f3279, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Player
   TrackPrefab: {fileID: 7980013985442431122, guid: 797f3fbdb52e35f439b9206d90d51186, type: 3}
   Animation:
-  - {fileID: 4528772707897070517, guid: df53cf12d42814468866a6062102774c, type: 3}
-  - {fileID: 8889492907315670035, guid: b0a95850fadc34013b7ccf049179cb99, type: 3}
+  - {fileID: -2185472608353246101, guid: ead2c82047a265648b9d23a4cd0f3279, type: 3}
+  - {fileID: 9048603163218632696, guid: ead2c82047a265648b9d23a4cd0f3279, type: 3}
   SL: {fileID: 11400000, guid: fed8cb78cab38a14ea6b1850eb1827fd, type: 2}
 --- !u!50 &9039420292929674038
 Rigidbody2D:
@@ -175,7 +175,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.050633, y: 0.90084386}
+    oldSize: {x: 0.9316406, y: 0.9199219}
     newSize: {x: 4.98, y: 4.27}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

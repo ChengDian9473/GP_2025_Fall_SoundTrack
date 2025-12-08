@@ -51,6 +51,10 @@ namespace SoundTrack{
             if (g == LevelManager.Instance.player.getCurGrid()) return false;
             if (!groundTilemap.HasTile(c)) return false;
             if (groundTilemap.GetTile(c) == LevelManager.Instance.TL.allowedTiles) return true;
+            TileBase t = groundTilemap.GetTile(c);
+            foreach(var a in LevelManager.Instance.TL.skillTiles){
+                if(a == t) return true;
+            }
             return false;
         }
 

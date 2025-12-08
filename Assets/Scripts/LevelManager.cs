@@ -444,7 +444,8 @@ namespace SoundTrack{
                 t = getAvailableAttackTile();
             
     
-            t.GetComponent<SpriteRenderer>().color = element.ToTColor();
+            // t.GetComponent<SpriteRenderer>().color = element.ToTColor();
+            t.GetComponent<SpriteRenderer>().color = new Color(0.0f,0.0f,0.0f,0.0f);
             attackTileList[g] = (t, life, element);
         }
 
