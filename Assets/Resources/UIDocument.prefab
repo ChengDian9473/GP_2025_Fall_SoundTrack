@@ -70,3 +70,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Info
   keySprite: {fileID: -7756627232784180200, guid: cdbc1f5116ebba74eb591bc9d8b1c51a, type: 3}
   keySprite_black: {fileID: 2011034731825299770, guid: 094051aa99315cb44a07db56a3d2fce5, type: 3}
+  starSprite: {fileID: 21300000, guid: 6780e403a17737143a16df29aca638c7, type: 3}
+  starSprite_black: {fileID: 21300000, guid: 8ff5b08fff8d7014fbe1f68849035065, type: 3}

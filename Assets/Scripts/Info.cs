@@ -36,9 +36,13 @@ namespace SoundTrack{
         
         private Label HPLabel;
         private VisualElement KeyContainer;
+        private VisualElement StarContainer;
 
         [SerializeField] private Sprite keySprite;
         [SerializeField] private Sprite keySprite_black;
+
+        [SerializeField] private Sprite starSprite;
+        [SerializeField] private Sprite starSprite_black;
         
         private string[] tutorialLines;
         private int currentIndex = 0;
@@ -87,6 +91,7 @@ namespace SoundTrack{
 
             HPLabel = RootVisualElement.Q<Label>("HPLabel");
             KeyContainer = RootVisualElement.Q<VisualElement>("KeyContainer");
+            StarContainer = RootVisualElement.Q<VisualElement>("StarContainer");
 
             current_scene = 0;
             current_page = 0;
@@ -250,7 +255,8 @@ namespace SoundTrack{
         public void UpdateHP(int currentBeat = 0, int hit = 0){
             HPLabel.text = $"Timer: {currentBeat + hit * 4} ({hit})";
         }
-        public void UpdateWin(){
+        public void UpdateWin(int starCount){
+            UpdateStar(starCount);
             end_page.style.display = DisplayStyle.Flex;
         }
         public void UpdateKey(int keyCount, int maxKeyCount){
@@ -272,6 +278,25 @@ namespace SoundTrack{
                 key.style.backgroundImage = new StyleBackground(keySprite_black);
 
                 KeyContainer.Add(key);
+            }
+        }
+        public void UpdateStar(int starCount,int maxStarCount = 3){
+            StarContainer.Clear();
+
+            for (int i = 0; i < starCount; i++)
+            {
+                VisualElement star = new VisualElement();
+                star.AddToClassList("star-icon");
+                star.style.backgroundImage = new StyleBackground(starSprite);
+
+                StarContainer.Add(star);
+            }
+            for(int i = starCount; i < maxStarCount; i++){
+                VisualElement star = new VisualElement();
+                star.AddToClassList("star-icon");
+                star.style.backgroundImage = new StyleBackground(starSprite_black);
+
+                StarContainer.Add(star);
             }
         }
 

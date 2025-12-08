@@ -26,6 +26,12 @@
     height: 100%;
 }
 
+.star-icon {
+    flex-shrink: 0;
+    height: 100%;
+    width: 33%;
+}
+
 .Background {
     flex-grow: 1;
     background-color: rgb(184, 255, 220);

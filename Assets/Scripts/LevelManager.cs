@@ -249,9 +249,13 @@ namespace SoundTrack{
                     Info.Instance.StartTutorial(SR.endInfo);
                 }else{
                     GameEnd();
-                    Info.Instance.UpdateWin();
+                    Info.Instance.UpdateWin(ComputeStar());
                 }
             }
+        }
+
+        private int ComputeStar(){
+            return 2;
         }
 
         public void GameEnd(){
