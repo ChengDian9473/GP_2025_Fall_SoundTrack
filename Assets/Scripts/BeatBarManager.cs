@@ -107,7 +107,7 @@ namespace SoundTrack
 
         private void OnBeatReceived(int beat)
         {
-            if (beat % 2 == 0) return;
+            if (beat % 2 == 1) return;
             
             // Calculate travel time from spawn position to center
             double distance_ = rightSpawnX - initialCenter.x;

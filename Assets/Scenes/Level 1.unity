@@ -1681,7 +1681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: remainingElements
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: walkPattern.items.Array.size
@@ -1702,15 +1702,15 @@ PrefabInstance:
     - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: 'skin.Array.data[0].sprites.Array.data[1]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -5585346643488803262, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
     - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: 'skin.Array.data[0].sprites.Array.data[2]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5002078656215221863, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
     - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: 'skin.Array.data[0].sprites.Array.data[3]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -5148162223696208796, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
     - target: {fileID: 8978059625913545129, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -1722,7 +1722,7 @@ PrefabInstance:
     - target: {fileID: 8978059625913545129, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8050775605590023107, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+      objectReference: {fileID: -5148162223696208796, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
     - target: {fileID: 8978059625913545129, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
