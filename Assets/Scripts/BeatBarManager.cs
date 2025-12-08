@@ -13,10 +13,10 @@ namespace SoundTrack
         [SerializeField] private GameManager gm;
 
         [Header("Spawn Positions")]
-        [SerializeField] private Vector3 initialCenter = new Vector3(0f, -3f, 0f);
+        [SerializeField] private Vector3 initialCenter = new Vector3(0f, -2.5f, 0f);
         [SerializeField] private float leftSpawnX = -6.8f;
         [SerializeField] private float rightSpawnX = 6.8f;
-        [SerializeField] private float spawnY = -3f;
+        [SerializeField] private float spawnY = -2.5f;
 
         [Header("Timing")]
         [SerializeField, Tooltip("Spawn bars every N beats (1 = every beat, 2 = every other beat)")]
