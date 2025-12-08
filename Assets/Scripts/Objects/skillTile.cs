@@ -15,7 +15,7 @@ namespace SoundTrack{
         private int elementListCounter;
         private int elementListLength;
 
-        [SerializeField] protected int loopLength = 1;
+        [SerializeField, Min(1f)] protected int loopLength = 1;
         private int loopCounter;
 
         [NonSerialized] public PlayerElementType curElement;
