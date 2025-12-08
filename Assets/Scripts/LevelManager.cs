@@ -121,15 +121,6 @@ namespace SoundTrack{
             
             Info.Instance.UpdateHP(0,0);
             Info.Instance.UpdateKey(0,-1);
-
-            Debug.Log($"RC {rooms.Count}");
-            Debug.Log($"{rooms[rooms.Count - 1].finishTile}");
-            foreach (var ft in rooms[rooms.Count - 1].finishTile)
-            {
-                Debug.Log(ft);
-                Vector3 worldPos = ft.ToVector3();
-                Instantiate(finishportal, worldPos, Quaternion.identity);
-            }
         }
 
         public void OnBeatReceived(int beat){
@@ -185,7 +176,6 @@ namespace SoundTrack{
             rooms[r.roomIndex] = r.room;
             curRoom = rooms[0];
             maxRoomIndex = rooms.Count;
-            Debug.Log($"MRI {maxRoomIndex}");
         }
 
         public void startRoom(){
@@ -228,6 +218,14 @@ namespace SoundTrack{
                 if(curRoomIndex < maxRoomIndex)
                     curRoom = rooms[curRoomIndex];
                 Info.Instance.UpdateKey(0,-1);
+                if(!portals_exist && curRoomIndex >= maxRoomIndex - 1){
+                    portals_exist = true;
+                    foreach (var ft in curRoom.finishTile)
+                    {  
+                        Vector3 worldPos = ft.ToVector3();
+                        Instantiate(finishportal, worldPos, Quaternion.identity);
+                    }
+                }
             }
         }
 

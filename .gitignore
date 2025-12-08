@@ -44,3 +44,5 @@ mono_crash.mem.*
 *.csproj
 *.sln
 *.unityproj
+
+Window

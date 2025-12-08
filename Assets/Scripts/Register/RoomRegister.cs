@@ -33,6 +33,7 @@ namespace SoundTrack{
 
             foreach(var f in room.finishTile){
                 groundTilemap.SetTile(f.ToVector3Int(), LevelManager.Instance.TL.finishedTile);
+                Debug.Log(f);
             }
         }
 
