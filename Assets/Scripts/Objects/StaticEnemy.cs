@@ -82,7 +82,7 @@ namespace SoundTrack
                 remainingElements.RemoveElement(element.ToMonsterElement());
             }
             UpdateIcons();
-            if (remainingElements.IsEmpty())
+            if (remainingElements.IsEmpty() || remainingElements == MonsterElementType.Normal)
             {
                 Die();
             }
