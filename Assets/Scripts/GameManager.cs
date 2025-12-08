@@ -12,7 +12,7 @@ namespace SoundTrack{
         public static GameManager Instance { get; private set; }
 
         private bool playing;
-        private bool tutorial;
+        public bool tutorial;
 
         [Header("Music & Tempo")]
         [SerializeField] private AudioSource intro_clip;

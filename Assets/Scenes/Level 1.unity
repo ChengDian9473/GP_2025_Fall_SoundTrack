@@ -6915,12 +6915,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 638478565933872341, guid: f09068205f21df94c9f617d30a30b99e, type: 3}
+      propertyPath: maxBeat.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 638478565933872341, guid: f09068205f21df94c9f617d30a30b99e, type: 3}
       propertyPath: 'endInfo.Array.data[0]'
       value: sdsd
       objectReference: {fileID: 0}
     - target: {fileID: 638478565933872341, guid: f09068205f21df94c9f617d30a30b99e, type: 3}
+      propertyPath: 'maxBeat.Array.data[0]'
+      value: 224
+      objectReference: {fileID: 0}
+    - target: {fileID: 638478565933872341, guid: f09068205f21df94c9f617d30a30b99e, type: 3}
+      propertyPath: 'maxBeat.Array.data[1]'
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 638478565933872341, guid: f09068205f21df94c9f617d30a30b99e, type: 3}
+      propertyPath: 'maxBeat.Array.data[2]'
+      value: 96
+      objectReference: {fileID: 0}
+    - target: {fileID: 638478565933872341, guid: f09068205f21df94c9f617d30a30b99e, type: 3}
       propertyPath: startingInfo.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 638478565933872341, guid: f09068205f21df94c9f617d30a30b99e, type: 3}
       propertyPath: 'startingInfo.Array.data[0]'

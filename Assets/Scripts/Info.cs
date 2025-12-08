@@ -36,6 +36,8 @@ namespace SoundTrack{
         
         private Label HPLabel;
         private VisualElement KeyContainer;
+        
+        private Label WinLabel;
         private VisualElement StarContainer;
 
         [SerializeField] private Sprite keySprite;
@@ -91,6 +93,8 @@ namespace SoundTrack{
 
             HPLabel = RootVisualElement.Q<Label>("HPLabel");
             KeyContainer = RootVisualElement.Q<VisualElement>("KeyContainer");
+
+            WinLabel = RootVisualElement.Q<Label>("WinLabel");
             StarContainer = RootVisualElement.Q<VisualElement>("StarContainer");
 
             current_scene = 0;
@@ -145,7 +149,8 @@ namespace SoundTrack{
 
         private void OnClickAnywhere(ClickEvent evt)
         {
-            HandleNextStep();
+            if(GameManager.Instance.tutorial)
+                HandleNextStep();
         }
 
         private void HandleNextStep()
@@ -281,6 +286,12 @@ namespace SoundTrack{
             }
         }
         public void UpdateStar(int starCount,int maxStarCount = 3){
+
+            if(starCount == 0){
+                WinLabel.text = $"You Fail!";
+            }else{
+                WinLabel.text = $"Level Clear!";
+            }
             StarContainer.Clear();
 
             for (int i = 0; i < starCount; i++)

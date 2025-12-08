@@ -8,6 +8,6 @@ namespace SoundTrack{
     {
         [SerializeField] public string[] startingInfo;
         [SerializeField] public string[] endInfo;
-        [SerializeField] public int maxBeat = -1;
+        [SerializeField] public List<int> maxBeat;
     }
 }

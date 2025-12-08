@@ -107,7 +107,7 @@ namespace SoundTrack{
         }
 
         public void GameStart(){
-            currentBeat = SR.maxBeat;
+            currentBeat = 0;
             hitCount = 0;
 
             curRoomIndex = 0;
@@ -255,7 +255,19 @@ namespace SoundTrack{
         }
 
         private int ComputeStar(){
-            return 2;
+            Debug.Log($"Score {currentBeat}");
+            if(SR.maxBeat.Count == 0){
+                return 3;
+            }else{
+                int i;
+                for(i = 0;i < SR.maxBeat.Count && i < 3; i++){
+                    if(currentBeat > SR.maxBeat[i]){
+                        break;
+                    }
+                }
+                return i;
+            }
+            return 0;
         }
 
         public void GameEnd(){
