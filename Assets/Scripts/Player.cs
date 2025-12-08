@@ -111,7 +111,6 @@ namespace SoundTrack{
                         Track[0].GetComponent<SpriteRenderer>().color = element.ToTColor();
 
                         Skill[0] = op;
-                        Info.Instance.UpdateSeq(Skill);
                     }
                 }
                 // DI 偵測是否開啟關卡
@@ -199,7 +198,7 @@ namespace SoundTrack{
         }
 
         public void beHit(){
-            Debug.Log("Player Be HIT");
+            LevelManager.Instance.hitCount += 1;
         }
 
         private bool OnFinished(GridPos g)
@@ -257,7 +256,6 @@ namespace SoundTrack{
                 Track.RemoveAt(0);
             }
             Skill.Clear();
-            Info.Instance.UpdateSeq(Skill);
             tracking = false;
             element = PlayerElementType.None;
             Debug.Log($"W: {walkLoop})");

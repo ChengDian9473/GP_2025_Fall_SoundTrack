@@ -34,9 +34,10 @@ namespace SoundTrack{
         private Button ReplayButton;
         
         private Label HPLabel;
-        private Label WinLabel;
-        private Label SeqLabel;
-        private Label KeyLabel;
+        private VisualElement KeyContainer;
+
+        [SerializeField] private Sprite keySprite;
+        [SerializeField] private Sprite keySprite_black;
         
         private string[] tutorialLines;
         private int currentIndex = 0;
@@ -82,9 +83,7 @@ namespace SoundTrack{
             ReplayButton = RootVisualElement.Q<Button>("ReplayButton");
 
             HPLabel = RootVisualElement.Q<Label>("HPLabel");
-            WinLabel = RootVisualElement.Q<Label>("WinLabel");
-            SeqLabel = RootVisualElement.Q<Label>("SeqLabel");
-            KeyLabel = RootVisualElement.Q<Label>("KeyLabel");
+            KeyContainer = RootVisualElement.Q<VisualElement>("KeyContainer");
 
             current_scene = 0;
             current_page = 0;
@@ -242,38 +241,32 @@ namespace SoundTrack{
             }
         }
 
-        public void UpdateHP(int HP){
-            if(HP == -1){
-                HPLabel.text = $"Time Remain: INF";
-            }else{
-                HPLabel.text = $"Time Remain: {HP}";
-            }
+        public void UpdateHP(int currentBeat = 0, int hit = 0){
+            HPLabel.text = $"Timer: {currentBeat + hit * 4} ({hit})";
         }
-        public void UpdateWin(int win){
-            if(win == -1){
-                WinLabel.text = "";
-                return;
-            }
-            if(win == 1)
-                WinLabel.text = "You Win";
-            else
-                WinLabel.text = "You Lose";
-
+        public void UpdateWin(){
             end_page.style.display = DisplayStyle.Flex;
         }
-        public void UpdateSeq(List<int> Skill){
-            SeqLabel.text = "Seq: ";
-
-            string arrow = "WDSA";
-            for(int i=Skill.Count - 1;i>=0;i--){
-                SeqLabel.text += arrow[Skill[i]];
-            }
-        }
         public void UpdateKey(int keyCount, int maxKeyCount){
-            if(maxKeyCount == -1 || maxKeyCount == 0)
-                KeyLabel.text = $"Keyy: --";
-            else
-                KeyLabel.text = $"Keyy: {keyCount}/{maxKeyCount}";
+            KeyContainer.Clear();
+
+            Debug.Log($"KC MKC {keyCount} {maxKeyCount}");
+
+            for (int i = 0; i < keyCount; i++)
+            {
+                VisualElement key = new VisualElement();
+                key.AddToClassList("key-icon");
+                key.style.backgroundImage = new StyleBackground(keySprite);
+
+                KeyContainer.Add(key);
+            }
+            for(int i = keyCount; i < maxKeyCount; i++){
+                VisualElement key = new VisualElement();
+                key.AddToClassList("key-icon");
+                key.style.backgroundImage = new StyleBackground(keySprite_black);
+
+                KeyContainer.Add(key);
+            }
         }
 
         public void SetTargetScene(int scene, int page)

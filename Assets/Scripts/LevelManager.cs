@@ -36,6 +36,7 @@ namespace SoundTrack{
         [NonSerialized] public Tilemap groundTilemap; // read
 
         private int currentBeat;
+        public int hitCount;
 
         private int curRoomIndex;
         private int maxRoomIndex;
@@ -56,6 +57,8 @@ namespace SoundTrack{
 
         [NonSerialized] public List<skillTile> skillTiles = new List<skillTile>(); // interact
 
+        private bool portals_exist = false;
+
         private int currentTime = 0;
 
         private Dictionary<int, Dictionary<GridPos, List<WarningEvent>>> schedule = new Dictionary<int, Dictionary<GridPos, List<WarningEvent>>>();
@@ -67,6 +70,8 @@ namespace SoundTrack{
 
         private List<(GameObject obj, bool inUse)> attackTilePool = new List<(GameObject, bool)>();
         private Dictionary<GridPos, (GameObject obj, int life, PlayerElementType element)> attackTileList = new Dictionary<GridPos, (GameObject, int, PlayerElementType)>();
+
+        [SerializeField] private GameObject finishportal;
 
 
         private void Awake(){
@@ -103,17 +108,18 @@ namespace SoundTrack{
 
         public void GameStart(){
             currentBeat = SR.maxBeat;
+            hitCount = 0;
 
             curRoomIndex = 0;
             inLevel = false;
+
+            portals_exist = false;
 
             if(SR.startingInfo != null && SR.startingInfo.Length > 0){
                 Info.Instance.StartTutorial(SR.startingInfo);
             }
             
-            Info.Instance.UpdateHP(currentBeat);
-            Info.Instance.UpdateSeq(new List<int>());
-            Info.Instance.UpdateWin(-1);
+            Info.Instance.UpdateHP(0,0);
             Info.Instance.UpdateKey(0,-1);
         }
 
@@ -134,17 +140,10 @@ namespace SoundTrack{
                     st.OnBeatReceived(beat);
                 }
                 player.testSkill();
-                if(currentBeat > 0){
-                    currentBeat--;
-                    Info.Instance.UpdateHP(currentBeat);
-                }
-                if(currentBeat == 0){
-                    GameManager.Instance.GameEnd();
-                    Info.Instance.UpdateWin(0);
-                }
-            }else{
-                player.walking();
+                currentBeat++;
+                Info.Instance.UpdateHP(currentBeat, hitCount);
             }
+            player.walking();
         }
 
         private void resetPool(){
@@ -191,6 +190,19 @@ namespace SoundTrack{
                         int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
                         groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
                     }
+                    
+                    if (finishportal != null  && curRoomIndex == maxRoomIndex - 1 && !portals_exist)
+                    {
+                        portals_exist = true;
+
+                        foreach (var ft in curRoom.finishTile)
+                        {
+                            Vector3 worldPos = ft.ToVector3();
+                            Instantiate(finishportal, worldPos, Quaternion.identity);
+                        }
+                    }
+                }else{
+                    Info.Instance.UpdateKey(keyCount,curRoom.keyCount);
                 }
                 curRoom = rooms[curRoomIndex];
                 Info.Instance.UpdateKey(keyCount,curRoom.keyCount);
@@ -206,6 +218,18 @@ namespace SoundTrack{
                     int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
                     groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
                 }
+                
+                if (finishportal != null  && curRoomIndex == maxRoomIndex - 1 && !portals_exist)
+                {
+                    portals_exist = true;
+
+                    foreach (var ft in curRoom.finishTile)
+                    {
+                        Vector3 worldPos = ft.ToVector3();
+                        Instantiate(finishportal, worldPos, Quaternion.identity);
+                    }
+                }
+
                 Debug.Log("Room End");
                 inLevel = false;
                 curRoom.clear = true;
@@ -225,6 +249,7 @@ namespace SoundTrack{
                     Info.Instance.StartTutorial(SR.endInfo);
                 }else{
                     GameEnd();
+                    Info.Instance.UpdateWin();
                 }
             }
         }
@@ -232,7 +257,6 @@ namespace SoundTrack{
         public void GameEnd(){
             Info.Instance.OnTutorialEnded -= GameEnd;
             GameManager.Instance.GameEnd();
-            Info.Instance.UpdateWin(1);
             resetPool();
         }
 
@@ -246,12 +270,14 @@ namespace SoundTrack{
                 }
                 
                 // Spawn finish portals on all finish tiles for this room
-                if (curRoom.finishportal != null)
+                if (finishportal != null && curRoomIndex == maxRoomIndex - 1 && !portals_exist)
                 {
+                    portals_exist = true;
+
                     foreach (var ft in curRoom.finishTile)
                     {
                         Vector3 worldPos = ft.ToVector3();
-                        Instantiate(curRoom.finishportal, worldPos, Quaternion.identity);
+                        Instantiate(finishportal, worldPos, Quaternion.identity);
                     }
                 }
             }

@@ -68,3 +68,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67290e609be58e145babcc618b106dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Info
+  keySprite: {fileID: -7756627232784180200, guid: cdbc1f5116ebba74eb591bc9d8b1c51a, type: 3}
+  keySprite_black: {fileID: 2011034731825299770, guid: 094051aa99315cb44a07db56a3d2fce5, type: 3}

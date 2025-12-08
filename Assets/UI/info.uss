@@ -21,6 +21,11 @@
     position: absolute;
 }
 
+.key-icon {
+    width: 16%;
+    height: 100%;
+}
+
 .Background {
     flex-grow: 1;
     background-color: rgb(184, 255, 220);

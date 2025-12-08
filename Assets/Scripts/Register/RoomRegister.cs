@@ -62,7 +62,6 @@ namespace SoundTrack{
         public GridList outDoorTile = new GridList();
         public GridList endTile = new GridList();
         public GridList finishTile = new GridList();
-        public GameObject finishportal;
 
         [Header("State")]
         public int keyCount = 0;
