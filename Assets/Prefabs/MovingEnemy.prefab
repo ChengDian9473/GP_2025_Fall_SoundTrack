@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+  m_Sprite: {fileID: 8050775605590023107, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,70 +107,21 @@ MonoBehaviour:
   remainingElements: 1
   skin:
   - sprites:
+    - {fileID: 8050775605590023107, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+    - {fileID: -5585346643488803262, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+    - {fileID: 5002078656215221863, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+    - {fileID: -5148162223696208796, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+  - sprites:
+    - {fileID: -8916672161368964492, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+    - {fileID: 4250905625891050584, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+    - {fileID: 1095049767075918167, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+    - {fileID: -3084623895110419673, guid: 357f5667195a42843b6d70c5b54d09ac, type: 3}
+  - sprites:
     - {fileID: -6810697999950630716, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 6152910636471182502, guid: 3d64c79a2cd89984e827ef98cc7a5804, type: 3}
+    - {fileID: 4305822278862854944, guid: 3d64c79a2cd89984e827ef98cc7a5804, type: 3}
+    - {fileID: 2596526161454783179, guid: 3d64c79a2cd89984e827ef98cc7a5804, type: 3}
   - sprites:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - sprites:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - sprites:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - sprites:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - sprites:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - sprites:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - sprites:
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

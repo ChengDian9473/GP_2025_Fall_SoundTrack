@@ -32,6 +32,7 @@ namespace SoundTrack{
         private Button MenuButton;
         private Button LevelSelectButton;
         private Button ReplayButton;
+        private Button NextButton;
         
         private Label HPLabel;
         private VisualElement KeyContainer;
@@ -47,7 +48,8 @@ namespace SoundTrack{
         private int current_scene;
         private int current_page;
 
-        private static int LEVEL_START = 2;
+        private static int LEVEL_MIN = 2;
+        private static int LEVEL_MAX = 8;
 
         private bool firstTime;
 
@@ -81,6 +83,7 @@ namespace SoundTrack{
             MenuButton = RootVisualElement.Q<Button>("MenuButton");
             LevelSelectButton = RootVisualElement.Q<Button>("LevelSelectButton");
             ReplayButton = RootVisualElement.Q<Button>("ReplayButton");
+            NextButton = RootVisualElement.Q<Button>("NextButton");
 
             HPLabel = RootVisualElement.Q<Label>("HPLabel");
             KeyContainer = RootVisualElement.Q<VisualElement>("KeyContainer");
@@ -128,6 +131,7 @@ namespace SoundTrack{
             MenuButton.clicked += MenuButtonClicked;
             LevelSelectButton.clicked += LevelSelectButtonClicked;
             ReplayButton.clicked += ReplayButtonClicked;
+            NextButton.clicked += NextButtonClicked;
             
             Scene current = SceneManager.GetActiveScene();
             GameInit(Utils.GetSceneNames().IndexOf(current.name));
@@ -231,6 +235,8 @@ namespace SoundTrack{
                 LevelSelectButton.clicked -= LevelSelectButtonClicked;
             if(ReplayButton != null)
                 ReplayButton.clicked -= ReplayButtonClicked;
+            if(NextButton != null)
+                NextButton.clicked -= NextButtonClicked;
         }
 
         private void TransitionEnd(TransitionEndEvent evt){
@@ -284,7 +290,7 @@ namespace SoundTrack{
                 current_scene = 1;
             }
             
-            if(current_scene >= LEVEL_START){
+            if(current_scene >= LEVEL_MIN){
                 firstTime = false;
                 current_page = 2;
             }
@@ -295,7 +301,7 @@ namespace SoundTrack{
         private void StartButtonClicked()
         {
             if(firstTime){
-                SetTargetScene(LEVEL_START,2);
+                SetTargetScene(LEVEL_MIN,2);
                 firstTime = false;
             }else{
                 SetTargetScene(1,1);
@@ -314,7 +320,7 @@ namespace SoundTrack{
         }
         private void LevelButtonClicked(Button btn)
         {
-            SetTargetScene(LEVEL_START + int.Parse(btn.text) - 1, 2);
+            SetTargetScene(LEVEL_MIN + int.Parse(btn.text) - 1, 2);
         }
 
 
@@ -342,6 +348,11 @@ namespace SoundTrack{
         private void ReplayButtonClicked()
         {
             SetTargetScene(current_scene, current_page);
+        }
+        private void NextButtonClicked()
+        {
+            if(current_scene < LEVEL_MAX)
+                SetTargetScene(current_scene + 1, current_page);
         }
         private void FadeIn()
         {
