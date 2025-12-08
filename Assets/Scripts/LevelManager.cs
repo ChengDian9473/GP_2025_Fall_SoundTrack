@@ -105,7 +105,7 @@ namespace SoundTrack{
             currentBeat = SR.maxBeat;
 
             curRoomIndex = 0;
-            // maxRoomIndex = 0;
+            inLevel = false;
 
             if(SR.startingInfo != null && SR.startingInfo.Length > 0){
                 Info.Instance.StartTutorial(SR.startingInfo);

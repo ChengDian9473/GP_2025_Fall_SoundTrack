@@ -327,7 +327,7 @@ namespace SoundTrack{
 
         public void Home()
         {
-            GameManager.Instance.GameEnd();
+            LevelManager.Instance.GameEnd();
             SetTargetScene(1, 0);
         }
         private void QuitSettingButtonClicked()
