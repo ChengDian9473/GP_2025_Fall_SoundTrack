@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Unity.Mathematics;
 
 namespace SoundTrack
 {
@@ -9,6 +10,7 @@ namespace SoundTrack
         [Header("Prefab")]
         [SerializeField] private BeatBarSpirit beatBarPrefab;
         [SerializeField] private Transform followTarget;
+        [SerializeField] private GameManager gm;
 
         [Header("Spawn Positions")]
         [SerializeField] private Vector3 initialCenter = new Vector3(0f, -3f, 0f);
@@ -56,12 +58,14 @@ namespace SoundTrack
         private ChickenBeatPulse chickenInstance;
         private bool isSubscribed;
         private int beatCounter;
-        private double scheduledSpawnTime = -1f;
+        private double scheduledSpawnTime = -1.0;
+        public double secondsPerBeat;
 
         private void Awake()
         {
             currentCenter = initialCenter;
             transform.position = currentCenter;
+            secondsPerBeat = gm.SecondsPerBeat;
 
             if (followTarget != null)
             {
@@ -103,22 +107,29 @@ namespace SoundTrack
 
         private void OnBeatReceived(int beat)
         {
+            
+            // Calculate travel time from spawn position to center
+            double distance_ = rightSpawnX - initialCenter.x;
+            double spawnDistance = distance_ > 0? distance_ : -distance_;
+            double travelTime = spawnDistance / barMoveSpeed;
+
+            scheduledSpawnTime = AudioSettings.dspTime + (secondsPerBeat - travelTime) + offset;
+
+        
+
             // Spawn bars on every beat so they arrive at center on the next beat
             // SpawnPair();
-            beatCounter++;
+            // beatCounter++;
             
             // Only schedule spawns every N beats
-            if (true)
-            {
-                // Calculate travel time from spawn position to center
-                double spawnDistance = Mathf.Abs(rightSpawnX - initialCenter.x);
-                double travelTime = spawnDistance / barMoveSpeed;
+            //if (true)
+            //{
                 
                 // Schedule spawn to happen (travelTime) seconds before the next arrival beat
-                double secondsPerBeat = GameManager.Instance != null ? GameManager.Instance.SecondsPerBeat : 60f / 105f;
-                double timeUntilNextArrival = secondsPerBeat * spawnEveryNBeats;
-                scheduledSpawnTime = AudioSettings.dspTime + (timeUntilNextArrival - travelTime) + offset;
-            }
+            //     double secondsPerBeat = GameManager.Instance != null ? GameManager.Instance.SecondsPerBeat : 60f / 105f;
+            //     double timeUntilNextArrival = secondsPerBeat * spawnEveryNBeats;
+            //     scheduledSpawnTime = AudioSettings.dspTime + (timeUntilNextArrival - travelTime) + offset;
+            // }
         }
 
         private void Update()
@@ -131,10 +142,11 @@ namespace SoundTrack
 
         private void ProcessScheduledSpawns()
         {
-            if (scheduledSpawnTime > 0f && AudioSettings.dspTime >= scheduledSpawnTime)
+            if (scheduledSpawnTime > 0.0 && AudioSettings.dspTime >= scheduledSpawnTime)
             {
+                Debug.Log("spawn");
                 SpawnPair();
-                scheduledSpawnTime = -1f;
+                scheduledSpawnTime = -1.0;
             }
         }
 
@@ -228,6 +240,7 @@ namespace SoundTrack
             // float spawnDistance = barMoveSpeed * timeToCenter;
 
             int pairId = nextPairId++;
+            Debug.Log("succeed");
 
             // Vector3 leftPosition = ComputeSpawnPosition(leftSpawnX);
             Vector3 leftPosition = new Vector3(

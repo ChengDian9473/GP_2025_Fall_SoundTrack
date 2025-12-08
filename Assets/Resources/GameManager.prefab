@@ -49,8 +49,8 @@ MonoBehaviour:
   intro_clip: {fileID: -9097556610196961675}
   Main_loop_clip: {fileID: -963261904079232238}
   bpm: 105
-  firstBeatOffset: 0.05
-  LM: {fileID: 0}
+  firstBeatOffset: 0
+  beatBarInputThreshold: 1
 --- !u!82 &-9097556610196961675
 AudioSource:
   m_ObjectHideFlags: 0
