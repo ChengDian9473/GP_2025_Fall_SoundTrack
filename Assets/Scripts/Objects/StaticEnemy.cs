@@ -41,7 +41,7 @@ namespace SoundTrack
         {
             if(facing == 2){
                 this.GetComponent<SpriteRenderer>().flipX = true;
-                facing = 2;
+                facing = 0;
             }else{
                 this.GetComponent<SpriteRenderer>().flipX = false;
                 if(facing == 3){

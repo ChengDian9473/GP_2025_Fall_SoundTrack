@@ -48,7 +48,10 @@ namespace SoundTrack{
         {
             Vector3Int c = g.ToVector3Int();
             if (LevelManager.Instance.monsterOn.Contains(g)) return false;
-            if (g == LevelManager.Instance.player.getCurGrid()) return false;
+            if (g == LevelManager.Instance.player.getCurGrid()){
+                LevelManager.Instance.player.beHit();
+                return false;
+            }
             if (!groundTilemap.HasTile(c)) return false;
             if (groundTilemap.GetTile(c) == LevelManager.Instance.TL.allowedTiles) return true;
             TileBase t = groundTilemap.GetTile(c);

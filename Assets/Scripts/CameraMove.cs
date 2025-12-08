@@ -10,7 +10,7 @@ namespace SoundTrack{
         private void Awake(){
             offset = new Vector3(0.0f, 0.0f, -10.0f);
             moveDuration = (60f / GameManager.Instance.bpm) * 0.75f;
-            transform.position = offset + new Vector3(0.0f, 0.0f, 0.0f);
+            transform.position = offset + new Vector3(0f, 0f, 0.0f);
             LevelManager.Instance.SceneInit();
         }
         private void Start(){
