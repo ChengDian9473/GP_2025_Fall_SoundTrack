@@ -181,7 +181,10 @@ namespace SoundTrack{
                 if(skillTrigger != element.ToIndex()){
                     ClearTrack();
                     element = skillTrigger.ToPlayerElementType();
-                    this.GetComponent<SpriteRenderer>().color = element.ToColor();
+                    if(element.ToIndex() <= 3 && element.ToIndex() >= 0)
+                        this.GetComponent<SpriteRenderer>().sprite = skin[element.ToIndex()].sprites[walkLoop];
+                    else
+                        this.GetComponent<SpriteRenderer>().sprite = skin[0].sprites[walkLoop];
                     tracking = true;
                 }
             }
