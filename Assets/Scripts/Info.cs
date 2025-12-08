@@ -15,7 +15,6 @@ namespace SoundTrack{
         private List<VisualElement> pages;
 
         private VisualElement tutorial_page;
-        private VisualElement home_page;
         private VisualElement setting_page;
         private VisualElement end_page;
 
@@ -26,8 +25,6 @@ namespace SoundTrack{
         private Button QuitButton;
 
         private List<Button> LevelButton;
-
-        private Button HomeButton;
 
         private Button QuitSettingButton;
         private Slider VolumeSlider;
@@ -77,8 +74,6 @@ namespace SoundTrack{
 
             LevelButton = RootVisualElement.Query<Button>("LevelButton").ToList();
 
-            HomeButton = RootVisualElement.Q<Button>("HomeButton");
-
             VolumeSlider = RootVisualElement.Q<Slider>("VolumeSlider");
             QuitSettingButton = RootVisualElement.Q<Button>("QuitSettingButton");
 
@@ -107,12 +102,10 @@ namespace SoundTrack{
             tutorial_page.RegisterCallback<ClickEvent>(OnClickAnywhere);
             TutorialLabel = RootVisualElement.Q<Label>("TutorialLabel");
 
-            home_page = RootVisualElement.Q<VisualElement>("Home");
             setting_page = RootVisualElement.Q<VisualElement>("Setting");
             end_page = RootVisualElement.Q<VisualElement>("End");
             
             tutorial_page.style.display = DisplayStyle.None;
-            home_page.style.display = DisplayStyle.None;
             setting_page.style.display = DisplayStyle.None;
             end_page.style.display = DisplayStyle.None;
 
@@ -129,8 +122,6 @@ namespace SoundTrack{
             foreach(var btn in LevelButton){
                 btn.clicked += () => LevelButtonClicked(btn);
             }
-
-            HomeButton.clicked += HomeButtonClicked;
 
             VolumeSlider.RegisterValueChangedCallback(VolumeSliderChanged);
             QuitSettingButton.clicked += QuitSettingButtonClicked;
@@ -232,9 +223,6 @@ namespace SoundTrack{
                     btn.clicked -= () => LevelButtonClicked(btn);
                 }
 
-            if(HomeButton != null)
-                HomeButton.clicked -= HomeButtonClicked;
-
             if(QuitSettingButton != null)
                 QuitSettingButton.clicked -= QuitSettingButtonClicked;
 
@@ -333,11 +321,11 @@ namespace SoundTrack{
         }
         private void LevelButtonClicked(Button btn)
         {
-            SetTargetScene(LEVEL_START + int.Parse(btn.text), 2);
+            SetTargetScene(LEVEL_START + int.Parse(btn.text) - 1, 2);
         }
 
 
-        private void HomeButtonClicked()
+        public void Home()
         {
             GameManager.Instance.GameEnd();
             SetTargetScene(1, 0);
@@ -378,11 +366,6 @@ namespace SoundTrack{
                 }else{
                     pages[i].style.display = DisplayStyle.None;
                 }
-            }
-            if(current_scene == 1){
-                home_page.style.display = DisplayStyle.None;
-            }else{
-                home_page.style.display = DisplayStyle.Flex;
             }
             EndTutorial();
             end_page.style.display = DisplayStyle.None;

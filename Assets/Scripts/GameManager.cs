@@ -65,6 +65,10 @@ namespace SoundTrack{
                 exactBeat = songTime / secPerBeat;
                 beatIndex = (int)Math.Floor(2 * (exactBeat + 1e-9));
 
+                if (Keyboard.current.escapeKey.wasPressedThisFrame){
+                    Info.Instance.Home();
+                }
+
                 if(dspNow > prevstart + mainduration - 1)
                 {
                     Debug.Log("Loop Start");

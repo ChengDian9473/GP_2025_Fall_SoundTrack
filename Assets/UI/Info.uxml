@@ -58,5 +58,5 @@
             <ui:Button name="ReplayButton" triple-click-selects-line="false" double-click-selects-word="false" text="Replay" parse-escape-sequences="false" style="align-self: center; justify-content: flex-start; top: 20%; position: relative; width: 20%; overflow: hidden; flex-basis: auto; flex-shrink: 0; flex-grow: 0; opacity: 1; height: 10%; left: auto; background-color: rgb(255, 0, 0); bottom: auto; border-top-width: 15px; border-right-width: 15px; border-bottom-width: 15px; border-left-width: 15px; font-size: 60px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="Cover" picking-mode="Ignore" enabled="true" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 1px; opacity: 0; display: none;" />
+    <ui:VisualElement name="Cover" picking-mode="Ignore" enabled="true" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 1px; opacity: 0; display: flex;" />
 </ui:UXML>

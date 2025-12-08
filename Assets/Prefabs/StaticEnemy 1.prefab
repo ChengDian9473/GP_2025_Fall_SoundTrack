@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5294873576288981005
+--- !u!1 &4988270940921322977
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8431264546309489411}
-  - component: {fileID: 3616386848231836701}
-  - component: {fileID: 7062338699221369708}
+  - component: {fileID: 5770826891989052164}
+  - component: {fileID: 2872000637031374739}
+  - component: {fileID: 9057844910874432091}
   m_Layer: 0
-  m_Name: Key
+  m_Name: StaticEnemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8431264546309489411
+--- !u!4 &5770826891989052164
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5294873576288981005}
+  m_GameObject: {fileID: 4988270940921322977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.5, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalPosition: {x: 10.5, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3616386848231836701
+--- !u!212 &2872000637031374739
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5294873576288981005}
+  m_GameObject: {fileID: 4988270940921322977}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -79,9 +79,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: -7756627232784180200, guid: cdbc1f5116ebba74eb591bc9d8b1c51a, type: 3}
-  m_Color: {r: 0.8742138, g: 0.8742138, b: 0.13470572, a: 1}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -1529027881024391214, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  m_Color: {r: 1, g: 0.9276729, b: 0.9276729, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -91,15 +91,45 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7062338699221369708
+--- !u!114 &9057844910874432091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5294873576288981005}
+  m_GameObject: {fileID: 4988270940921322977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c0ab62200b42c04aa7ebc31809203e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a096d67fe6d9ee468c7744b9f1aa0c4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Key
+  m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.StaticEnemy
+  enemyName: 
+  remainingElements: 1
+  iconSlots:
+  - element: 1
+    iconRenderer: {fileID: 0}
+  - element: 2
+    iconRenderer: {fileID: 0}
+  - element: 4
+    iconRenderer: {fileID: 0}
+  - element: 8
+    iconRenderer: {fileID: 0}
+  - element: 0
+    iconRenderer: {fileID: 0}
+  - element: 0
+    iconRenderer: {fileID: 0}
+  - element: 0
+    iconRenderer: {fileID: 0}
+  - element: 0
+    iconRenderer: {fileID: 0}
+  - element: 0
+    iconRenderer: {fileID: 0}
+  skin:
+  - {fileID: -1529027881024391214, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - {fileID: -7531327395744080548, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - {fileID: 4426169007528591141, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - {fileID: 4730929856936734691, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - {fileID: -8555397769313165811, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - {fileID: -8211118717002810041, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - {fileID: 6055717505344634700, guid: eba14fa0764659a4cbae03461007863f, type: 3}
+  - {fileID: 8475814761938181301, guid: eba14fa0764659a4cbae03461007863f, type: 3}
