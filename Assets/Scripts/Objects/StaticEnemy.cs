@@ -8,7 +8,7 @@ namespace SoundTrack
     [System.Serializable]
     public class SpriteRow
     {
-        public Sprite[] sprites = new Sprite[8];
+        public Sprite[] sprites = new Sprite[1];
     }
     public class StaticEnemy : MonoBehaviour
     {
@@ -20,7 +20,7 @@ namespace SoundTrack
 
         [NonSerialized] public GridPos curGrid;
 
-        [SerializeField] private SpriteRow[] skin = new SpriteRow[4];
+        [SerializeField] private SpriteRow[] skin = new SpriteRow[1];
 
         protected virtual void Awake()
         {

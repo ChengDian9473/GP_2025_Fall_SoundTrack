@@ -85,7 +85,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.77734375, y: 0.9453125}
+  m_Size: {x: 3.96, y: 4.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,22 +105,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.AttackEnemy
   enemyName: 
   remainingElements: 1
-  iconSlots:
-  - element: 1
-    iconRenderer: {fileID: 0}
-  - element: 2
-    iconRenderer: {fileID: 0}
-  - element: 4
-    iconRenderer: {fileID: 0}
   skin:
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
-  - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+  - sprites:
+    - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+    - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+    - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+    - {fileID: 8411463563914695271, guid: 442588c81f84e9a48a480a4c92cfd61a, type: 3}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - sprites:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   attackPattern:
     items: []
   attackLoop: 0

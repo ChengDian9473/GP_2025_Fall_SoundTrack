@@ -106,9 +106,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.Player
   TrackPrefab: {fileID: 7980013985442431122, guid: 797f3fbdb52e35f439b9206d90d51186, type: 3}
-  Animation:
-  - {fileID: -2185472608353246101, guid: ead2c82047a265648b9d23a4cd0f3279, type: 3}
-  - {fileID: 9048603163218632696, guid: ead2c82047a265648b9d23a4cd0f3279, type: 3}
+  skin:
+  - sprites:
+    - {fileID: -2185472608353246101, guid: ead2c82047a265648b9d23a4cd0f3279, type: 3}
+    - {fileID: 9048603163218632696, guid: ead2c82047a265648b9d23a4cd0f3279, type: 3}
+  - sprites:
+    - {fileID: -9027332951661248822, guid: 3de4bb50e24583946933e60c2df22c38, type: 3}
+    - {fileID: 8017883993466301247, guid: 3de4bb50e24583946933e60c2df22c38, type: 3}
+  - sprites:
+    - {fileID: -1073027846243770194, guid: 3de4bb50e24583946933e60c2df22c38, type: 3}
+    - {fileID: -6455913806022478803, guid: 3de4bb50e24583946933e60c2df22c38, type: 3}
+  - sprites:
+    - {fileID: 9219121773231385991, guid: 3de4bb50e24583946933e60c2df22c38, type: 3}
+    - {fileID: 3163584987211343579, guid: 3de4bb50e24583946933e60c2df22c38, type: 3}
   SL: {fileID: 11400000, guid: fed8cb78cab38a14ea6b1850eb1827fd, type: 2}
 --- !u!50 &9039420292929674038
 Rigidbody2D:

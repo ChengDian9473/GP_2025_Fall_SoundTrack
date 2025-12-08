@@ -2735,6 +2735,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9057844910874432091, guid: 04f7494ba9ea021439ee50934bc37838, type: 3}
+      propertyPath: skin.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057844910874432091, guid: 04f7494ba9ea021439ee50934bc37838, type: 3}
       propertyPath: remainingElements
       value: 14
       objectReference: {fileID: 0}
