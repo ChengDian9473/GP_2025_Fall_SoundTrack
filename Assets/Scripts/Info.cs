@@ -99,7 +99,7 @@ namespace SoundTrack{
             pages.Add(RootVisualElement.Q<VisualElement>("Level")); // Page 2
 
             tutorial_page = RootVisualElement.Q<VisualElement>("Tutorial");
-            tutorial_page.RegisterCallback<ClickEvent>(OnClickAnywhere);
+            pages[2].RegisterCallback<ClickEvent>(OnClickAnywhere);
             TutorialLabel = RootVisualElement.Q<Label>("TutorialLabel");
 
             setting_page = RootVisualElement.Q<VisualElement>("Setting");
