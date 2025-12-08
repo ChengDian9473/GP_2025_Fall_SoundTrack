@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c833c040263642fe825c25be7004a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.BeatBarManager
-  beatBarPrefab: {fileID: -2170635002102688344, guid: aea6c8a242d9d428d89bf14cdd36c91f, type: 3}
+  beatBarPrefab: {fileID: 552218984659726699, guid: f2c05c10d4b704563918bf7deed6cc0e, type: 3}
   followTarget: {fileID: 0}
-  initialCenter: {x: 0.55, y: -3, z: 0}
-  leftSpawnX: -7.45
-  rightSpawnX: 8.55
+  initialCenter: {x: 0, y: -3, z: 0}
+  leftSpawnX: -6.8
+  rightSpawnX: 6.8
   spawnY: -3
   spawnsPerMinute: 105
   barMoveSpeed: 4
@@ -56,6 +56,8 @@ MonoBehaviour:
   manualClearWindow: 0.2
   initialSpawnDelay: 0.31
   centerDespawnDelay: 0.15
-  chickenPrefab: {fileID: 9203845454653339360, guid: c381057e88e664d5290a92a43fc46ceb, type: 3}
+  chickenPrefab: {fileID: -5015318026916684279, guid: e75ae7a303bb446d6be6af153e58d0db, type: 3}
   chickenLocalOffset: {x: 0, y: 0, z: 0}
   chickenScale: {x: 8, y: 8}
+  beatBackgroundPrefab: {fileID: 8513306532692620649, guid: 150c2da976c404fb29cd59d935cfe18d, type: 3}
+  beatBackgroundOffset: {x: 0, y: -3, z: 10}

@@ -11,9 +11,9 @@ namespace SoundTrack
         [SerializeField] private Transform followTarget;
 
         [Header("Spawn Positions")]
-        [SerializeField] private Vector3 initialCenter = new Vector3(0.55f, -3f, 0f);
-        [SerializeField] private float leftSpawnX = -7.45f;
-        [SerializeField] private float rightSpawnX = 8.55f;
+        [SerializeField] private Vector3 initialCenter = new Vector3(0f, -3f, 0f);
+        [SerializeField] private float leftSpawnX = -6.8f;
+        [SerializeField] private float rightSpawnX = 6.8f;
         [SerializeField] private float spawnY = -3f;
 
         [Header("Timing")]
@@ -30,6 +30,10 @@ namespace SoundTrack
         [SerializeField] private ChickenBeatPulse chickenPrefab;
         [SerializeField] private Vector3 chickenLocalOffset = Vector3.zero;
         [SerializeField] private Vector2 chickenScale = new Vector2(8f, 8f);
+
+        [SerializeField] private GameObject beatBackgroundPrefab;
+        [SerializeField] private Vector3 beatBackgroundOffset = new Vector3(0f, -3f, 0f);
+        private Transform beatBackgroundInstance;
 
         public event Action<float> OnCenterBeat;
 
@@ -56,6 +60,7 @@ namespace SoundTrack
                 followInitialized = true;
             }
 
+            EnsureBeatBackground();
             SpawnChicken();
         }
 
@@ -69,27 +74,51 @@ namespace SoundTrack
         public void SetFollowTarget(Transform target, bool snapImmediately = true)
         {
             followTarget = target;
-            followInitialized = followTarget != null;
+            // // followInitialized = followTarget != null;
 
-            if (followInitialized)
+            // if (followInitialized && snapImmediately)
+            // {
+            //     currentCenter = followTarget.position + followOffset;
+            //     transform.position = currentCenter;
+            // }
+
+            if (followTarget != null)
             {
-                followOffset = initialCenter - followTarget.position;
+                if (!followInitialized)
+                {
+                    followOffset = initialCenter - followTarget.position;
+                }
+                followInitialized = true;
+                
                 if (snapImmediately)
                 {
                     currentCenter = followTarget.position + followOffset;
                     transform.position = currentCenter;
                 }
             }
+            else
+            {
+                followInitialized = false;
+            }
+
+            EnsureBeatBackground();
         }
 
         private void FollowTargetTick()
         {
+            EnsureBeatBackground();
+
             if (followInitialized && followTarget != null)
             {
                 currentCenter = followTarget.position + followOffset;
             }
 
             transform.position = currentCenter;
+
+            if (chickenInstance)
+            {
+                chickenInstance.transform.position = currentCenter + chickenLocalOffset;
+            }
         }
 
         private void SpawnTick()
@@ -289,6 +318,25 @@ namespace SoundTrack
                     DestroyPair(pair);
                 }
             }
+        }
+
+        private void EnsureBeatBackground()
+        {
+            Debug.Log($"EnsureBeatBackground called - prefab: {beatBackgroundPrefab != null}, instance: {beatBackgroundInstance != null}");
+
+            if (beatBackgroundPrefab == null || beatBackgroundInstance != null)
+                return;
+
+            Transform cam = followTarget != null ? followTarget : (Camera.main != null ? Camera.main.transform : null);
+            Debug.Log($"Camera/target: {cam != null}");
+
+            if (cam == null) return;
+
+            var obj = Instantiate(beatBackgroundPrefab, cam.position + beatBackgroundOffset, Quaternion.identity, cam);
+            beatBackgroundInstance = obj.transform;
+            beatBackgroundInstance.localPosition = beatBackgroundOffset; // lock offset to camera
+
+            Debug.Log($"Beat background spawned at {beatBackgroundInstance.position}");
         }
 
         private void SpawnChicken()
