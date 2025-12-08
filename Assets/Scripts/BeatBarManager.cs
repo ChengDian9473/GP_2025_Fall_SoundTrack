@@ -19,6 +19,7 @@ namespace SoundTrack
         [Header("Timing")]
         [SerializeField, Tooltip("Spawn bars every N beats (1 = every beat, 2 = every other beat)")]
         [Range(1, 4)] private int spawnEveryNBeats = 1;
+        [SerializeField] private double offset = 0.2;
 
         [Header("Movement")]
         [SerializeField] private float barMoveSpeed = 4f;
@@ -55,7 +56,7 @@ namespace SoundTrack
         private ChickenBeatPulse chickenInstance;
         private bool isSubscribed;
         private int beatCounter;
-        private float scheduledSpawnTime = -1f;
+        private double scheduledSpawnTime = -1f;
 
         private void Awake()
         {
@@ -107,16 +108,16 @@ namespace SoundTrack
             beatCounter++;
             
             // Only schedule spawns every N beats
-            if (beatCounter % spawnEveryNBeats == 0)
+            if (true)
             {
                 // Calculate travel time from spawn position to center
-                float spawnDistance = Mathf.Abs(rightSpawnX - initialCenter.x);
-                float travelTime = spawnDistance / barMoveSpeed;
+                double spawnDistance = Mathf.Abs(rightSpawnX - initialCenter.x);
+                double travelTime = spawnDistance / barMoveSpeed;
                 
                 // Schedule spawn to happen (travelTime) seconds before the next arrival beat
-                float secondsPerBeat = GameManager.Instance != null ? GameManager.Instance.SecondsPerBeat : 60f / 105f;
-                float timeUntilNextArrival = secondsPerBeat * spawnEveryNBeats;
-                scheduledSpawnTime = Time.time + (timeUntilNextArrival - travelTime);
+                double secondsPerBeat = GameManager.Instance != null ? GameManager.Instance.SecondsPerBeat : 60f / 105f;
+                double timeUntilNextArrival = secondsPerBeat * spawnEveryNBeats;
+                scheduledSpawnTime = AudioSettings.dspTime + (timeUntilNextArrival - travelTime) + offset;
             }
         }
 
@@ -130,7 +131,7 @@ namespace SoundTrack
 
         private void ProcessScheduledSpawns()
         {
-            if (scheduledSpawnTime > 0f && Time.time >= scheduledSpawnTime)
+            if (scheduledSpawnTime > 0f && AudioSettings.dspTime >= scheduledSpawnTime)
             {
                 SpawnPair();
                 scheduledSpawnTime = -1f;
@@ -329,7 +330,7 @@ namespace SoundTrack
             pair.MarkReached(bar);
             if (pair.BothReached)
             {
-                OnCenterBeat?.Invoke(Time.time);
+                OnCenterBeat?.Invoke(Time.time + 0.1f);
                 SchedulePairDespawn(pair);
             }
         }
@@ -384,19 +385,19 @@ namespace SoundTrack
                 return;
             }
 
-            float delay = Mathf.Max(0f, centerDespawnDelay);
+            double delay = Mathf.Max(0f, centerDespawnDelay);
             if (delay <= 0f)
             {
                 DestroyPair(pair);
                 return;
             }
 
-            pendingDespawns.Enqueue(new PendingDespawn(pair, Time.time + delay));
+            pendingDespawns.Enqueue(new PendingDespawn(pair, AudioSettings.dspTime + delay));
         }
 
         private void ProcessPendingDespawns()
         {
-            float now = Time.time;
+            double now = AudioSettings.dspTime;
             while (pendingDespawns.Count > 0 && pendingDespawns.Peek().ExecuteAt <= now)
             {
                 PendingDespawn job = pendingDespawns.Dequeue();
@@ -517,9 +518,9 @@ namespace SoundTrack
         private sealed class PendingDespawn
         {
             public int PairId { get; }
-            public float ExecuteAt { get; }
+            public double ExecuteAt { get; }
 
-            public PendingDespawn(BeatBarPair pair, float executeAt)
+            public PendingDespawn(BeatBarPair pair, double executeAt)
             {
                 PairId = pair.PairId;
                 ExecuteAt = executeAt;
