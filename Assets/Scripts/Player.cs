@@ -104,7 +104,9 @@ namespace SoundTrack{
                             Track[i].GetComponent<SpriteRenderer>().color = Track[i-1].GetComponent<SpriteRenderer>().color;
                             Skill[i] = Skill[i - 1];
                             // Track[i].GetComponent<SpriteRenderer>.sortingOrder
+                            Track[i - 1].SetActive(true);
                         }
+                        Track[Track.Count - 1].SetActive(false);
                         Track[0].transform.position = curGrid.ToVector3();
                         Track[0].GetComponent<SpriteRenderer>().color = element.ToTColor();
 
