@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.ChickenBeatPulse
   amplitude: 0.2
-  pulseDurationFraction: 0.3
+  pulseDurationFraction: 0.205
   syncScaleX: 0

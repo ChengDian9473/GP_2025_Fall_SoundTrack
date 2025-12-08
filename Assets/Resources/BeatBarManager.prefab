@@ -50,11 +50,10 @@ MonoBehaviour:
   leftSpawnX: -6.8
   rightSpawnX: 6.8
   spawnY: -3
-  spawnsPerMinute: 105
+  spawnEveryNBeats: 1
+  offset: 0.2
   barMoveSpeed: 4
   touchTolerance: 0.05
-  manualClearWindow: 0.2
-  initialSpawnDelay: 0.31
   centerDespawnDelay: 0.15
   chickenPrefab: {fileID: -5015318026916684279, guid: e75ae7a303bb446d6be6af153e58d0db, type: 3}
   chickenLocalOffset: {x: 0, y: 0, z: 0}

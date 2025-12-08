@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 9
-  m_Sprite: {fileID: -4997706003889056411, guid: 8848584ba11d440fd93332a141956793, type: 3}
+  m_Sprite: {fileID: 497673571532609140, guid: 9a72ebde49cc047af83afa416ad14a3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866a21393802a474c8e858e5ad290804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundTrack.BeatBarSpirit
-  moveSpeed: 5
+  moveSpeed: 9
   spriteRenderer: {fileID: 0}
   spawnAlpha: 0.134
   solidifyDistance: 6
