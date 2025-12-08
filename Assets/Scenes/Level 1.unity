@@ -2816,6 +2816,18 @@ PrefabInstance:
       propertyPath: walkPattern.items.Array.data[3].x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
+      propertyPath: 'skin.Array.data[0].sprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
+      propertyPath: 'skin.Array.data[0].sprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
+      propertyPath: 'skin.Array.data[0].sprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8978059625913545129, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -6404,6 +6416,18 @@ PrefabInstance:
       propertyPath: walkPattern.items.Array.data[3].x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
+      propertyPath: 'skin.Array.data[0].sprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
+      propertyPath: 'skin.Array.data[0].sprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091397817072785470, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
+      propertyPath: 'skin.Array.data[0].sprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8978059625913545129, guid: bc7f6c0d833f9524b96e951a42c34dde, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7337,7 +7361,7 @@ PrefabInstance:
     - target: {fileID: 2872000637031374739, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -998540918927878186, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
+      objectReference: {fileID: 1534614178524928647, guid: 829bcfe0384910a4fba92d2d4407dc97, type: 3}
     - target: {fileID: 3842615991411217747, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -7408,7 +7432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9057844910874432091, guid: 4bc298cd09b58ac4c8b25ee9f68ccdaa, type: 3}
       propertyPath: remainingElements
-      value: 14
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
