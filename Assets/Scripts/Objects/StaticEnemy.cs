@@ -48,19 +48,7 @@ namespace SoundTrack
                     facing = 2;
                 }
             }
-            if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Water | MonsterElementType.Grass)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[7];
-            }
-            else if(remainingElements.HasAll(MonsterElementType.Grass | MonsterElementType.Water)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[6];
-            }
-            else if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Water)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[5];
-            }
-            else if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Grass)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[4];
-            }
-            else if(remainingElements.HasAll(MonsterElementType.Water)){
+            if(remainingElements.HasAll(MonsterElementType.Water)){
                 this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[3];
             }
             else if(remainingElements.HasAll(MonsterElementType.Grass)){
