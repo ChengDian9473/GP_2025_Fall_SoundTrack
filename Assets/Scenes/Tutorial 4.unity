@@ -6849,6 +6849,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fced9b7cb30b20e43b2c438091a65d1b, type: 2}
     - target: {fileID: 3548178865775909973, guid: 02bbe54c68584314588ce8533afb6ba2, type: 3}
+      propertyPath: roomIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548178865775909973, guid: 02bbe54c68584314588ce8533afb6ba2, type: 3}
       propertyPath: room.keyCount
       value: 0
       objectReference: {fileID: 0}
@@ -9759,6 +9763,10 @@ PrefabInstance:
       propertyPath: TL
       value: 
       objectReference: {fileID: 11400000, guid: fced9b7cb30b20e43b2c438091a65d1b, type: 2}
+    - target: {fileID: 3548178865775909973, guid: 02bbe54c68584314588ce8533afb6ba2, type: 3}
+      propertyPath: roomIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3548178865775909973, guid: 02bbe54c68584314588ce8533afb6ba2, type: 3}
       propertyPath: room.keyCount
       value: 0

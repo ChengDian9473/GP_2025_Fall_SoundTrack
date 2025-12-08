@@ -121,6 +121,15 @@ namespace SoundTrack{
             
             Info.Instance.UpdateHP(0,0);
             Info.Instance.UpdateKey(0,-1);
+
+            Debug.Log($"RC {rooms.Count}");
+            Debug.Log($"{rooms[rooms.Count - 1].finishTile}");
+            foreach (var ft in rooms[rooms.Count - 1].finishTile)
+            {
+                Debug.Log(ft);
+                Vector3 worldPos = ft.ToVector3();
+                Instantiate(finishportal, worldPos, Quaternion.identity);
+            }
         }
 
         public void OnBeatReceived(int beat){
@@ -147,6 +156,8 @@ namespace SoundTrack{
         }
 
         private void resetPool(){
+            rooms = new List<Room>();
+
             monsterOn = new GridList();
             aliveMonsters = new List<StaticEnemy>();
             skillTiles = new List<skillTile>();
@@ -174,6 +185,7 @@ namespace SoundTrack{
             rooms[r.roomIndex] = r.room;
             curRoom = rooms[0];
             maxRoomIndex = rooms.Count;
+            Debug.Log($"MRI {maxRoomIndex}");
         }
 
         public void startRoom(){
@@ -189,17 +201,6 @@ namespace SoundTrack{
                     foreach(var d in curRoom.outDoorTile){
                         int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
                         groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
-                    }
-                    
-                    if (finishportal != null  && curRoomIndex == maxRoomIndex - 1 && !portals_exist)
-                    {
-                        portals_exist = true;
-
-                        foreach (var ft in curRoom.finishTile)
-                        {
-                            Vector3 worldPos = ft.ToVector3();
-                            Instantiate(finishportal, worldPos, Quaternion.identity);
-                        }
                     }
                 }else{
                     Info.Instance.UpdateKey(keyCount,curRoom.keyCount);
@@ -217,17 +218,6 @@ namespace SoundTrack{
                 foreach(var d in curRoom.inDoorTile){
                     int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
                     groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
-                }
-                
-                if (finishportal != null  && curRoomIndex == maxRoomIndex - 1 && !portals_exist)
-                {
-                    portals_exist = true;
-
-                    foreach (var ft in curRoom.finishTile)
-                    {
-                        Vector3 worldPos = ft.ToVector3();
-                        Instantiate(finishportal, worldPos, Quaternion.identity);
-                    }
                 }
 
                 Debug.Log("Room End");
@@ -283,18 +273,6 @@ namespace SoundTrack{
                 foreach(var d in curRoom.outDoorTile){
                     int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
                     groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
-                }
-                
-                // Spawn finish portals on all finish tiles for this room
-                if (finishportal != null && curRoomIndex == maxRoomIndex - 1 && !portals_exist)
-                {
-                    portals_exist = true;
-
-                    foreach (var ft in curRoom.finishTile)
-                    {
-                        Vector3 worldPos = ft.ToVector3();
-                        Instantiate(finishportal, worldPos, Quaternion.identity);
-                    }
                 }
             }
         }

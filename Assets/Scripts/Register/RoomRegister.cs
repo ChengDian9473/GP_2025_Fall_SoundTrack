@@ -14,7 +14,7 @@ namespace SoundTrack{
         
         void Start(){
             LevelManager.Instance.addRoom(this);
-
+            Debug.Log("Add a Room");
             groundTilemap = LevelManager.Instance.groundTilemap;
 
             GridPos g = new GridPos(1,0);
