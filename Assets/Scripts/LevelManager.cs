@@ -244,6 +244,16 @@ namespace SoundTrack{
                     int index = Array.IndexOf(TL.doorClosed, groundTilemap.GetTile(d.ToVector3Int()));
                     groundTilemap.SetTile(d.ToVector3Int(), TL.doorOpened[index]);
                 }
+                
+                // Spawn finish portals on all finish tiles for this room
+                if (curRoom.finishportal != null)
+                {
+                    foreach (var ft in curRoom.finishTile)
+                    {
+                        Vector3 worldPos = ft.ToVector3();
+                        Instantiate(curRoom.finishportal, worldPos, Quaternion.identity);
+                    }
+                }
             }
         }
 
