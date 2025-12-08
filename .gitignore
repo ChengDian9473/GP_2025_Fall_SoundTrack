@@ -20,6 +20,7 @@ UserSettings/
 *.svd
 *.opendb
 *.VC.db
+Assets/_Recovery/
 
 # === 平台/打包產物 ===
 *.apk
@@ -28,6 +29,7 @@ UserSettings/
 *.ipa
 *.xcworkspace/
 *.xcuserdata/
+*.unitypackage
 
 # === 雜項 ===
 *.tmp
@@ -35,6 +37,8 @@ UserSettings/
 *.mdb
 *.DS_Store
 Thumbs.db
+mono_crash.mem.*
+
 
 # === C# 專案檔（Unity 可自動產生）===
 *.csproj

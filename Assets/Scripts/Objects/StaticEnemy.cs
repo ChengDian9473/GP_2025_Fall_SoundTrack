@@ -13,14 +13,7 @@ namespace SoundTrack
 
         [NonSerialized] public GridPos curGrid;
 
-        [Serializable]
-        public class IconSlot
-        {
-            public MonsterElementType element;
-            public SpriteRenderer iconRenderer;
-        }
-
-        public IconSlot[] iconSlots = new IconSlot[4];
+        [SerializeField] private Sprite[] skin = new Sprite[8];
 
         protected virtual void Awake()
         {
@@ -39,14 +32,32 @@ namespace SoundTrack
 
         private void UpdateIcons()
         {
-            if (iconSlots == null) return;
-
-            foreach (var slot in iconSlots)
-            {
-                if (slot == null || slot.iconRenderer == null) continue;
-
-                slot.iconRenderer.enabled = remainingElements.HasAny(slot.element);
+            if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Water | MonsterElementType.Grass)){
+                this.GetComponent<SpriteRenderer>().sprite = skin[7];
             }
+            else if(remainingElements.HasAll(MonsterElementType.Grass | MonsterElementType.Water)){
+                this.GetComponent<SpriteRenderer>().sprite = skin[6];
+            }
+            else if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Water)){
+                this.GetComponent<SpriteRenderer>().sprite = skin[5];
+            }
+            else if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Grass)){
+                this.GetComponent<SpriteRenderer>().sprite = skin[4];
+            }
+            else if(remainingElements.HasAll(MonsterElementType.Water)){
+                this.GetComponent<SpriteRenderer>().sprite = skin[3];
+            }
+            else if(remainingElements.HasAll(MonsterElementType.Grass)){
+                this.GetComponent<SpriteRenderer>().sprite = skin[2];
+            }
+            else if(remainingElements.HasAll(MonsterElementType.Fire)){
+                this.GetComponent<SpriteRenderer>().sprite = skin[1];
+            }
+            else{
+                this.GetComponent<SpriteRenderer>().sprite = skin[0];
+            }
+
+            
         }
 
 

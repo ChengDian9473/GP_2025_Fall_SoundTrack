@@ -42,6 +42,11 @@ namespace SoundTrack
         {
             return (value & flags) != 0;
         }
+        public static bool HasAll(this MonsterElementType value, MonsterElementType flags)
+        {
+            return (value & flags) == flags;
+        }
+
 
         public static void RemoveElement(this ref MonsterElementType value, MonsterElementType flags)
         {
