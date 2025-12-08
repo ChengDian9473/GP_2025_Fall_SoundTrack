@@ -5,15 +5,22 @@ using System.Collections.Generic;
 
 namespace SoundTrack
 {
+    [System.Serializable]
+    public class SpriteRow
+    {
+        public Sprite[] sprites = new Sprite[8];
+    }
     public class StaticEnemy : MonoBehaviour
     {
         [Header("Enemy Settings")]
         public string enemyName;
         public MonsterElementType remainingElements;
 
+        protected int facing = 0;
+
         [NonSerialized] public GridPos curGrid;
 
-        [SerializeField] private Sprite[] skin = new Sprite[8];
+        [SerializeField] private SpriteRow[] skin = new SpriteRow[4];
 
         protected virtual void Awake()
         {
@@ -30,34 +37,41 @@ namespace SoundTrack
             UpdateIcons();
         }
 
-        private void UpdateIcons()
+        protected void UpdateIcons()
         {
+            if(facing == 2){
+                this.GetComponent<SpriteRenderer>().flipX = true;
+                facing = 2;
+            }else{
+                this.GetComponent<SpriteRenderer>().flipX = false;
+                if(facing == 3){
+                    facing = 2;
+                }
+            }
             if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Water | MonsterElementType.Grass)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[7];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[7];
             }
             else if(remainingElements.HasAll(MonsterElementType.Grass | MonsterElementType.Water)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[6];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[6];
             }
             else if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Water)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[5];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[5];
             }
             else if(remainingElements.HasAll(MonsterElementType.Fire | MonsterElementType.Grass)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[4];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[4];
             }
             else if(remainingElements.HasAll(MonsterElementType.Water)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[3];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[3];
             }
             else if(remainingElements.HasAll(MonsterElementType.Grass)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[2];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[2];
             }
             else if(remainingElements.HasAll(MonsterElementType.Fire)){
-                this.GetComponent<SpriteRenderer>().sprite = skin[1];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[1];
             }
             else{
-                this.GetComponent<SpriteRenderer>().sprite = skin[0];
+                this.GetComponent<SpriteRenderer>().sprite = skin[facing].sprites[0];
             }
-
-            
         }
 
 
@@ -68,7 +82,7 @@ namespace SoundTrack
                 remainingElements.RemoveElement(element.ToMonsterElement());
             }
             UpdateIcons();
-            if (remainingElements.IsEmpty())
+            if (remainingElements.IsEmpty() || remainingElements == MonsterElementType.Normal)
             {
                 Die();
             }
