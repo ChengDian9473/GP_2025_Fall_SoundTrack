@@ -10,8 +10,18 @@ namespace SoundTrack{
         private void Awake(){
             offset = new Vector3(0.0f, 0.0f, -10.0f);
             moveDuration = (60f / GameManager.Instance.bpm) * 0.75f;
-            transform.position = offset + new Vector3(0f, 0f, 0.0f);
+            transform.position = offset + new Vector3(0f, 0.5f, 0.0f);
             LevelManager.Instance.SceneInit();
+
+            // if (LevelManager.Instance.player != null)
+            // {
+            //     transform.position = LevelManager.Instance.player.transform.position + offset;
+            // }
+            // else
+            // {
+            //     // Fallback if player is null (though SceneInit should have created it)
+            //     transform.position = offset;
+            // }
         }
         private void Start(){
             GameManager.Instance.GameStart();

@@ -47,15 +47,14 @@ MonoBehaviour:
   beatBarPrefab: {fileID: 552218984659726699, guid: f2c05c10d4b704563918bf7deed6cc0e, type: 3}
   followTarget: {fileID: 0}
   gm: {fileID: 7854717041004453818, guid: 67ad22c6076dda24ca51a0308fe8d265, type: 3}
-  initialCenter: {x: 0, y: -3, z: 0}
+  initialCenter: {x: 0, y: -2.5, z: 0}
   leftSpawnX: -6.8
   rightSpawnX: 6.8
-  spawnY: -3
-  spawnEveryNBeats: 1
+  spawnY: -2.5
   offset: 0.2
   barMoveSpeed: 4
   touchTolerance: 0.05
-  centerDespawnDelay: 0.15
+  centerDespawnDelay: 0.055
   chickenPrefab: {fileID: -5015318026916684279, guid: e75ae7a303bb446d6be6af153e58d0db, type: 3}
   chickenLocalOffset: {x: 0, y: 0, z: 0}
   chickenScale: {x: 8, y: 8}
