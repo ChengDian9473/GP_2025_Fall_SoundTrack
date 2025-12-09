@@ -37,6 +37,7 @@ namespace SoundTrack{
         private double introduration;        
         private double mainduration; 
         private int    sourceflag;
+        private AudioClip originalIntroClip;
 
         public float SecondsPerBeat => 60f / bpm;
 
@@ -53,6 +54,7 @@ namespace SoundTrack{
             playing = false;
             tutorial = false;
 
+            originalIntroClip = intro_clip.clip;
             introduration = (double)intro_clip.clip.samples/intro_clip.clip.frequency;
             mainduration = (double)Main_loop_clip.clip.samples/Main_loop_clip.clip.frequency;
             sourceflag = 0;
@@ -161,6 +163,14 @@ namespace SoundTrack{
             beatIndex = -1;
             dspCanHit = AudioSettings.dspTime + 0.5;
             songStartDsp = AudioSettings.dspTime + 0.5;
+
+            //-----------added lines to solve two soundtracks playing
+            intro_clip.Stop();
+            Main_loop_clip.Stop();
+            intro_clip.clip = originalIntroClip; 
+            sourceflag = 0;
+            //------------end
+
             //music.time = 0f;
             intro_clip.time = 0f;
             Main_loop_clip.time = 0f;
