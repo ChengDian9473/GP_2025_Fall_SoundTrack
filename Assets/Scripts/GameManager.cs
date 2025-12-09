@@ -106,6 +106,8 @@ namespace SoundTrack{
                 // if(Keyboard.current.anyKey.wasPressedThisFrame && dspNow > dspCanHit)
                 if (Keyboard.current.anyKey.wasPressedThisFrame)
                 {
+                        Debug.Log(dspCanHit);
+                        Debug.Log(dspNow);
                     if (dspNow > dspCanHit)
                     {
                         // Calculate timing relative to nearest beat
