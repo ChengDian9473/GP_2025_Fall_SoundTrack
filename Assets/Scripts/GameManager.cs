@@ -67,7 +67,8 @@ namespace SoundTrack{
 
                 double secPerBeat = 60.0 / bpm;
                 exactBeat = songTime / secPerBeat;
-                beatIndex = (int)Math.Floor(exactBeat + 1e-9);
+                // beatIndex = (int)Math.Floor(exactBeat + 1e-9);
+                beatIndex = (int)Math.Floor(2 * (exactBeat + 1e-9));
 
                 if (Keyboard.current.escapeKey.wasPressedThisFrame){
                     Info.Instance.Home();

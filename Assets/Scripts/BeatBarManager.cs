@@ -20,8 +20,8 @@ namespace SoundTrack
 
         [Header("Timing")]
         [SerializeField, Tooltip("Spawn bars every N beats (1 = every beat, 2 = every other beat)")]
-        [Range(1, 4)] private int spawnEveryNBeats = 1;
-        [SerializeField] private double offset = 0.2;
+        // [Range(1, 4)] private int spawnEveryNBeats = 1;
+        private double offset = 0.2;
 
         [Header("Movement")]
         [SerializeField] private float barMoveSpeed = 4f;
@@ -107,6 +107,7 @@ namespace SoundTrack
 
         private void OnBeatReceived(int beat)
         {
+            if (beat % 2 == 0) return;
             
             // Calculate travel time from spawn position to center
             double distance_ = rightSpawnX - initialCenter.x;
