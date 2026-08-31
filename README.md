@@ -45,4 +45,4 @@ Move on the beat, collect keys to unlock doors, and chain movement patterns into
 - **[DobuleZ](https://github.com/zai950819-oss)** — music, audio playback, VFX implementation
 - **[Ryan](https://github.com/Ryan931125)** — beat/timing system, game feel tuning and playtesting, website
 - **[Rex](https://github.com/rexthedinorrrrr)** — level design, narrative and tutorial
-- **[Izard]** — art assets, VFX design
+- **Izard** — art assets, VFX design
