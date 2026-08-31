@@ -37,7 +37,7 @@ Assets/_Recovery/
 *.mdb
 *.DS_Store
 Thumbs.db
-mono_crash.mem.*
+mono_crash.*
 
 
 # === C# 專案檔（Unity 可自動產生）===
