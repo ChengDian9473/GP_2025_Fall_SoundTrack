@@ -41,7 +41,7 @@ Move on the beat, collect keys to unlock doors, and chain movement patterns into
 
 ## Team
 
-- **[Dian](https://github.com/ChengDian9473)** — level UI, core game flow, level editor
+- **[Dian](https://github.com/ChengDian9473)** — project architecture, core game loop, scene flow, level/enemy editor
 - **[DobuleZ](https://github.com/zai950819-oss)** — music, audio playback, VFX implementation
 - **[Ryan](https://github.com/Ryan931125)** — beat/timing system, game feel tuning and playtesting, website
 - **[Rex](https://github.com/rexthedinorrrrr)** — level design, narrative and tutorial
